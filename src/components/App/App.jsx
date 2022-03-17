@@ -5,6 +5,7 @@ import { Window } from "../Window/Window";
 import { ContextualMenu } from "../ContextualMenu/ContextualMenu";
 import { useRegisterContextualMenu } from "../../hooks/contextual-menu";
 import { ContextualMenuWindowContent, WindowTitle } from './subcomponents';
+import { Calculatrice } from "../../applications/Calculatrice/Calculatrice";
 
 export const App = () => {
     // définition des states
@@ -88,19 +89,12 @@ export const App = () => {
                             onHide={handleContextmenuHide} />
 
             {showApp && (
-                <Window headerBackground={'rgba(0, 0, 0, .5)'}
-                        headerColor={'wheat'}
-                        bodyBackground={'rgba(0, 0, 0, .5)'}
-                        onClose={handleCloseApp}
-                        title={<WindowTitle />}
-                        onContextMenu={handleWindowContextMenu}>
-                    {Array.from(new Array(50).keys())
-                        .map(i =>
-                            (<div key={i} style={{ color: 'wheat' }}>
-                                Hello
-                            </div>)
-                        )}
-                </Window>
+                <Calculatrice onClose={() => setShowApp(false)}
+                              onContextMenu={(id, x, y) => {
+                                setShowedContextMenuId(id);
+                                setContextMenuPositionX(x);
+                                setContextMenuPositionY(y);
+                              }} />
             )}
 
             <TaskBar pinApps={pinApps}

@@ -62,8 +62,8 @@ export const useWindowStyle = createUseStyles({
 		},
 
 		'& div[class^=windowHeader] *': {
-			userSelect: disableTextSelect ? 'none' : false,
-			msUserSelect: disableTextSelect ? 'none' : false
+			userSelect: 'none',
+			msUserSelect: 'none'
 		}
 	}),
 
