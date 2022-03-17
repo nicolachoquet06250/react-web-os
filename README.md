@@ -1,6 +1,9 @@
 # react-web-os
 création d'un WebOS avec un design complètement custom mais avec une inspiration du design de Windows 11 en ReactJS
 
+![os screenshot](src/assets/images/screenshots/os-screenshot.png)
+![os screenshot calendar](src/assets/images/screenshots/os-screenshot-calendar.png)
+
 # Get started
 
 ## Install
