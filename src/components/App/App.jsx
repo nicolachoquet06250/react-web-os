@@ -89,7 +89,7 @@ export const App = () => {
                             onHide={handleContextmenuHide} />
 
             {showApp && (
-                <Calculatrice onClose={() => setShowApp(false)}
+                <Calculatrice onClose={handleCloseApp}
                               onContextMenu={(id, x, y) => {
                                 setShowedContextMenuId(id);
                                 setContextMenuPositionX(x);
