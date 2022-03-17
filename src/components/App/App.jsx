@@ -1,12 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { OsDesktop } from "../OsDesktop/OsDesktop";
 import { TaskBar } from "../TaskBar/TaskBar";
 import { Window } from "../Window/Window";
 import { ContextualMenu } from "../ContextualMenu/ContextualMenu";
 import { useRegisterContextualMenu } from "../../hooks/contextual-menu";
-import { ContextualMenuDesktopContent, ContextualMenuWindowContent, WindowTitle } from './subcomponents';
+import { ContextualMenuWindowContent, WindowTitle } from './subcomponents';
 
-export default function App() {
+export const App = () => {
     // définition des states
     const [runningApps, setRunningApps] = useState({});
     const [showApp, setShowApp] = useState(false);
@@ -14,9 +14,10 @@ export default function App() {
     const [contextMenuPositionX, setContextMenuPositionX] = useState(0);
     const [contextMenuPositionY, setContextMenuPositionY] = useState(0);
 
-    // enregistrement des menus contextuels
-    useRegisterContextualMenu('desktop', ContextualMenuDesktopContent);
-    useRegisterContextualMenu('window', ContextualMenuWindowContent);
+    useEffect(() => {
+        // enregistrement des menus contextuels
+        useRegisterContextualMenu('window', ContextualMenuWindowContent);
+    }, []);
 
     // définition des constantes
     const pinApps = [
@@ -64,11 +65,10 @@ export default function App() {
         removeRunningApp(Array.from(Object.keys({ ...runningApps }))[0]);
         setShowApp(false);
     };
-    const handleDesktopContextMenu = e => {
-        e.preventDefault();
-        setShowedContextMenuId('desktop');
-        setContextMenuPositionX(e.clientX);
-        setContextMenuPositionY(e.clientY);
+    const handleDesktopContextMenu = (id, x, y) => {
+        setShowedContextMenuId(id);
+        setContextMenuPositionX(x);
+        setContextMenuPositionY(y);
     };
     const handleWindowContextMenu = e => {
         e.preventDefault();

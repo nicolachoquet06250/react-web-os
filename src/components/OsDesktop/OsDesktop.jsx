@@ -1,18 +1,31 @@
-import React from "react";
-import { createUseStyles } from "react-jss";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useOsDesktopStyle } from "./style";
+import { useRegisterContextualMenu } from "../../hooks/contextual-menu";
+import { ContextualMenuDesktopContent } from "./subcomponents";
 
-export const OsDesktop = ({ children, background, ...events }) => {
-	const { osDesktop } = useOsDesktopStyle({
-		background
-	});
+export const OsDesktop = ({ children, background, onContextMenu = () => null, ...events }) => {
+	const { osDesktop } = useOsDesktopStyle({ background });
 
-	return (<div className={osDesktop} {...events}>
+	useEffect(() => {
+		useRegisterContextualMenu('desktop', ContextualMenuDesktopContent);
+	}, []);
+
+	const handleDesktopContextMenu = e => {
+		e.preventDefault();
+		onContextMenu('desktop', e.clientX, e.clientY);
+	};
+
+	return (<div className={osDesktop} {...events} onContextMenu={handleDesktopContextMenu}>
 		{children}
 	</div>);
 };
 
 OsDesktop.propTypes = {
-	background: PropTypes.string
+	background: PropTypes.string,
+	onContextMenu: PropTypes.func
+};
+
+OsDesktop.defaultProps = {
+	onContextMenu: () => null
 };
