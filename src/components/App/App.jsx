@@ -4,24 +4,19 @@ import { TaskBar } from "../TaskBar/TaskBar";
 import { ContextualMenu } from "../ContextualMenu/ContextualMenu";
 import { useRegisterContextualMenu } from "../../hooks/contextual-menu";
 import { ContextualMenuWindowContent } from './subcomponents';
-import { Calculatrice } from "../../applications/Calculatrice/Calculatrice";
 import {
     useApplicationsInstances,
     useControlApplication,
-    useRegisterApplication,
-    useRegisterPinApp,
     useRunningApplications,
     useTaskbarPinApplications
 } from "../../hooks/applications";
-import { VsCode } from "../../applications/VsCode/VsCode";
+import { useRegisterApps } from "../../hooks/app-registration";
 
 export const App = () => {
     // définition des states
     const [showedContextMenuId, setShowedContextMenuId] = useState('');
     const [contextMenuPositionX, setContextMenuPositionX] = useState(0);
     const [contextMenuPositionY, setContextMenuPositionY] = useState(0);
-    const { register: registerCalculatrice } = useRegisterPinApp('Calculatrice');
-    const { register: registerVsCode } = useRegisterPinApp('Vs Code');
 
     const { run, stop } = useControlApplication();
 
@@ -32,23 +27,10 @@ export const App = () => {
     useEffect(() => {
         // enregistrement des menus contextuels
         useRegisterContextualMenu('window', ContextualMenuWindowContent);
-
-        // enregistrement des applications
-        useRegisterApplication(
-            'Calculatrice',
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/GNOME_Calculator_icon_2018.svg/1200px-GNOME_Calculator_icon_2018.svg.png',
-            Calculatrice
-        );
-        useRegisterApplication(
-            'Vs Code',
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/2048px-Visual_Studio_Code_1.35_icon.svg.png',
-            VsCode
-        );
-
-        // épinglage dans la bar des taches
-        registerCalculatrice({ taskBar: true });
-        registerVsCode({ taskBar: true });
     }, []);
+
+    // enregistrement des applications
+    useRegisterApps();
 
     // définition des constantes
     const background = 'https://lafibre.info/images/smileys/201604_warty-final-ubuntu.png';

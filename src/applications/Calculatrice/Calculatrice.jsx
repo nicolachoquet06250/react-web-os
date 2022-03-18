@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Window } from "../../components/Window/Window";
 import { useRegisterContextualMenu } from "../../hooks/contextual-menu";
 import { createUseStyles } from "react-jss";
+import { createContextMenuHandler } from "../../hooks/utils/handler";
 
 const useStyle = createUseStyles({
 	calculatrice: {
@@ -72,12 +73,7 @@ export const Calculatrice = ({ onClose = () => null, onContextMenu = () => null 
 		useRegisterContextualMenu('calculatrice', CalculatriceContextMenu);
 	}, []);
 
-	const handleContextMenu = e => {
-		e.preventDefault();
-		e.stopPropagation();
-
-		onContextMenu('calculatrice', e.clientX, e.clientY)
-	};
+	const handleContextMenu = createContextMenuHandler(e => onContextMenu('calculatrice', e.clientX, e.clientY))
 
 	const addNumberToScreen = v => setCalcul(calcul === '0' ? `${v}` : (calcul + `${v}`));
 
