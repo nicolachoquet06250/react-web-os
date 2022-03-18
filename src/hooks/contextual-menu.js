@@ -1,20 +1,11 @@
 import { BehaviorSubject } from "rxjs";
 import { useEffect, useState } from "react";
+import { createRxJsUseGetter } from "./utils/rxjs-getter";
 
-const defaultValue = {};
-const contextMenus$ = new BehaviorSubject(defaultValue);
+const menus = {};
+const contextMenus$ = new BehaviorSubject(menus);
 
-export const useContextualMenus = () => {
-	const [contextMenus, setContextMenus] = useState(defaultValue);
-
-	useEffect(() => {
-		contextMenus$.subscribe(newContextMenus => {
-			setContextMenus(newContextMenus);
-		});
-	}, []);
-
-	return { contextMenus };
-};
+export const useContextualMenus = createRxJsUseGetter(menus, contextMenus$);
 
 export const useRegisterContextualMenu = (id, contextMenu) => {
 	const oldContextMenus = contextMenus$.getValue();
@@ -27,7 +18,7 @@ export const useRegisterContextualMenu = (id, contextMenu) => {
 };
 
 export const useCurrentContextualMenu = id => {
-	const { contextMenus } = useContextualMenus();
+	const contextMenus = useContextualMenus();
 
 	return Array.from(Object.keys(contextMenus)).indexOf(id) !== -1 ? contextMenus[id] : null;
 };

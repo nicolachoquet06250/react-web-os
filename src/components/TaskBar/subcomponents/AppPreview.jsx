@@ -2,22 +2,22 @@ import React from "react";
 import { useTaskBarStyle } from "../style";
 
 export const AppPreview = ({
-   title, icon, instanceNb, show = false,
+   show = false, instances = [],
    onMouseOver = () => null, onMouseOut = () => null,
    onCloseApp = () => null
 }) => {
 	const { appPreviewContainer, appPreview } = useTaskBarStyle();
 
 	return (<div className={appPreviewContainer + ' ' + (show ? 'show' : '')}>
-		{Array.from(new Array(instanceNb).keys()).map(i =>
-			(<div key={i}
+		{instances.map((instance) =>
+			(<div key={instance.id}
 			      className={appPreview}
-			      data-title={title}
+			      data-title={instance.title}
 			      onMouseOver={onMouseOver}
 			      onMouseOut={onMouseOut}
-			      style={{ '--icon': 'url(' + icon + ')' }}>
+			      style={{ '--icon': 'url(' + instance.icon + ')' }}>
 				<button className={'close-button'}
-				        onClick={() => onCloseApp(title)}>
+				        onClick={() => onCloseApp(instance.title, instance.id)}>
 					
 				</button>
 			</div>))}

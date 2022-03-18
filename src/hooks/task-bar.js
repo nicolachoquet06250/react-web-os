@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 export const useTaskBar = runningApps => {
-	const [instanceNb, setInstanceNb] = useState(0);
 	const [title, setTitle] = useState('');
 	const [icon, setIcon] = useState('');
 	const [appAction, setAppAction] = useState('add');
@@ -9,7 +8,6 @@ export const useTaskBar = runningApps => {
 
 	const onIconMouseOver = (title, icon) => () => {
 		setShowAppPreview(true);
-		setInstanceNb(runningApps[title] ? runningApps[title].instanceNb : 0);
 		setTitle(title);
 		setIcon(icon);
 	};
@@ -20,16 +18,10 @@ export const useTaskBar = runningApps => {
 	const onOpenApp = (title, cb = () => null) => {
 		setAppAction('add');
 		cb(title);
-		if (title) {
-			setInstanceNb(instanceNb + 1);
-		}
 	};
-	const onCloseApp = (title, cb = () => null) => {
+	const onCloseApp = (title, id, cb = () => null) => {
 		setAppAction('del');
-		cb(title);
-		if (title) {
-			setInstanceNb(instanceNb - 1);
-		}
+		cb(title, id);
 	};
 
 	const onAppAction = (open = true) => {
@@ -38,7 +30,7 @@ export const useTaskBar = runningApps => {
 				if (open) {
 					return () => onOpenApp(title, cb);
 				} else {
-					return title => onCloseApp(title, cb);
+					return (title, id) => onCloseApp(title, id, cb);
 				}
 			}
 		}
@@ -47,7 +39,7 @@ export const useTaskBar = runningApps => {
 	const handlePreviewHover = (hover = true) => () => setShowAppPreview(hover);
 
 	return {
-		instanceNb, title, icon, showAppPreview,
+		title, icon, showAppPreview,
 
 		onIconMouseOver,
 		onIconMouseOut,

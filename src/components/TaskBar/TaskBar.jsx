@@ -6,6 +6,7 @@ import { useTaskBar } from "../../hooks/task-bar";
 import { useStartMenu } from "../../hooks/start-menu";
 import { useTaskBarStyle } from "./style";
 import { AppPreview, TaskBarAppIcon, TaskBarDateSection } from "./subcomponents";
+import { useRunningApplications } from "../../hooks/applications";
 
 export const TaskBar = ({
     pinApps = [], runningApps = {},
@@ -15,21 +16,26 @@ export const TaskBar = ({
 	const [calendarOpened, setCalendarOpened] = useState(false);
 
 	const {
-		title, icon, instanceNb, showAppPreview,
+		title, icon, showAppPreview,
 		onIconMouseOut, onIconMouseOver,
 		handlePreviewHover, onAppAction
 	} = useTaskBar(runningApps);
 	const { startMenuOpened, onOpenStartMenu, onCloseStartMenu } = useStartMenu();
+	const applicationInstances = useRunningApplications();
 
 	return (<>
 		<StartMenu opened={startMenuOpened}
 		           onClickOutside={onCloseStartMenu} />
 
-		<AppPreview title={title} instanceNb={instanceNb} icon={icon}
-		            show={showAppPreview}
+		<AppPreview show={showAppPreview}
+		            instances={applicationInstances.map((v, i) => ({
+			            ...v,
+			            id: i,
+			            icon
+		            })).filter(v => v.title === title)}
 		            onMouseOver={handlePreviewHover(true)}
 		            onMouseOut={handlePreviewHover(false)}
-					onCloseApp={onAppAction(false).action(onCloseApp)} />
+					onCloseApp={onAppAction(false).action(onCloseApp)}/>
 
 		<Calendar opened={calendarOpened}
 		          onClickOutside={() => setCalendarOpened(false)}

@@ -79,12 +79,16 @@ export const Calculatrice = ({ onClose = () => null, onContextMenu = () => null 
 		onContextMenu('calculatrice', e.clientX, e.clientY)
 	};
 
+	const addNumberToScreen = v => setCalcul(calcul === '0' ? `${v}` : (calcul + `${v}`));
+
+	const addSymbolToScreen = s => setCalcul(calcul + s);
+
 	const touches = [
 		[
 			{
 				value: '%',
 				action() {
-					setCalcul(calcul + '%')
+					addSymbolToScreen('%');
 				}
 			},
 			{
@@ -118,7 +122,7 @@ export const Calculatrice = ({ onClose = () => null, onContextMenu = () => null 
 			{
 				value: '/',
 				action() {
-					setCalcul(calcul + '/')
+					addSymbolToScreen('/');
 				}
 			}
 		],
@@ -126,25 +130,25 @@ export const Calculatrice = ({ onClose = () => null, onContextMenu = () => null 
 			{
 				value: '7',
 				action() {
-					setCalcul(calcul === '0' ? '7' : (calcul + '7'))
+					addNumberToScreen(7);
 				}
 			},
 			{
 				value: '8',
 				action() {
-					setCalcul(calcul === '0' ? '8' : (calcul + '8'))
+					addNumberToScreen(8);
 				}
 			},
 			{
 				value: '9',
 				action() {
-					setCalcul(calcul === '0' ? '8' : (calcul + '9'))
+					addNumberToScreen(9);
 				}
 			},
 			{
 				value: '*',
 				action() {
-					setCalcul(calcul + '*')
+					addSymbolToScreen('*');
 				}
 			}
 		],
@@ -152,25 +156,25 @@ export const Calculatrice = ({ onClose = () => null, onContextMenu = () => null 
 			{
 				value: '4',
 				action() {
-					setCalcul(calcul === '0' ? '4' : (calcul + '4'))
+					addNumberToScreen(4);
 				}
 			},
 			{
 				value: '5',
 				action() {
-					setCalcul(calcul === '0' ? '5' : (calcul + '5'))
+					addNumberToScreen(5);
 				}
 			},
 			{
 				value: '6',
 				action() {
-					setCalcul(calcul === '0' ? '6' : (calcul + '6'))
+					addNumberToScreen(6);
 				}
 			},
 			{
 				value: '-',
 				action() {
-					setCalcul(calcul + '-')
+					addSymbolToScreen('-');
 				}
 			}
 		],
@@ -178,25 +182,25 @@ export const Calculatrice = ({ onClose = () => null, onContextMenu = () => null 
 			{
 				value: '1',
 				action() {
-					setCalcul(calcul === '0' ? '1' : (calcul + '1'))
+					addNumberToScreen(1);
 				}
 			},
 			{
 				value: '2',
 				action() {
-					setCalcul(calcul === '0' ? '2' : (calcul + '2'))
+					addNumberToScreen(2);
 				}
 			},
 			{
 				value: '3',
 				action() {
-					setCalcul(calcul === '0' ? '3' : (calcul + '3'))
+					addNumberToScreen(3);
 				}
 			},
 			{
 				value: '+',
 				action() {
-					setCalcul(calcul + '+')
+					addSymbolToScreen('+');
 				}
 			}
 		],
@@ -207,13 +211,13 @@ export const Calculatrice = ({ onClose = () => null, onContextMenu = () => null 
 			{
 				value: '0',
 				action() {
-					setCalcul(calcul === '0' ? '0' : (calcul + '0'))
+					addNumberToScreen(0);
 				}
 			},
 			{
 				value: ',',
 				action() {
-					setCalcul(calcul + '.')
+					addSymbolToScreen('.');
 				}
 			},
 			{
