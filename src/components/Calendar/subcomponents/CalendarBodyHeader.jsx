@@ -1,6 +1,6 @@
 import React from "react";
 
-export const CalendarBodyHeader = ({ currentMonth, date }) => {
+export const CalendarBodyHeader = ({ currentMonth, date, disabled = false }) => {
 	const headerStyle = {
 		display: 'flex',
 		flexDirection: 'row',
@@ -35,9 +35,9 @@ export const CalendarBodyHeader = ({ currentMonth, date }) => {
 		<span style={headerTitleStyle}>{currentMonth} {date.getFullYear()}</span>
 
 		<div style={headerButtonsStyle}>
-			<button style={buttonStyle}> </button>
+			<button disabled={disabled} style={buttonStyle}> </button>
 
-			<button style={buttonStyle}> </button>
+			<button disabled={disabled} style={buttonStyle}> </button>
 		</div>
 	</div>)
 };

@@ -151,9 +151,12 @@ export const useTaskBarStyle = createUseStyles({
 		fontSize: '9px',
 		color: 'white',
 		cursor: 'pointer',
+		border: 'none',
+		backgroundColor: 'transparent',
+		transition: 'backgroundColor .2s ease-out',
 
 		'&:hover': {
-			background: 'black'
+			backgroundColor: 'black'
 		}
 	}
 });

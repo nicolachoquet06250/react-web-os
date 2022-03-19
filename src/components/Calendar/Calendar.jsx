@@ -19,7 +19,7 @@ export const Calendar = ({ date = new Date(), opened = false, marginBottom = 0, 
 			<hr style={{ width: '405px' }} />
 		</div>
 
-		<CalendarBody date={date} />
+		<CalendarBody date={date} disabled={!opened} />
 	</div>);
 };
 

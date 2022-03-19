@@ -1,5 +1,5 @@
 import React, { createRef, useEffect, useRef, useState } from "react";
-import { useWindowSize } from "react-use";
+import { useClickAway, useWindowSize } from "react-use";
 import PropTypes from "prop-types";
 import { useMove, useResize } from "../../hooks/window";
 import { useWindowStyle } from "./style";
@@ -16,7 +16,9 @@ export const Window = ({
 	resizable = true, children,
 	title,
 	onClose = () => null,
-	onContextMenu = () => null
+	onContextMenu = () => null,
+	onActive = () => null,
+	onUnactive = () => null
 }) => {
 	const { width: windowWidth, height: windowHeight } = useWindowSize();
 	const [currentWidth, setWidth] = useState(0);
@@ -125,8 +127,10 @@ export const Window = ({
 		disableTextSelect: moving || resizing
 	});
 
+	useClickAway(windowRef, () => onUnactive())
+
 	return (<>
-		<div className={windowStyle} ref={windowRef}>
+		<div className={windowStyle} onMouseDown={() => onActive()} ref={windowRef}>
 			<Header innerRef={windowHeaderRef}
 			        background={headerBackground}
 			        color={headerColor}
@@ -163,7 +167,9 @@ Window.propTypes = {
 	resizable: PropTypes.bool,
 	title: PropTypes.any,
 	onClose: PropTypes.func,
-	onContextMenu: PropTypes.func
+	onContextMenu: PropTypes.func,
+	onActive: PropTypes.func,
+	onUnactive: PropTypes.func
 };
 
 Window.defaultTypes = {
@@ -179,5 +185,7 @@ Window.defaultTypes = {
 	bodyBackground: 'transparent',
 	resizable: true,
 	onClose: () => null,
-	onContextMenu: () => null
+	onContextMenu: () => null,
+	onActive: () => null,
+	onUnactive: () => null
 };

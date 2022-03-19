@@ -2,7 +2,7 @@ import { useCalendarMatrix } from "../../../hooks/calendar";
 import React from "react";
 import { useCalendarStyle } from "../style";
 
-export const CalendarBodyBlock = ({ date }) => {
+export const CalendarBodyBlock = ({ date, disabled = false }) => {
 	const currentDate = new Date();
 	const { dayButton } = useCalendarStyle();
 
@@ -31,7 +31,7 @@ export const CalendarBodyBlock = ({ date }) => {
 					const externalClass = isExternal ? 'external' : '';
 
 					return (<td key={j} style={{ textAlign: 'center' }}>
-						<button className={dayButton + ` ${activeClass} ${externalClass}`} disabled={isExternal}>
+						<button className={dayButton + ` ${activeClass} ${externalClass}`} disabled={isExternal || disabled}>
 							{day.day}
 						</button>
 					</td>)
