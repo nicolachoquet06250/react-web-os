@@ -8,13 +8,15 @@ const contextMenus$ = new BehaviorSubject(menus);
 export const useContextualMenus = createRxJsUseGetter(menus, contextMenus$);
 
 export const useRegisterContextualMenu = (id, contextMenu) => {
-	const oldContextMenus = contextMenus$.getValue();
-	const contextMenus = {
-		...oldContextMenus,
-		[id]: contextMenu
-	};
+	useEffect(() => {
+		const oldContextMenus = contextMenus$.getValue();
+		const contextMenus = {
+			...oldContextMenus,
+			[id]: contextMenu
+		};
 
-	contextMenus$.next(contextMenus);
+		contextMenus$.next(contextMenus);
+	}, []);
 };
 
 export const useCurrentContextualMenu = id => {

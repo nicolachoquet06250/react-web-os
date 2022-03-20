@@ -7,9 +7,7 @@ import { ContextualMenuDesktopContent } from "./subcomponents";
 export const OsDesktop = ({ children, background, onContextMenu = () => null, ...events }) => {
 	const { osDesktop } = useOsDesktopStyle({ background });
 
-	useEffect(() => {
-		useRegisterContextualMenu('desktop', ContextualMenuDesktopContent);
-	}, []);
+	useRegisterContextualMenu('desktop', ContextualMenuDesktopContent);
 
 	const handleDesktopContextMenu = e => {
 		e.preventDefault();

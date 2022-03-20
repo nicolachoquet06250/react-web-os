@@ -24,10 +24,8 @@ export const App = () => {
     const runningApps = useRunningApplications();
     const appsInstances = useApplicationsInstances();
 
-    useEffect(() => {
-        // enregistrement des menus contextuels
-        useRegisterContextualMenu('window', ContextualMenuWindowContent);
-    }, []);
+    // enregistrement des menus contextuels
+    useRegisterContextualMenu('window', ContextualMenuWindowContent);
 
     // enregistrement des applications
     useRegisterApps();

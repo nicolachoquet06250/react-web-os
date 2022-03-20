@@ -13,6 +13,8 @@ export const Calculatrice = ({ onClose = () => null, onContextMenu = () => null 
 	const [selectedTouche, setSelectedTouche] = useState('');
 	const touches = useTouches(calcul, setCalcul);
 
+	useRegisterContextualMenu('calculatrice', CalculatriceContextMenu);
+
 	const onKeyDown = useCallback(e => {
 		e.preventDefault();
 		e.stopPropagation();
@@ -35,11 +37,7 @@ export const Calculatrice = ({ onClose = () => null, onContextMenu = () => null 
 				setSelectedTouche('');
 			}
 		}
-	}, [activated])
-
-	useEffect(() => {
-		useRegisterContextualMenu('calculatrice', CalculatriceContextMenu);
-	}, []);
+	}, [activated]);
 
 	useEffect(() => {
 		document.addEventListener('keydown', onKeyDown);
