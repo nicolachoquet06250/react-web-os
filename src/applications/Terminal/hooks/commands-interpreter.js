@@ -71,8 +71,6 @@ export const useCommandInterpreter = (state, setState) => {
 						return `drwxr-xr-x ${e.children.length} ${username} ${username} ? ${currentMonthName.substring(0, 3)} ${dayNumber} ${hours}:${minutes} ${e.textTitle ?? e.title}`;
 					}));
 				}
-
-				console.log(args, username);
 			}
 		},
 		{
