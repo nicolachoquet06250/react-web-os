@@ -8,6 +8,7 @@ import {
 	useRunningApplications,
 	useTaskbarPinApplications
 } from "../../../hooks/applications";
+import { RunningApplicationList } from "../../OsDesktop/subcomponents";
 
 export default {
 	title: 'App/UI/TaskBar',
@@ -45,6 +46,8 @@ const WithRunningAppsTemplate = (args) => {
 	}, []);
 
 	return (<OsDesktop background={background}>
+		<RunningApplicationList />
+
 		<TaskBar runningApps={appsInstances} pinApps={taskbarPinApps}
 		         onOpenApp={run} onCloseApp={stop} />
 	</OsDesktop>)
@@ -61,6 +64,8 @@ const WithoutRunningAppsTemplate = (args) => {
 	const runningApps = useRunningApplications();
 
 	return (<OsDesktop background={background}>
+		<RunningApplicationList />
+
 		<TaskBar pinApps={taskbarPinApps} runningApps={runningApps} />
 	</OsDesktop>)
 };

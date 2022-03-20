@@ -77,3 +77,5 @@ export const Calculatrice = ({ onClose = () => null, onContextMenu = () => null 
 		</div>
 	</Window>)
 };
+
+export const CalculatriceIcon = 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/GNOME_Calculator_icon_2018.svg/1200px-GNOME_Calculator_icon_2018.svg.png';

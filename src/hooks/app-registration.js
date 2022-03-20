@@ -1,18 +1,20 @@
 import { useEffect } from "react";
 import { useRegisterApplication, useRegisterPinApp } from "./applications";
-import { Calculatrice } from "../applications/Calculatrice/Calculatrice";
+import { Calculatrice, CalculatriceIcon } from "../applications/Calculatrice/Calculatrice";
 import { VsCode } from "../applications/VsCode/VsCode";
-import { FileExplorer } from "../applications/FileExplorer/FileExplorer";
+import { FileExplorer, FileExplorerIcon } from "../applications/FileExplorer/FileExplorer";
+import { Terminal, TerminalIcon } from "../applications/Terminal/Terminal";
 
 export const useRegisterApps = () => {
 	const { register: registerCalculatrice } = useRegisterPinApp('Calculatrice');
 	const { register: registerVsCode } = useRegisterPinApp('Vs Code');
 	const { register: registerFileExplorer } = useRegisterPinApp('Explorateur de fichiers');
+	const { register: registerTerminal } = useRegisterPinApp('Terminal');
 
 	useEffect(() => {
 		useRegisterApplication(
 			'Calculatrice',
-			'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/GNOME_Calculator_icon_2018.svg/1200px-GNOME_Calculator_icon_2018.svg.png',
+			CalculatriceIcon,
 			Calculatrice
 		);
 		/*useRegisterApplication(
@@ -22,13 +24,19 @@ export const useRegisterApps = () => {
 		);*/
 		useRegisterApplication(
 			'Explorateur de fichiers',
-			'https://www.coursinfo.fr/wp-content/uploads/2017/10/explorateur-fichiers.png',
+			FileExplorerIcon,
 			FileExplorer
+		);
+		useRegisterApplication(
+			'Terminal',
+			TerminalIcon,
+			Terminal
 		);
 
 		// épinglage dans la bar des taches
 		registerCalculatrice({ taskBar: true });
 		registerVsCode({ taskBar: true });
 		registerFileExplorer({ taskBar: true });
+		registerTerminal({ taskBar: true });
 	}, []);
 };

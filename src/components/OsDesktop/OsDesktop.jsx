@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useOsDesktopStyle } from "./style";
 import { useRegisterContextualMenu } from "../../hooks/contextual-menu";
-import { ContextualMenuDesktopContent, RunningApplicationList } from "./subcomponents";
+import { ContextualMenuDesktopContent } from "./subcomponents";
 
 export const OsDesktop = ({ children, background, onContextMenu = () => null, ...events }) => {
 	const { osDesktop } = useOsDesktopStyle({ background });
@@ -15,8 +15,6 @@ export const OsDesktop = ({ children, background, onContextMenu = () => null, ..
 	};
 
 	return (<div className={osDesktop} {...events} onContextMenu={handleDesktopContextMenu}>
-		<RunningApplicationList />
-
 		{children}
 	</div>);
 };

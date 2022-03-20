@@ -1,0 +1,13 @@
+@keyframes terminalCursorAnimation {
+    0% {
+        color: green
+    }
+
+    50% {
+        color: transparent;
+    }
+
+    100% {
+        color: green;
+    }
+}
