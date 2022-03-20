@@ -1,14 +1,17 @@
 import { useTerminalStyle } from "../style";
 import React, { useCallback, useEffect, useState } from "react";
-import { useCommands } from "../hooks";
+import { useCommands, useLocation } from "../hooks";
 
 export const Prompt = ({ username, active, onResult = () => null }) => {
 	const { prompt, promptHeader, cursor, promptWrite, afterCursor } = useTerminalStyle();
+
 	const [tmpWrite, setTmpWrite] = useState('');
 	const [write, setWrite] = useState('');
 	const [selectedTouche, setSelectedTouche] = useState('');
 
-	const commandResult = useCommands(write);
+	const [currentLocation] = useLocation();
+
+	const commandResult = useCommands(write, username);
 	const handleKeyDown = useCallback(e => {
 		e.preventDefault();
 		e.stopPropagation();
@@ -46,7 +49,7 @@ export const Prompt = ({ username, active, onResult = () => null }) => {
 	}, [commandResult]);
 
 	return (<div className={prompt}>
-		<span className={promptHeader}> {username}@react-webos $~ </span>
+		<span className={promptHeader}> {username}@react-webos [ {currentLocation} ] $~</span>
 		<span className={promptWrite}>{tmpWrite}</span>
 		<span className={cursor + ` ${!active ? 'inactive' : ''}`}>|</span>
 		<span className={afterCursor} />

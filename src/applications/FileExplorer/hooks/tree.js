@@ -2,9 +2,10 @@ import cePc from "../../../assets/images/ce-pc.png";
 import bureau from "../../../assets/images/bureau.png";
 
 export const useTree = () => {
-	const tree = [
+	return [
 		{
 			title: 'Ce PC',
+			textTitle: 'ce-pc',
 			icon: cePc,
 			children: [
 				{
@@ -129,6 +130,4 @@ export const useTree = () => {
 			]
 		}
 	];
-
-	return tree;
 };

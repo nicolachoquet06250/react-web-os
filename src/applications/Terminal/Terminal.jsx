@@ -4,19 +4,30 @@ import { createContextMenuHandler } from "../../hooks/utils/handler";
 import Icon from '../../assets/images/terminal-icon.png';
 import './terminal.css';
 import { useTerminalStyle } from "./style";
-import { Prompt } from "./subcomponents";
+import { Prompt, TerminalTitle } from "./subcomponents";
 
+/**
+ * @param {string} root
+ * @param {string} username
+ * @param {() => any} onClose
+ * @param {() => any} onContextMenu
+ * @param {({ username: string, active: boolean, onResult: () => any }) => JSX.Element} customPrompt
+ * @return {JSX.Element}
+ */
 export const Terminal = ({
     root = 'Ce PC', username = 'demo',
-    onClose = () => null, onContextMenu = () => null
+    onClose = () => null, onContextMenu = () => null,
+	customPrompt = null
 }) => {
 	const [active, setActive] = useState(true);
 	const [results, setResults] = useState([]);
 	const { terminal } = useTerminalStyle();
 
+	const CustomPrompt = customPrompt ?? Prompt;
+
 	const handleContextMenu = createContextMenuHandler(e => onContextMenu('file-explorer', e.clientX, e.clientY));
 
-	return (<Window title={<span><span className={'emiji'}>  </span> <span> Terminal </span></span>}
+	return (<Window title={<TerminalTitle />}
 	                bodyBackground={'rgba(0, 0, 0, .5)'}
 	                headerBackground={'rgba(0, 0, 0, .5)'}
 	                headerColor={'wheat'}
@@ -30,7 +41,8 @@ export const Terminal = ({
 					{r}
 				</div>))}
 			</div>
-			<Prompt username={username} active={active} onResult={r => {
+
+			<CustomPrompt username={username} active={active} onResult={r => {
 				if (r.length === 1 && r[0] === 'clear') {
 					setResults([]);
 				} else {
