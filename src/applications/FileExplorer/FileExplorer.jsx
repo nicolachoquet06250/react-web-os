@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Window } from "../../components/Window/Window";
 import { createUseStyles } from "react-jss";
 import { createContextMenuHandler } from "../../hooks/utils/handler";
@@ -18,19 +18,39 @@ const useStyle = createUseStyles({
 	breadcrumb: {
 		height: '20px',
 		width: '100%',
-		background: 'red'
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		borderBottom: '1px solid black',
+
+		'& > button': {
+			marginLeft: '2px',
+			marginRight: '2px',
+			paddingLeft: '2px',
+			paddingRight: '2px',
+			fontSize: '10px',
+			backgroundColor: 'rgba(0, 0, 0, .5)',
+			color: 'wheat',
+			cursor: 'pointer',
+
+			border: '1px solid black',
+			borderRadius: '5px'
+		}
 	},
 
 	appBodyContainer: {
 		width: '100%',
+		height: 'calc(100% - 40px)',
 		flex: 1,
 		display: 'flex',
 		flexDirection: 'row'
 	},
 
 	treeMenu: ({ directoryImage = '' }) => ({
-		minWidth: '150px',
-		background: 'blue',
+		maxWidth: 'calc(100% - 40px)',
+		overflowY: 'auto',
+		borderRight: '1px solid black',
 
 		'& ul': {
 			listStyle: 'none',
@@ -56,7 +76,9 @@ const useStyle = createUseStyles({
 					width: 'calc(100% - 45px)',
 					overflow: 'hidden',
 					wordWrap: 'inherit',
+					whiteSpace: 'nowrap',
 					textOverflow: 'ellipsis',
+					fontSize: '10px'
 				},
 
 				'& button': {
@@ -96,70 +118,70 @@ const useStyle = createUseStyles({
 
 	appBody: {
 		flex: 1,
-		background: 'purple'
+		padding: '5px'
 	},
 
 	footer: {
 		height: '20px',
 		width: '100%',
-		background: 'yellow'
+		borderTop: '1px solid black',
+		color: 'wheat',
+
+		'& > span': {
+			fontSize: '12px',
+			height: '100%',
+			display: 'flex',
+			justifyContent: 'flex-start',
+			alignItems: 'center',
+			paddingLeft: '5px'
+		}
 	}
 });
 
-const Breadcrumb = () => {
+const Breadcrumb = ({ selectedDirectory = [], onSelectDirectory = () => null }) => {
 	const { breadcrumb } = useStyle({});
 
 	return (<div className={breadcrumb}>
-		breadcrumb
+		{selectedDirectory.map(d => (<button onClick={() => {
+			const index = selectedDirectory.indexOf(d);
+			const { result: newSelectedDirectory } = selectedDirectory.reduce((r, c, i) => ({
+				result: [...r.result, ...(i <= index && !r.finished ? [c] : [])],
+				finished: r.finished ?? i === index
+			}), {
+				finished: false,
+				result: []
+			});
+			onSelectDirectory(newSelectedDirectory.join('/'));
+		}}>
+			{d}
+		</button>))}
 	</div>);
 };
 
-const TreeMenu = ({ fileTree }) => {
+const TreeMenu = ({ openedDirectories = [], fileTree, onSelectDirectory = () => null }) => {
 	const { treeMenu } = useStyle({
 		directoryImage: 'https://www.coursinfo.fr/wp-content/uploads/2017/10/explorateur-fichiers.png'
 	});
 
-	const handleButtonClick = e => {
-		const nextUl = e.target.nextElementSibling;
+	const RecursiveTreeMenu = ({ openedDirectories = [], treeMenu, index = 0, title: _title = '' }) =>
+		(<ul className={_title !== '' && !openedDirectories.includes(_title) ? 'close' : ''}>
+			{treeMenu.map(({ title, children, icon }, i) =>
+				(<li key={i} className={`${children.length === 0 ? 'void' : ''} ${_title !== '' && !openedDirectories.includes(_title) ? 'close' : ''}`}>
+					<button onClick={() => {
+						onSelectDirectory((_title === '' ? '' : _title + '/') + title, children.length);
+					}} style={{ '--data-icon': icon ? `url(${icon})` : false }}>
+						<span onClick={e => {
+							e.stopPropagation();
+							onSelectDirectory((_title === '' ? '' : _title + '/') + title, children.length);
+						}}>{title}</span>
+					</button>
 
-		if (nextUl) {
-			if (nextUl.classList.contains('close')) {
-				nextUl.classList.remove('close');
-				e.target.parentElement.classList.remove('close');
-			} else {
-				nextUl.classList.add('close');
-				e.target.parentElement.classList.add('close');
-			}
-		}
-	};
-
-	const handleSpanClick = e => {
-		const nextUl = e.target.parentElement.nextElementSibling;
-
-		if (nextUl) {
-			if (nextUl.classList.contains('close')) {
-				nextUl.classList.remove('close');
-				e.target.parentElement.parentElement.classList.remove('close');
-			} else {
-				nextUl.classList.add('close');
-				e.target.parentElement.parentElement.classList.add('close');
-			}
-		}
-	};
-
-	const RecursiveTreeMenu = ({ treeMenu, index = 0 }) => (<ul className={index > 1 ? 'close' : ''}>
-		{treeMenu.map(({ title, children, icon }, i) =>
-			(<li key={i} className={`${children.length === 0 ? 'void' : ''} ${index > 0 ? 'close' : ''}`}>
-				<button onClick={handleButtonClick} style={{ '--data-icon': icon ? `url(${icon})` : false }}>
-					<span onClick={handleSpanClick}>{title}</span>
-				</button>
-
-				{children.length > 0 && <RecursiveTreeMenu treeMenu={children} index={index + 1} />}
-			</li>))}
-	</ul>);
+					{children.length > 0 && <RecursiveTreeMenu treeMenu={children} index={index + 1} openedDirectories={openedDirectories} title={(_title === '' ? '' : _title + '/') + title} />}
+				</li>))}
+		</ul>);
 
 	return (<div className={treeMenu}>
-		<RecursiveTreeMenu treeMenu={fileTree} />
+		<RecursiveTreeMenu treeMenu={fileTree} openedDirectories={openedDirectories} />
 	</div>);
 };
 
@@ -171,15 +193,18 @@ const Body = () => {
 	</div>);
 };
 
-const Footer = () => {
+const Footer = ({ children }) => {
 	const { footer } = useStyle({});
 
 	return (<div className={footer}>
-		footer
+		{children}
 	</div>);
 };
 
 export const FileExplorer = ({ onClose = () => null, onContextMenu = () => null }) => {
+	const [nbChildren, setNbChildren] = useState(0);
+	const [openedDirectories, setOpenedDirectories] = useState([]);
+	const [selectedDirectory, setSelectedDirectory] = useState([]);
 	const { appContainer, appBodyContainer } = useStyle({});
 
 	const handleContextMenu = createContextMenuHandler(e => onContextMenu('file-explorer', e.clientX, e.clientY));
@@ -201,15 +226,90 @@ export const FileExplorer = ({ onClose = () => null, onContextMenu = () => null 
 				},
 				{
 					title: 'Documents',
-					children: []
+					children: [
+						{
+							title: 'CyberLink',
+							children: []
+						},
+						{
+							title: 'Enregistrement audio',
+							children: []
+						},
+						{
+							title: 'vidéos',
+							children: []
+						},
+						{
+							title: 'Virtual Machines',
+							children: []
+						},
+						{
+							title: 'WindowsPowerShell',
+							children: []
+						},
+						{
+							title: 'Wondershare',
+							children: []
+						},
+						{
+							title: 'XSplit',
+							children: []
+						}
+					]
 				},
 				{
 					title: 'Images',
-					children: []
+					children: [
+						{
+							title: 'Captures d\'écran',
+							children: []
+						},
+						{
+							title: 'Galerie Samsung',
+							children: []
+						},
+						{
+							title: 'Images',
+							children: []
+						},
+						{
+							title: 'Images enregistées',
+							children: []
+						},
+						{
+							title: 'Pellicule',
+							children: []
+						},
+						{
+							title: 'Projets vidéo',
+							children: []
+						},
+						{
+							title: 'Saved Pictures',
+							children: []
+						},
+						{
+							title: 'Téléchargements Mobile',
+							children: []
+						},
+						{
+							title: 'windows-terminal',
+							children: []
+						},
+						{
+							title: 'youtube',
+							children: []
+						}
+					]
 				},
 				{
 					title: 'Musiques',
-					children: []
+					children: [
+						{
+							title: 'youtube',
+							children: []
+						}
+					]
 				},
 				{
 					title: 'Téléchargements',
@@ -217,11 +317,55 @@ export const FileExplorer = ({ onClose = () => null, onContextMenu = () => null 
 				},
 				{
 					title: 'Vidéos',
-					children: []
+					children: [
+						{
+							title: 'Captures',
+							children: []
+						},
+						{
+							title: 'Movavi Vidéo Editor',
+							children: [
+								{
+									title: 'Projects',
+									children: []
+								}
+							]
+						}
+					]
 				},
 			]
 		}
 	];
+
+	useEffect(() => {
+		setNbChildren(fileTree[0].children.length);
+
+		const tmp = [];
+		for (const v of fileTree) {
+			tmp.push(v.title);
+		}
+		setOpenedDirectories(tmp);
+		setSelectedDirectory([fileTree[0].title]);
+	}, []);
+
+	const onSelectDirectory = useCallback((title, n) => {
+		setNbChildren(n);
+		setSelectedDirectory(title.split('/'));
+
+		if (openedDirectories.indexOf(title) === -1) {
+			setOpenedDirectories([...openedDirectories, title]);
+		} else {
+			setOpenedDirectories(openedDirectories.filter(t => title !== t));
+		}
+	}, [openedDirectories]);
+
+	const onSelectDirectoryFromBreadcrumb = useCallback(title => {
+		setSelectedDirectory(title.split('/'));
+
+		if (openedDirectories.indexOf(title) === -1) {
+			setOpenedDirectories([...openedDirectories, title]);
+		}
+	}, [openedDirectories]);
 
 	return (<Window bodyBackground={'rgba(0, 0, 0, .5)'}
 					headerBackground={'rgba(0, 0, 0, .5)'}
@@ -230,15 +374,22 @@ export const FileExplorer = ({ onClose = () => null, onContextMenu = () => null 
 					onClose={onClose}
 					onContextMenu={handleContextMenu}>
 		<div className={appContainer}>
-			<Breadcrumb />
+			<Breadcrumb selectedDirectory={selectedDirectory}
+			            onSelectDirectory={onSelectDirectoryFromBreadcrumb} />
 
 			<div className={appBodyContainer}>
-				<TreeMenu fileTree={fileTree} />
+				<TreeMenu fileTree={fileTree}
+				          onSelectDirectory={onSelectDirectory}
+				          openedDirectories={openedDirectories} />
 
 				<Body />
 			</div>
 
-			<Footer />
+			<Footer>
+				<span>
+					{nbChildren} élément(s)
+				</span>
+			</Footer>
 		</div>
 	</Window>);
 };
