@@ -36,8 +36,14 @@ export const useCommandInterpreter = (state, setState) => {
 				args.shift();
 
 				const getSubTreeFromPath = (path, tree) => {
+					if (path.length === 1 && path[0] === '') {
+						return tree;
+					}
+
 					for (const e of tree) {
 						const title = e.textTitle ?? e.title;
+
+						console.log(path[0], tree, title);
 
 						if (path[0] === title) {
 							if (path.length === 1) {
