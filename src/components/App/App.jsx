@@ -7,7 +7,6 @@ import { ContextualMenuWindowContent } from './subcomponents';
 import {
     useApplicationsInstances,
     useControlApplication,
-    useRunningApplications,
     useTaskbarPinApplications
 } from "../../hooks/applications";
 import { useRegisterApps } from "../../hooks/app-registration";
@@ -22,7 +21,6 @@ export const App = () => {
     const { run, stop } = useControlApplication();
 
     const taskbarPinApps = useTaskbarPinApplications();
-    const [runningApps] = useRunningApplications();
     const appsInstances = useApplicationsInstances();
 
     // enregistrement des menus contextuels
@@ -39,7 +37,6 @@ export const App = () => {
     };
 
     // définition des fonctions et handlers
-    const handleCloseApp = (title, id) => () => stop(title, id);
     const handleContextMenu = (id, x, y) => {
         setShowedContextMenuId(id);
         setContextMenuPositionX(x);
