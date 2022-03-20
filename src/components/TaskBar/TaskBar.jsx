@@ -5,7 +5,7 @@ import { StartMenu, StartMenuButton } from "../StartMenu";
 import { useTaskBar } from "../../hooks/task-bar";
 import { useStartMenu } from "../../hooks/start-menu";
 import { useTaskBarStyle } from "./style";
-import { AppPreview, TaskBarAppIcon, TaskBarDateSection } from "./subcomponents";
+import { AppPreview, BatterySection, NetworkSection, TaskBarAppIcon, TaskBarDateSection } from "./subcomponents";
 import { useRunningApplications } from "../../hooks/applications";
 
 export const TaskBar = ({
@@ -54,6 +54,8 @@ export const TaskBar = ({
 									 onMouseOut={onIconMouseOut} />))}
 			</div>
 
+			<BatterySection />
+			<NetworkSection type={'wifi'} />
 			<TaskBarDateSection onClick={() => setCalendarOpened(true)} />
 		</div>
 	</>);
