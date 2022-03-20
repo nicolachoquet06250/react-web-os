@@ -66,6 +66,7 @@ export const useTaskBarStyle = createUseStyles({
 		transitionDuration: '0s',
 		transitionTimingFunction: 'linear',
 		transitionDelay: '1s',
+		zIndex: 2,
 
 		'&.show': {
 			display: 'flex'

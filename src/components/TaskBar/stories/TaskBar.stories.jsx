@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TaskBar } from "../TaskBar.jsx";
 import { OsDesktop } from "../../OsDesktop/OsDesktop.jsx";
+import { useRegisterApps } from "../../../hooks/app-registration";
+import {
+	useApplicationsInstances,
+	useControlApplication,
+	useRunningApplications,
+	useTaskbarPinApplications
+} from "../../../hooks/applications";
 
 export default {
 	title: 'App/UI/TaskBar',
@@ -13,42 +20,50 @@ export default {
 
 const background = 'https://lafibre.info/images/smileys/201604_warty-final-ubuntu.png';
 
-const Template = (args) => <OsDesktop background={background}>
-	<TaskBar {...args} />
-</OsDesktop>;
+const WithRunningAppsTemplate = (args) => {
+	const taskbarPinApps = useTaskbarPinApplications();
+	const [runningApps, resetRunningApps] = useRunningApplications();
+	const appsInstances = useApplicationsInstances();
+	const { run, stop } = useControlApplication();
 
-export const WithRunningApps = Template.bind({});
-WithRunningApps.args = {
-	pinApps: [
-		{
-			title: 'Calculatrice',
-			icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/GNOME_Calculator_icon_2018.svg/1200px-GNOME_Calculator_icon_2018.svg.png'
-		},
-		{
-			title: 'Vs Code',
-			icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/2048px-Visual_Studio_Code_1.35_icon.svg.png'
+	// enregistrement des applications
+	useRegisterApps();
+
+	useEffect(() => {
+		// lancement des applications
+		run('Explorateur de fichiers');
+		run('Explorateur de fichiers');
+
+		run('Calculatrice');
+		run('Calculatrice');
+		run('Calculatrice');
+
+		return () => {
+			// arret des applications au démontage du composant
+			resetRunningApps();
 		}
-	],
-	runningApps: {
-		'Calculatrice': {
-			instanceNb: 2
-		},
-		'Vs Code': {
-			instanceNb: 3
-		}
-	}
+	}, []);
+
+	return (<OsDesktop background={background}>
+		<TaskBar runningApps={appsInstances} pinApps={taskbarPinApps}
+		         onOpenApp={run} onCloseApp={stop} />
+	</OsDesktop>)
 };
 
-export const WithoutRunningApps = Template.bind({});
-WithoutRunningApps.args = {
-	pinApps: [
-		{
-			title: 'Calculatrice',
-			icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/GNOME_Calculator_icon_2018.svg/1200px-GNOME_Calculator_icon_2018.svg.png'
-		},
-		{
-			title: 'Vs Code',
-			icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/2048px-Visual_Studio_Code_1.35_icon.svg.png'
-		}
-	]
+export const WithRunningApps = WithRunningAppsTemplate.bind({});
+WithRunningApps.args = {};
+
+const WithoutRunningAppsTemplate = (args) => {
+	// enregistrement des applications
+	useRegisterApps();
+
+	const taskbarPinApps = useTaskbarPinApplications();
+	const runningApps = useRunningApplications();
+
+	return (<OsDesktop background={background}>
+		<TaskBar pinApps={taskbarPinApps} runningApps={runningApps} />
+	</OsDesktop>)
 };
+
+export const WithoutRunningApps = WithoutRunningAppsTemplate.bind({});
+WithoutRunningApps.args = {};

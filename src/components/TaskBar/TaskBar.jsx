@@ -21,7 +21,7 @@ export const TaskBar = ({
 		handlePreviewHover, onAppAction
 	} = useTaskBar(runningApps);
 	const { startMenuOpened, onOpenStartMenu, onCloseStartMenu } = useStartMenu();
-	const applicationInstances = useRunningApplications();
+	const [applicationInstances] = useRunningApplications();
 
 	return (<>
 		<StartMenu opened={startMenuOpened}

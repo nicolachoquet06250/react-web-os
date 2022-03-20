@@ -7,5 +7,5 @@ export const createRxJsUseGetter = (defaultValue, observable$) => () => {
 		observable$.subscribe(v => setState(v));
 	}, []);
 
-	return state;
+	return [state, () => observable$.next(defaultValue)];
 };

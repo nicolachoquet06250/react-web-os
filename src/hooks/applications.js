@@ -83,13 +83,13 @@ export const useRegisterPinApp = (title) => ({
 });
 
 export const useStartMenuPinApplications = () => {
-	const pinApplications = usePinApplications();
+	const [pinApplications] = usePinApplications();
 
 	return pinApplications.filter(v => v.options.startMenu);
 };
 
 export const useTaskbarPinApplications = () => {
-	const pinApplications = usePinApplications();
+	const [pinApplications] = usePinApplications();
 
 	return pinApplications.filter(v => v.options.taskBar);
 };
@@ -99,7 +99,7 @@ export const useRunningApplications = createRxJsUseGetter(runningApps, runningAp
 
 export const useApplicationsInstances = () => {
 	const applications = applications$.getValue();
-	const runningApplications = useRunningApplications();
+	const [runningApplications] = useRunningApplications();
 
 	return applications.map(a => a.title).reduce((r, title) => ({
 		...r,

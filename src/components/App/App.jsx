@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { OsDesktop } from "../OsDesktop/OsDesktop";
 import { TaskBar } from "../TaskBar/TaskBar";
 import { ContextualMenu } from "../ContextualMenu/ContextualMenu";
@@ -11,6 +11,7 @@ import {
     useTaskbarPinApplications
 } from "../../hooks/applications";
 import { useRegisterApps } from "../../hooks/app-registration";
+import { RunningApplicationList } from "../OsDesktop/subcomponents";
 
 export const App = () => {
     // définition des states
@@ -21,7 +22,7 @@ export const App = () => {
     const { run, stop } = useControlApplication();
 
     const taskbarPinApps = useTaskbarPinApplications();
-    const runningApps = useRunningApplications();
+    const [runningApps] = useRunningApplications();
     const appsInstances = useApplicationsInstances();
 
     // enregistrement des menus contextuels
@@ -39,7 +40,6 @@ export const App = () => {
 
     // définition des fonctions et handlers
     const handleCloseApp = (title, id) => () => stop(title, id);
-    const handleTaskBarCloseApp = (title, id) => stop(title, id);
     const handleContextMenu = (id, x, y) => {
         setShowedContextMenuId(id);
         setContextMenuPositionX(x);
@@ -55,18 +55,12 @@ export const App = () => {
                             show={showedContextMenuId !== ''}
                             onHide={handleContextmenuHide} />
 
-            {runningApps.map((r, i) => {
-                const Component = r.component;r.id
-
-                return (<Component key={i}
-                                   onClose={handleCloseApp(r.title, i)}
-                                   onContextMenu={handleContextMenu} />)
-            })}
+            <RunningApplicationList onContextMenu={handleContextMenu} />
 
             <TaskBar pinApps={taskbarPinApps}
                      runningApps={appsInstances}
                      onOpenApp={run}
-                     onCloseApp={handleTaskBarCloseApp} />
+                     onCloseApp={stop} />
         </OsDesktop>
     </div>);
 };

@@ -20,7 +20,7 @@ export const useRegisterContextualMenu = (id, contextMenu) => {
 };
 
 export const useCurrentContextualMenu = id => {
-	const contextMenus = useContextualMenus();
+	const [contextMenus] = useContextualMenus();
 
 	return Array.from(Object.keys(contextMenus)).indexOf(id) !== -1 ? contextMenus[id] : null;
 };
