@@ -3,7 +3,7 @@ import { createUseStyles } from "react-jss";
 export const useStyle = createUseStyles({
 	appContainer: {
 		width: '100%',
-		height: 'calc(100% - 20px)',
+		height: '100%',
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'flex-start',

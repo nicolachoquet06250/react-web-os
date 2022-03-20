@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Window } from "../../components/Window/Window";
 import { createContextMenuHandler } from "../../hooks/utils/handler";
 import Icon from '../../assets/images/terminal-icon.png';

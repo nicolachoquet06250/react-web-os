@@ -9,7 +9,9 @@ export const Prompt = ({ username, active, onResult = () => null }) => {
 	const [write, setWrite] = useState('');
 	const [selectedTouche, setSelectedTouche] = useState('');
 
-	const [currentLocation] = useLocation();
+	const [currentLocation, resetCurrentLocation] = useLocation();
+
+	useEffect(() => () => resetCurrentLocation(), []);
 
 	const commandResult = useCommands(write, username);
 	const handleKeyDown = useCallback(e => {

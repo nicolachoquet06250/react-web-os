@@ -33,7 +33,9 @@ export const useWindowStyle = createUseStyles({
 			position: 'absolute',
 			left: positionX + 'px',
 			top: (positionY + 5) + 'px',
-			cursor: 'col-resize'
+			cursor: 'col-resize',
+
+			zIndex: active ? 1 : 0,
 		},
 		'& ~ .right-resizer': {
 			// backgroundColor: 'red',
@@ -42,7 +44,9 @@ export const useWindowStyle = createUseStyles({
 			position: 'absolute',
 			left: (positionX + width) + 'px',
 			top: (positionY + 5) + 'px',
-			cursor: 'col-resize'
+			cursor: 'col-resize',
+
+			zIndex: active ? 1 : 0,
 		},
 		'& ~ .top-resizer': {
 			// backgroundColor: 'red',
@@ -51,7 +55,9 @@ export const useWindowStyle = createUseStyles({
 			position: 'absolute',
 			left: (positionX + 5) + 'px',
 			top: positionY + 'px',
-			cursor: 'row-resize'
+			cursor: 'row-resize',
+
+			zIndex: active ? 1 : 0,
 		},
 		'& ~ .bottom-resizer': {
 			// backgroundColor: 'red',
@@ -60,7 +66,9 @@ export const useWindowStyle = createUseStyles({
 			position: 'absolute',
 			left: (positionX + 5) + 'px',
 			top: (positionY + height) + 'px',
-			cursor: 'row-resize'
+			cursor: 'row-resize',
+
+			zIndex: active ? 1 : 0,
 		},
 
 		'& div[class^=windowHeader] *': {
@@ -137,7 +145,7 @@ export const useWindowStyle = createUseStyles({
 	}),
 
 	windowBodyStyle: ({ background, disableTextSelect }) => ({
-		height: '100%',
+		height: 'calc(100% - 20px)',
 		overflow: 'auto',
 		backgroundColor: background,
 
