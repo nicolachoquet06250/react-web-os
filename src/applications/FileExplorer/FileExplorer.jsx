@@ -118,7 +118,8 @@ const useStyle = createUseStyles({
 
 	appBody: {
 		flex: 1,
-		padding: '5px'
+		padding: '5px',
+		color: 'wheat'
 	},
 
 	footer: {
@@ -142,7 +143,7 @@ const Breadcrumb = ({ selectedDirectory = [], onSelectDirectory = () => null }) 
 	const { breadcrumb } = useStyle({});
 
 	return (<div className={breadcrumb}>
-		{selectedDirectory.map(d => (<button onClick={() => {
+		{selectedDirectory.map((d, i) => (<button key={i} onClick={() => {
 			const index = selectedDirectory.indexOf(d);
 			const { result: newSelectedDirectory } = selectedDirectory.reduce((r, c, i) => ({
 				result: [...r.result, ...(i <= index && !r.finished ? [c] : [])],

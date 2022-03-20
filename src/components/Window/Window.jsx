@@ -35,6 +35,8 @@ export const Window = ({
 
 	const [isFullScreen, setFullScreen] = useState(fullScreen);
 
+	const [active, setActive] = useState(true);
+
 	const windowRef = useRef();
 	const windowHeaderRef = createRef();
 
@@ -124,13 +126,20 @@ export const Window = ({
 		positionY: ((resizing && side === 'top') || moving ? tmpPositionY : _positionY),
 		fullScreen: isFullScreen,
 		background: bodyBackground,
-		disableTextSelect: moving || resizing
+		disableTextSelect: moving || resizing,
+		active
 	});
 
-	useClickAway(windowRef, () => onUnactive())
+	useClickAway(windowRef, () => {
+		onUnactive();
+		setActive(false);
+	})
 
 	return (<>
-		<div className={windowStyle} onMouseDown={() => onActive()} ref={windowRef}>
+		<div className={windowStyle} onMouseDown={() => {
+			onActive();
+			setActive(true);
+		}} ref={windowRef}>
 			<Header innerRef={windowHeaderRef}
 			        background={headerBackground}
 			        color={headerColor}

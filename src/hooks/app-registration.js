@@ -15,11 +15,11 @@ export const useRegisterApps = () => {
 			'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/GNOME_Calculator_icon_2018.svg/1200px-GNOME_Calculator_icon_2018.svg.png',
 			Calculatrice
 		);
-		useRegisterApplication(
+		/*useRegisterApplication(
 			'Vs Code',
 			'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/2048px-Visual_Studio_Code_1.35_icon.svg.png',
 			VsCode
-		);
+		);*/
 		useRegisterApplication(
 			'Explorateur de fichiers',
 			'https://www.coursinfo.fr/wp-content/uploads/2017/10/explorateur-fichiers.png',

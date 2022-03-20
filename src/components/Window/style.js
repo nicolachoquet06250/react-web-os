@@ -2,11 +2,11 @@ import { createUseStyles } from "react-jss";
 
 export const useWindowStyle = createUseStyles({
 	windowStyle: ({
-		              minWidth = 0, minHeight = 0,
-		              width = 0, height = 0,
-		              positionX = 0, positionY = 0,
-		              fullScreen = false, disableTextSelect
-	              }) => ({
+      minWidth = 0, minHeight = 0,
+      width = 0, height = 0,
+      positionX = 0, positionY = 0,
+      fullScreen = false, active
+	}) => ({
 		minWidth: minWidth + 'px',
 		minHeight: minHeight + 'px',
 
@@ -23,6 +23,8 @@ export const useWindowStyle = createUseStyles({
 
 		borderRadius: fullScreen ? false : '5px',
 		overflow: 'hidden',
+
+		zIndex: active ? 1 : 0,
 
 		'& ~ .left-resizer': {
 			// backgroundColor: 'red',
