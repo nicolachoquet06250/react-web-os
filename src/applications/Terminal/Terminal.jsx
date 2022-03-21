@@ -21,13 +21,13 @@ export const Terminal = ({
 }) => {
 	const [active, setActive] = useState(true);
 	const [results, setResults] = useState([]);
-	const { terminal } = useTerminalStyle();
+	const { terminal } = useTerminalStyle({});
 	const { set: setLocation, reset: resetLocation } = useLocationControls();
 	const [customPrompt] = useCustomPrompt();
 
 	useEffect(() => setLocation(root), []);
 
-	const CustomPrompt = customPrompt.component !== null ? customPrompt.component : Prompt;
+	const CustomPrompt = customPrompt.component ?? Prompt;
 
 	const handleContextMenu = createContextMenuHandler(e => onContextMenu('file-explorer', e.clientX, e.clientY));
 

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { OsDesktop } from "../OsDesktop/OsDesktop";
 import { TaskBar } from "../TaskBar/TaskBar";
 import { ContextualMenu } from "../ContextualMenu/ContextualMenu";
@@ -11,6 +11,8 @@ import {
 } from "../../hooks/applications";
 import { useRegisterApps } from "../../hooks/app-registration";
 import { RunningApplicationList } from "../OsDesktop/subcomponents";
+import { setCustomPrompt } from "../../applications/Terminal/hooks";
+import { Prompt2 } from "../../custom/applications/Terminal";
 
 export const App = () => {
     // définition des states
@@ -43,6 +45,10 @@ export const App = () => {
         setContextMenuPositionY(y);
     };
     const handleContextmenuHide = () => setShowedContextMenuId('');
+
+    useEffect(() => {
+        setCustomPrompt(Prompt2);
+    }, []);
 
     return (<div className="App">
         <OsDesktop background={background}

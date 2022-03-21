@@ -16,6 +16,7 @@ export const useTree = () => {
 					children: [
 						{
 							title: 'agile tour',
+							textTitle: 'agile-tour',
 							path: 'Ce PC/Bureau/agile tour',
 							children: []
 						}
@@ -32,6 +33,7 @@ export const useTree = () => {
 						},
 						{
 							title: 'Enregistrement audio',
+							textTitle: 'enregistrement-audio',
 							path: 'Ce PC/Documents/Enregistrement audio',
 							children: []
 						},
@@ -42,6 +44,7 @@ export const useTree = () => {
 						},
 						{
 							title: 'Virtual Machines',
+							textTitle: 'virtual-machines',
 							path: 'Ce PC/Documents/Virtual Machines',
 							children: []
 						},
@@ -68,21 +71,19 @@ export const useTree = () => {
 					children: [
 						{
 							title: 'Captures d\'écran',
+							textTitle: 'captures-d-ecran',
 							path: 'Ce PC/Images/Captures d\'écran',
 							children: []
 						},
 						{
 							title: 'Galerie Samsung',
-							path: 'Ce PC/Images/Galerie Samsung',
-							children: []
-						},
-						{
-							title: 'Images',
+							textTitle: 'galerie-samsung',
 							path: 'Ce PC/Images/Galerie Samsung',
 							children: []
 						},
 						{
 							title: 'Images enregistées',
+							textTitle: 'images-enregistrées',
 							path: 'Ce PC/Images/Images enregistées',
 							children: []
 						},
@@ -93,16 +94,19 @@ export const useTree = () => {
 						},
 						{
 							title: 'Projets vidéo',
+							textTitle: 'projets-vidéo',
 							path: 'Ce PC/Images/Projets vidéo',
 							children: []
 						},
 						{
 							title: 'Saved Pictures',
+							textTitle: 'saved-pictures',
 							path: 'Ce PC/Images/Saved Pictures',
 							children: []
 						},
 						{
 							title: 'Téléchargements Mobile',
+							textTitle: 'téléchargements-mobiles',
 							path: 'Ce PC/Images/Téléchargements Mobile',
 							children: []
 						},
@@ -145,6 +149,7 @@ export const useTree = () => {
 						},
 						{
 							title: 'Movavi Vidéo Editor',
+							textTitle: 'movavi-video-editor',
 							path: 'Ce PC/Vidéos/Captures/Movavi Vidéo Editor',
 							children: [
 								{

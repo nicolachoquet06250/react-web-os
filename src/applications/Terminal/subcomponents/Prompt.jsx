@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useCommands, useLocation } from "../hooks";
 
 export const Prompt = ({ username, active, onResult = () => null }) => {
-	const { prompt, promptHeader, cursor, promptWrite, afterCursor } = useTerminalStyle();
+	const { prompt, promptHeader, cursor, promptWrite, afterCursor } = useTerminalStyle({});
 
 	const [tmpWrite, setTmpWrite] = useState('');
 	const [write, setWrite] = useState('');

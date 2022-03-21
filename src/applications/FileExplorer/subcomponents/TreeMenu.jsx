@@ -24,7 +24,7 @@ export const TreeMenu = ({
 						        onContextMenu(e);
 					        }}
 				            style={{ '--data-icon': icon ? `url(${icon})` : false }}>
-						{title}
+						<span>{title}</span>
 					</button>
 
 					{children.length > 0 && <RecursiveTreeMenu treeMenu={children} index={index + 1} openedDirectories={openedDirectories} title={(_title === '' ? '' : _title + '/') + title} />}

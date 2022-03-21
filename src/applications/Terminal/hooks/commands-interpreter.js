@@ -9,6 +9,26 @@ export const useCommandInterpreter = (state, setState) => {
 	const currentMonthName = useMonthName();
 	const date = useDate();
 
+	const backInPath = (newPath, oldPath) => {
+		newPath = newPath.split('/');
+		oldPath = oldPath.split('/');
+
+		if (newPath.length > 0 && newPath[0] === '..') {
+			newPath.shift();
+			oldPath.pop();
+
+			return backInPath(newPath.join('/'), oldPath.join('/'));
+		}
+
+		let result = oldPath.join('/') + '/' + newPath.join('/');
+
+		if (result[result.length - 1] === '/') {
+			result = result.substring(0, result.length - 1);
+		}
+
+		return result;
+	};
+
 	return [
 		{
 			regex: /^clear$/gm,
@@ -20,14 +40,42 @@ export const useCommandInterpreter = (state, setState) => {
 			regex: /^cd (.+)$/gm,
 			run(args) {
 				args.shift();
+				/**
+				 * @const {string} newLocation
+				 */
 				const [newLocation] = args;
 
 				if (exists(newLocation)) {
 					setLocation(newLocation);
 					setState([]);
-				} else {
-					setState([`Error: ${newLocation} is not a directory`]);
+
+					return true;
+				} else if ((newLocation[0] !== '/' && newLocation[0] !== '.') || newLocation.substring(0, 2) === './') {
+					setLocation(currentLocation + '/' + (newLocation.substring(0, 2) === './'
+						? newLocation.substring(1, newLocation.length) : newLocation));
+					setState([]);
+
+					return true;
+				} else if (newLocation.indexOf('../') !== -1 || newLocation.indexOf('..') !== -1) {
+					let locationToBack = backInPath(newLocation, currentLocation.substring(1, currentLocation.length));
+
+					if (locationToBack === '') {
+						setState([`ERROR: '/' Permission denied`]);
+
+						return true;
+					}
+
+					if (locationToBack[locationToBack.length - 1] === '/') {
+						locationToBack = locationToBack.substring(0, locationToBack.length - 1);
+					}
+
+					setLocation(locationToBack);
+					setState([]);
+
+					return true;
 				}
+
+				setState([`Error: '${newLocation}' is not a directory`]);
 			}
 		},
 		{
@@ -42,8 +90,6 @@ export const useCommandInterpreter = (state, setState) => {
 
 					for (const e of tree) {
 						const title = e.textTitle ?? e.title;
-
-						console.log(path[0], tree, title);
 
 						if (path[0] === title) {
 							if (path.length === 1) {
@@ -60,13 +106,13 @@ export const useCommandInterpreter = (state, setState) => {
 
 				if (!args[0]) {
 					setState([getSubTreeFromPath((() => {
-						const path = currentLocation.split('/');
+						const path = currentLocation.replace('//', '/').split('/');
 						path.shift();
 						return path;
 					})(), tree).map(e => e.textTitle ?? e.title).join(' ')]);
 				} else if (args[0] === '-l') {
 					setState(getSubTreeFromPath((() => {
-						const path = currentLocation.split('/');
+						const path = currentLocation.replace('//', '/').split('/');
 						path.shift();
 						return path;
 					})(), tree).map(e => {
@@ -74,7 +120,7 @@ export const useCommandInterpreter = (state, setState) => {
 						const minutes = `${date.getMinutes() < 10 ? '0' : ''}${date.getMinutes()}`;
 						const dayNumber = `${date.getDate() < 10 ? '0' : ''}${date.getDate()}`;
 
-						return `drwxr-xr-x ${e.children.length} ${username} ${username} ? ${currentMonthName.substring(0, 3)} ${dayNumber} ${hours}:${minutes} ${e.textTitle ?? e.title}`;
+						return `drwxr-xr-x ${e.children.length} ${username} ${username} ? ${currentMonthName.replace('//', '/').substring(0, 3)} ${dayNumber} ${hours}:${minutes} ${e.textTitle ?? e.title}`;
 					}));
 				}
 			}

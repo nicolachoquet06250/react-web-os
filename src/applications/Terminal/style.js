@@ -33,14 +33,15 @@ export const useTerminalStyle = createUseStyles({
 		flex: 1
 	},
 
-	cursor: {
+	cursor: ({ color = 'green' }) => ({
 		fontWeight: '700',
 		animation: 'terminalCursorAnimation .5s ease-out infinite',
 		paddingLeft: '5px',
+		color,
 
 		'&.inactive': {
 			animation: 'none',
 			color: 'transparent'
 		}
-	}
+	})
 });
