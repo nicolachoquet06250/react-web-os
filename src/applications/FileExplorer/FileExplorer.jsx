@@ -4,6 +4,8 @@ import { createContextMenuHandler } from "../../hooks/utils/handler";
 import { useTree } from "./hooks";
 import { useStyle } from "./style";
 import { Body, Breadcrumb, Footer, TreeMenu } from "./subcomponents";
+import { useRegisterContextualMenu } from "../../hooks/contextual-menu";
+import { FileExplorerContextMenu } from "./subcomponents/ContextualMenus";
 
 export const FileExplorer = ({ onClose = () => null, onContextMenu = () => null }) => {
 	const [nbChildren, setNbChildren] = useState(0);
@@ -11,7 +13,13 @@ export const FileExplorer = ({ onClose = () => null, onContextMenu = () => null 
 	const [selectedDirectory, setSelectedDirectory] = useState([]);
 	const { appContainer, appBodyContainer } = useStyle({});
 
-	const handleContextMenu = createContextMenuHandler(e => onContextMenu('file-explorer', e.clientX, e.clientY));
+	// useRegisterContextualMenu('file-explorer', FileExplorerContextMenu);
+
+	const handleContextMenu = createContextMenuHandler(e =>
+		onContextMenu('file-explorer', e.clientX, e.clientY));
+
+	const handleTreeMenuItemContextMenu = createContextMenuHandler(e =>
+		onContextMenu('file-explorer-tree-menu-item', e.clientX, e.clientY));
 
 	const fileTree = useTree();
 
@@ -19,9 +27,7 @@ export const FileExplorer = ({ onClose = () => null, onContextMenu = () => null 
 		setNbChildren(fileTree[0].children.length);
 
 		const tmp = [];
-		for (const v of fileTree) {
-			tmp.push(v.path);
-		}
+		for (const v of fileTree) tmp.push(v.path);
 		setOpenedDirectories(tmp);
 		setSelectedDirectory([fileTree[0].title]);
 	}, []);
@@ -58,7 +64,8 @@ export const FileExplorer = ({ onClose = () => null, onContextMenu = () => null 
 			<div className={appBodyContainer}>
 				<TreeMenu fileTree={fileTree}
 				          onSelectDirectory={onSelectDirectory}
-				          openedDirectories={openedDirectories} />
+				          openedDirectories={openedDirectories}
+						  onContextMenu={handleTreeMenuItemContextMenu}/>
 
 				<Body />
 			</div>

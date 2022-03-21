@@ -118,7 +118,7 @@ export const useApplicationsInstances = () => {
 };
 
 export const useControlApplication = () => ({
-	run(title) {
+	run(title, options = {}) {
 		const uniqId = useUniqId();
 		const oldRunningApplications = runningApps$.getValue();
 		const apps = applications$.getValue();
@@ -128,7 +128,8 @@ export const useControlApplication = () => ({
 			{
 				title,
 				id: uniqId,
-				component: apps.filter(v => v.title === title)[0].component
+				component: apps.filter(v => v.title === title)[0].component,
+				options
 			}
 		]);
 	},

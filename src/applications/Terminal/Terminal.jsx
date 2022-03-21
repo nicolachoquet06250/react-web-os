@@ -5,6 +5,7 @@ import Icon from '../../assets/images/terminal-icon.png';
 import './terminal.css';
 import { useTerminalStyle } from "./style";
 import { Prompt, TerminalTitle } from "./subcomponents";
+import { useLocationControls } from "./hooks";
 
 /**
  * @param {string} root
@@ -15,13 +16,18 @@ import { Prompt, TerminalTitle } from "./subcomponents";
  * @return {JSX.Element}
  */
 export const Terminal = ({
-    root = 'Ce PC', username = 'demo',
+    root = '/ce-pc', username = 'demo',
     onClose = () => null, onContextMenu = () => null,
 	customPrompt = null
 }) => {
 	const [active, setActive] = useState(true);
 	const [results, setResults] = useState([]);
 	const { terminal } = useTerminalStyle();
+	const { set: setLocation, reset: resetLocation } = useLocationControls();
+
+	useEffect(() => {
+		setLocation(root);
+	}, []);
 
 	const CustomPrompt = customPrompt ?? Prompt;
 
@@ -42,13 +48,10 @@ export const Terminal = ({
 				</div>))}
 			</div>
 
-			<CustomPrompt username={username} active={active} onResult={r => {
-				if (r.length === 1 && r[0] === 'clear') {
-					setResults([]);
-				} else {
-					setResults([...results, ...r]);
-				}
-			}} />
+			<CustomPrompt username={username}
+			              active={active}
+			              onResult={r =>
+				              setResults(r.length === 1 && r[0] === 'clear' ? [] : [...results, ...r])} />
 		</div>
 	</Window>);
 };

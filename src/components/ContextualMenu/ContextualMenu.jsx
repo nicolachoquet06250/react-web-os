@@ -16,7 +16,7 @@ export const ContextualMenu = ({ position = { x: 0, y: 0 }, id, show = false, on
 	useClickAway(ref, onHide);
 
 	return (show && Component && <div className={contextMenu} ref={ref}>
-		<Component/>
+		<Component onHide={onHide} />
 	</div>);
 };
 

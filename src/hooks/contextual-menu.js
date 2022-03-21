@@ -1,5 +1,5 @@
 import { BehaviorSubject } from "rxjs";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { createRxJsUseGetter } from "./utils/rxjs-getter";
 
 const menus = {};

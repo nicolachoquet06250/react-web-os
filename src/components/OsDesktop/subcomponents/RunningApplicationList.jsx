@@ -11,7 +11,8 @@ export const RunningApplicationList = ({ onContextMenu = () => null }) => {
 
 			return (<Component key={i}
 			                   onClose={() => stop(r.title, i)}
-			                   onContextMenu={onContextMenu} />)
+			                   onContextMenu={onContextMenu}
+								{...r.options}/>)
 		})}
 	</>);
 };
