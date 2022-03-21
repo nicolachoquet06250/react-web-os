@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRegisterApplication, useRegisterPinApp } from "./applications";
 import { Calculatrice, CalculatriceIcon } from "../applications/Calculatrice/Calculatrice";
-import { VsCode } from "../applications/VsCode/VsCode";
+import { VsCode, VsCodeIcon } from "../applications/VsCode/VsCode";
 import { FileExplorer, FileExplorerIcon } from "../applications/FileExplorer/FileExplorer";
 import { Terminal, TerminalIcon } from "../applications/Terminal/Terminal";
 
@@ -17,11 +17,11 @@ export const useRegisterApps = () => {
 			CalculatriceIcon,
 			Calculatrice
 		);
-		/*useRegisterApplication(
+		useRegisterApplication(
 			'Vs Code',
-			'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/2048px-Visual_Studio_Code_1.35_icon.svg.png',
+			VsCodeIcon,
 			VsCode
-		);*/
+		);
 		useRegisterApplication(
 			'Explorateur de fichiers',
 			FileExplorerIcon,
@@ -35,7 +35,7 @@ export const useRegisterApps = () => {
 
 		// épinglage dans la bar des taches
 		registerCalculatrice({ taskBar: true });
-		registerVsCode({ taskBar: true });
+		// registerVsCode({ taskBar: true });
 		registerFileExplorer({ taskBar: true });
 		registerTerminal({ taskBar: true });
 	}, []);

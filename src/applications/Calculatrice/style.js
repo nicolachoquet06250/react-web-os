@@ -12,7 +12,7 @@ export const useStyle = createUseStyles({
 	},
 
 	ecran: {
-		width: '100%',
+		width: 'calc(100% - 20px)',
 		height: '50px',
 		background: 'transparent',
 		display: 'flex',

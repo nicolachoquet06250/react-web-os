@@ -6,7 +6,7 @@ import { useTaskBar } from "../../hooks/task-bar";
 import { useStartMenu } from "../../hooks/start-menu";
 import { useTaskBarStyle } from "./style";
 import { AppPreview, BatterySection, NetworkSection, TaskBarAppIcon, TaskBarDateSection } from "./subcomponents";
-import { useRunningApplications } from "../../hooks/applications";
+import { useApplications, useRunningApplications } from "../../hooks/applications";
 
 export const TaskBar = ({
     pinApps = [], runningApps = {},
@@ -14,6 +14,27 @@ export const TaskBar = ({
 }) => {
 	const { taskBar, taskBarIconContainer } = useTaskBarStyle({});
 	const [calendarOpened, setCalendarOpened] = useState(false);
+	const [pinAndRunningApps, setPinAndRunningApps] = useState(pinApps);
+
+	const [applications] = useApplications();
+
+	const notPinRunningApps = Object.keys(runningApps)
+		.filter(v => pinApps.map(_v => _v.title).indexOf(v) === -1 && runningApps[v].instanceNb !== 0)
+		.reduce((r, v) => [
+			...r,
+			{
+				title: v,
+				icon: applications.filter(_v => _v.title === v)[0]?.icon,
+				options: {
+					taskBar: true,
+					startMenu: false
+				}
+			}
+		], []);
+
+	useEffect(() => {
+		setPinAndRunningApps([...pinApps, ...notPinRunningApps]);
+	}, [runningApps]);
 
 	const {
 		title, icon, showAppPreview,
@@ -45,7 +66,7 @@ export const TaskBar = ({
 			<StartMenuButton onClick={onOpenStartMenu} />
 
 			<div className={taskBarIconContainer}>
-				{pinApps.map(({ title, icon }, i) =>
+				{pinAndRunningApps.map(({ title, icon }, i) =>
 					(<TaskBarAppIcon key={i}
 					                 icon={icon} title={title}
 					                 instanceNb={runningApps[title] ? runningApps[title].instanceNb : 0}

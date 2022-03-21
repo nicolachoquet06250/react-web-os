@@ -79,6 +79,14 @@ export const useRegisterPinApp = (title) => ({
 
 			pinApplications$.next(_pinApplications);
 		}
+	},
+
+	/**
+	 * @param {boolean|undefined} taskBar
+	 * @param {boolean|undefined} startMenu
+	 */
+	unregister({ taskBar, startMenu }) {
+
 	}
 });
 

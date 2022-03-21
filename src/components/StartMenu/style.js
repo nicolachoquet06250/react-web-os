@@ -25,6 +25,41 @@ export const useStartMenuStyle = createUseStyles({
 		transition: 'transform .3s ease-out'
 	}),
 
+	applicationList: {
+		width: '200px',
+		height: '100%',
+		borderRight: '1px solid black',
+		paddingLeft: '5px',
+		paddingTop: '5px'
+	},
+
+	categorizedApplication: {
+		width: '100%',
+		display: 'flex',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		backgroundColor: 'transparent',
+		cursor: 'pointer',
+		border: 'none',
+		color: 'white',
+
+		'& > img': {
+			width: '20px',
+			height: '20px',
+			marginRight: '5px'
+		}
+	},
+
+	letterCategory: {
+		width: '100%',
+		textAlign: 'center',
+		textTransform: 'uppercase',
+		backgroundColor: 'transparent',
+		cursor: 'pointer',
+		border: 'none',
+		color: 'white',
+	},
+
 	startMenuButton: {
 		width: '25px',
 		height: '25px',

@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { useClickAway } from "react-use";
 import PropTypes from "prop-types";
 import { useStartMenuStyle } from "./style";
+import { ListedApplications } from "./subcomponents";
 
 export const StartMenu = ({ opened = false, onClickOutside = () => null }) => {
 	const { startMenu } = useStartMenuStyle({ opened });
@@ -11,7 +12,7 @@ export const StartMenu = ({ opened = false, onClickOutside = () => null }) => {
 	useClickAway(startMenuRef, onClickOutside);
 
 	return (<div className={startMenu} ref={startMenuRef}>
-
+		<ListedApplications onRunApp={onClickOutside} />
 	</div>);
 };
 
