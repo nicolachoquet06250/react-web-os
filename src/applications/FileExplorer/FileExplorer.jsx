@@ -20,7 +20,7 @@ export const FileExplorer = ({ onClose = () => null, onContextMenu = () => null 
 
 		const tmp = [];
 		for (const v of fileTree) {
-			tmp.push(v.title);
+			tmp.push(v.path);
 		}
 		setOpenedDirectories(tmp);
 		setSelectedDirectory([fileTree[0].title]);

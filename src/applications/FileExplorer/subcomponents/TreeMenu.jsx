@@ -1,3 +1,4 @@
+import React from "react";
 import { useStyle } from "../style";
 
 export const TreeMenu = ({ openedDirectories = [], fileTree, onSelectDirectory = () => null }) => {
@@ -7,8 +8,8 @@ export const TreeMenu = ({ openedDirectories = [], fileTree, onSelectDirectory =
 
 	const RecursiveTreeMenu = ({ openedDirectories = [], treeMenu, index = 0, title: _title = '' }) =>
 		(<ul className={_title !== '' && !openedDirectories.includes(_title) ? 'close' : ''}>
-			{treeMenu.map(({ title, children, icon }, i) =>
-				(<li key={i} className={`${children.length === 0 ? 'void' : ''} ${_title !== '' && !openedDirectories.includes(_title) ? 'close' : ''}`}>
+			{treeMenu.map(({ title, children, path, icon }, i) =>
+				(<li key={i} className={`${children.length === 0 ? 'void' : ''} ${_title !== '' && !openedDirectories.includes(path) ? 'close' : ''}`}>
 					<button onClick={() => {
 						onSelectDirectory((_title === '' ? '' : _title + '/') + title, children.length);
 					}} style={{ '--data-icon': icon ? `url(${icon})` : false }}>
@@ -23,6 +24,7 @@ export const TreeMenu = ({ openedDirectories = [], fileTree, onSelectDirectory =
 		</ul>);
 
 	return (<div className={treeMenu}>
-		<RecursiveTreeMenu treeMenu={fileTree} openedDirectories={openedDirectories} />
+		<RecursiveTreeMenu treeMenu={fileTree}
+		                   openedDirectories={openedDirectories} />
 	</div>);
 };
