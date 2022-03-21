@@ -11,7 +11,7 @@ import {
 } from "../../hooks/applications";
 import { useRegisterApps } from "../../hooks/app-registration";
 import { RunningApplicationList } from "../OsDesktop/subcomponents";
-import { setCustomPrompt } from "../../applications/Terminal/hooks";
+import { useAddPromptToList } from "../../applications/Terminal/hooks";
 import { Prompt2 } from "../../custom/applications/Terminal";
 
 export const App = () => {
@@ -46,9 +46,7 @@ export const App = () => {
     };
     const handleContextmenuHide = () => setShowedContextMenuId('');
 
-    useEffect(() => {
-        setCustomPrompt(Prompt2);
-    }, []);
+    useAddPromptToList('alternative prompt', Prompt2);
 
     return (<div className="App">
         <OsDesktop background={background}

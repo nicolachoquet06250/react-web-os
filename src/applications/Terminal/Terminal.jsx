@@ -4,8 +4,8 @@ import { createContextMenuHandler } from "../../hooks/utils/handler";
 import Icon from '../../assets/images/terminal-icon.png';
 import './terminal.css';
 import { useTerminalStyle } from "./style";
-import { Prompt, TerminalTitle } from "./subcomponents";
-import { useCustomPrompt, useLocationControls } from "./hooks";
+import { TerminalTitle } from "./subcomponents";
+import { useDefaultPromptComponent, useLocationControls } from "./hooks";
 
 /**
  * @param {string} root
@@ -22,12 +22,10 @@ export const Terminal = ({
 	const [active, setActive] = useState(true);
 	const [results, setResults] = useState([]);
 	const { terminal } = useTerminalStyle({});
-	const { set: setLocation, reset: resetLocation } = useLocationControls();
-	const [customPrompt] = useCustomPrompt();
+	const { set: setLocation } = useLocationControls();
+	const { Prompt } = useDefaultPromptComponent();
 
-	useEffect(() => setLocation(root), []);
-
-	const CustomPrompt = customPrompt.component ?? Prompt;
+	useEffect(() => setLocation(root), [root]);
 
 	const handleContextMenu = createContextMenuHandler(e => onContextMenu('file-explorer', e.clientX, e.clientY));
 
@@ -46,10 +44,10 @@ export const Terminal = ({
 				</div>))}
 			</div>
 
-			<CustomPrompt username={username}
-			              active={active}
-			              onResult={r =>
-				              setResults(r.length === 1 && r[0] === 'clear' ? [] : [...results, ...r])} />
+			{Prompt && (<Prompt username={username}
+						         active={active}
+						         onResult={r =>
+							         setResults(r.length === 1 && r[0] === 'clear' ? [] : [...results, ...r])}/>)}
 		</div>
 	</Window>);
 };

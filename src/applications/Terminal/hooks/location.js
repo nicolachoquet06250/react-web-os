@@ -2,7 +2,7 @@ import { BehaviorSubject } from "rxjs";
 import { createRxJsUseGetter } from "../../../hooks/utils/rxjs-getter";
 import { useTree } from "../../FileExplorer/hooks";
 
-const defaultLocation = '/';
+const defaultLocation = '/ce-pc';
 const currentLocation$ = new BehaviorSubject(defaultLocation);
 
 export const useLocation = createRxJsUseGetter(defaultLocation, currentLocation$);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useMouse } from "./utils/mouse";
 
 const findElementFromClass = (root, className) => {
@@ -242,20 +242,20 @@ export const useMove = (ref, enabled, positionX, positionY, {
 
 	const { x, y } = useMouse();
 
+	const handleRefMouseDown = useCallback(e => {
+		if (e.buttons === 1 && ['input', 'select', 'textarea'].indexOf(e.target.tagName.toLowerCase()) === -1) {
+			setMousePositionX(e.clientX);
+			setMousePositionY(e.clientY);
+			if (enabled) {
+				setMoving(true);
+			}
+		}
+	}, [enabled]);
+	const handleWindowMouseUp = () => setMoving(false);
+
 	useEffect(() => {
 		setPositionX(positionX);
 		setPositionY(positionY);
-
-		const handleRefMouseDown = e => {
-			if (e.buttons === 1) {
-				setMousePositionX(e.clientX);
-				setMousePositionY(e.clientY);
-				if (enabled) {
-					setMoving(true);
-				}
-			}
-		};
-		const handleWindowMouseUp = () => setMoving(false);
 
 		if (ref.current) {
 			ref.current.addEventListener('mousedown', handleRefMouseDown);
