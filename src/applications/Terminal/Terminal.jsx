@@ -5,7 +5,7 @@ import Icon from '../../assets/images/terminal-icon.png';
 import './terminal.css';
 import { useTerminalStyle } from "./style";
 import { Prompt, TerminalTitle } from "./subcomponents";
-import { useLocationControls } from "./hooks";
+import { useCustomPrompt, useLocationControls } from "./hooks";
 
 /**
  * @param {string} root
@@ -17,19 +17,17 @@ import { useLocationControls } from "./hooks";
  */
 export const Terminal = ({
     root = '/ce-pc', username = 'demo',
-    onClose = () => null, onContextMenu = () => null,
-	customPrompt = null
+    onClose = () => null, onContextMenu = () => null
 }) => {
 	const [active, setActive] = useState(true);
 	const [results, setResults] = useState([]);
 	const { terminal } = useTerminalStyle();
 	const { set: setLocation, reset: resetLocation } = useLocationControls();
+	const [customPrompt] = useCustomPrompt();
 
-	useEffect(() => {
-		setLocation(root);
-	}, []);
+	useEffect(() => setLocation(root), []);
 
-	const CustomPrompt = customPrompt ?? Prompt;
+	const CustomPrompt = customPrompt.component !== null ? customPrompt.component : Prompt;
 
 	const handleContextMenu = createContextMenuHandler(e => onContextMenu('file-explorer', e.clientX, e.clientY));
 
