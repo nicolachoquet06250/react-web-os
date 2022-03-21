@@ -51,9 +51,15 @@ export const useCommandInterpreter = (state, setState) => {
 
 					return true;
 				} else if ((newLocation[0] !== '/' && newLocation[0] !== '.') || newLocation.substring(0, 2) === './') {
-					setLocation(currentLocation + '/' + (newLocation.substring(0, 2) === './'
-						? newLocation.substring(1, newLocation.length) : newLocation));
-					setState([]);
+					const location = currentLocation + '/' + (newLocation.substring(0, 2) === './'
+						? newLocation.substring(1, newLocation.length) : newLocation);
+
+					if (exists(location)) {
+						setLocation(location);
+						setState([]);
+					} else {
+						setState([`Error: '${location}' is not a directory`]);
+					}
 
 					return true;
 				} else if (newLocation.indexOf('../') !== -1 || newLocation.indexOf('..') !== -1) {
@@ -69,8 +75,12 @@ export const useCommandInterpreter = (state, setState) => {
 						locationToBack = locationToBack.substring(0, locationToBack.length - 1);
 					}
 
-					setLocation(locationToBack);
-					setState([]);
+					if (exists(locationToBack)) {
+						setLocation(locationToBack);
+						setState([]);
+					} else {
+						setState([`Error: '${locationToBack}' is not a directory`]);
+					}
 
 					return true;
 				}
