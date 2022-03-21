@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import { setCommandHistory, useCommandHistory, useCommands } from "./commands";
-import { useLocation } from "./location";
 
 export const useCommandWriter = (username, active, { onResult = () => null }) => {
 	const [tmpWrite, setTmpWrite] = useState('');
@@ -9,10 +8,6 @@ export const useCommandWriter = (username, active, { onResult = () => null }) =>
 	const [historyIndex, setHistoryIndex] = useState(-1);
 	const [oldTmpWrite, setOldTmpWrite] = useState('');
 	const [history] = useCommandHistory();
-
-	const [_, resetCurrentLocation] = useLocation();
-
-	useEffect(() => () => resetCurrentLocation(), []);
 
 	const commandResult = useCommands(write, username);
 	const handleKeyDown = useCallback(e => {

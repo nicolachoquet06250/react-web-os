@@ -5,7 +5,7 @@ import Icon from '../../assets/images/terminal-icon.png';
 import './terminal.css';
 import { useTerminalStyle } from "./style";
 import { TerminalTitle } from "./subcomponents";
-import { useDefaultPromptComponent, useLocationControls } from "./hooks";
+import { useDefaultPromptComponent, useLocation, useLocationControls } from "./hooks";
 
 /**
  * @param {string} root
@@ -25,7 +25,10 @@ export const Terminal = ({
 	const { set: setLocation } = useLocationControls();
 	const { Prompt } = useDefaultPromptComponent();
 
+	const [_, resetCurrentLocation] = useLocation();
+
 	useEffect(() => setLocation(root), [root]);
+	useEffect(() => () => resetCurrentLocation(), []);
 
 	const handleContextMenu = createContextMenuHandler(e => onContextMenu('file-explorer', e.clientX, e.clientY));
 
