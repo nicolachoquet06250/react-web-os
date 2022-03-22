@@ -4,12 +4,14 @@ import { useRegisterContextualMenu } from "../../../hooks/contextual-menu";
 import { FileExplorerTreeMenuItemContextMenu } from "./ContextualMenus";
 import { setContextMenuSelectedDirectory } from "../hooks/context-menu";
 
+export const directoryIcon = 'https://www.coursinfo.fr/wp-content/uploads/2017/10/explorateur-fichiers.png';
+
 export const TreeMenu = ({
 	 openedDirectories = [], fileTree,
 	 onSelectDirectory = () => null, onContextMenu = () => null
 }) => {
 	const { treeMenu } = useStyle({
-		directoryImage: 'https://www.coursinfo.fr/wp-content/uploads/2017/10/explorateur-fichiers.png'
+		directoryImage: directoryIcon
 	});
 
 	useRegisterContextualMenu('file-explorer-tree-menu-item', FileExplorerTreeMenuItemContextMenu);

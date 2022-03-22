@@ -12,7 +12,7 @@ import {
 import { useRegisterApps } from "../../hooks/app-registration";
 import { RunningApplicationList } from "../OsDesktop/subcomponents";
 import { useAddPromptToList } from "../../applications/Terminal/hooks";
-import { Prompt2 } from "../../custom/applications/Terminal";
+import { Prompt2 } from "../../custom/applications/Terminal/Prompt2/Prompt2";
 
 export const App = () => {
     // définition des states

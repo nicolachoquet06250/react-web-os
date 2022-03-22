@@ -67,7 +67,8 @@ export const FileExplorer = ({ onClose = () => null, onContextMenu = () => null 
 				          openedDirectories={openedDirectories}
 						  onContextMenu={handleTreeMenuItemContextMenu}/>
 
-				<Body />
+				<Body selectedDirectory={selectedDirectory}
+				      onSelectDirectory={onSelectDirectoryFromBreadcrumb} />
 			</div>
 
 			<Footer>

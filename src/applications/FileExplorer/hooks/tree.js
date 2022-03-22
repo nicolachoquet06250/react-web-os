@@ -150,11 +150,11 @@ export const useTree = () => {
 						{
 							title: 'Movavi Vidéo Editor',
 							textTitle: 'movavi-video-editor',
-							path: 'Ce PC/Vidéos/Captures/Movavi Vidéo Editor',
+							path: 'Ce PC/Vidéos/Movavi Vidéo Editor',
 							children: [
 								{
 									title: 'Projects',
-									path: 'Ce PC/Vidéos/Captures/Movavi Vidéo Editor/Projects',
+									path: 'Ce PC/Vidéos/Movavi Vidéo Editor/Projects',
 									children: []
 								}
 							]

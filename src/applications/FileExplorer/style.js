@@ -114,7 +114,42 @@ export const useStyle = createUseStyles({
 	appBody: {
 		flex: 1,
 		padding: '5px',
-		color: 'wheat'
+		color: 'wheat',
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		alignItems: 'flex-start',
+		flexWrap: 'wrap'
+	},
+
+	appBodyButton: {
+		maxWidth: '70px',
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center',
+		padding: '5px',
+		background: 'transparent',
+		color: 'wheat',
+		border: 'none',
+		cursor: 'pointer',
+		borderRadius: '5px',
+
+		'&:active, &:focus': {
+			backgroundColor: 'darkblue'
+		},
+
+		'& > img': {
+			width: '50px',
+			height: '50px'
+		},
+
+		'& > span':{
+			width: '100%',
+			whiteSpace: 'nowrap',
+			overflow: 'hidden',
+			textOverflow: 'ellipsis'
+		}
 	},
 
 	footer: {
