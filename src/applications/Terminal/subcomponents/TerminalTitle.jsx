@@ -1,6 +1,7 @@
 import React from "react";
 import { setDefaultPrompt, useDefaultPromptComponent, usePromptList } from "../hooks";
 import { createUseStyles } from "react-jss";
+import { FaIcon, FaIconsType } from "../../../components/FaIcon/FaIcon";
 
 const useTerminalTitleStyle = createUseStyles({
 	promptSelector: {
@@ -24,7 +25,9 @@ export const TerminalTitle = () => {
 	const handleChange = e => setDefaultPrompt(e.target.value);
 
 	return (<>
-		<span className={'emoji'}>  </span>
+		<span className={'emoji'}>
+			<FaIcon type={FaIconsType.SOLID} icon={'terminal'} />
+		</span>
 		<span> Terminal </span>
 
 		<select className={promptSelector}

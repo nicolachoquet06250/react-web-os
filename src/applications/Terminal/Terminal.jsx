@@ -33,6 +33,7 @@ export const Terminal = ({
 	const handleContextMenu = createContextMenuHandler(e => onContextMenu('file-explorer', e.clientX, e.clientY));
 
 	return (<Window title={<TerminalTitle />}
+	                minWidth={500} width={500}
 	                bodyBackground={'rgba(0, 0, 0, .5)'}
 	                headerBackground={'rgba(0, 0, 0, .5)'}
 	                headerColor={'wheat'}

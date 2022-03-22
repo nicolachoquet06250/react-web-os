@@ -1,4 +1,5 @@
 import React from "react";
+import { FaIcon, FaIconsType } from "../../FaIcon/FaIcon";
 
 export const CalendarBodyHeader = ({ currentMonth, date, disabled = false }) => {
 	const headerStyle = {
@@ -35,9 +36,13 @@ export const CalendarBodyHeader = ({ currentMonth, date, disabled = false }) => 
 		<span style={headerTitleStyle}>{currentMonth} {date.getFullYear()}</span>
 
 		<div style={headerButtonsStyle}>
-			<button disabled={disabled} style={buttonStyle}> </button>
+			<button disabled={disabled} style={buttonStyle}>
+				<FaIcon type={FaIconsType.SOLID} icon={'angle-up'} />
+			</button>
 
-			<button disabled={disabled} style={buttonStyle}> </button>
+			<button disabled={disabled} style={buttonStyle}>
+				<FaIcon type={FaIconsType.SOLID} icon={'angle-down'} />
+			</button>
 		</div>
 	</div>)
 };

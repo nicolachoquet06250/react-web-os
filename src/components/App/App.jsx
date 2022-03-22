@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { OsDesktop } from "../OsDesktop/OsDesktop";
 import { TaskBar } from "../TaskBar/TaskBar";
 import { ContextualMenu } from "../ContextualMenu/ContextualMenu";

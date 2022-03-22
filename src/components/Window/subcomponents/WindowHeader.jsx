@@ -1,5 +1,6 @@
 import React from "react";
 import { useWindowStyle } from "../style";
+import { FaIcon, FaIconsType } from "../../FaIcon/FaIcon";
 
 export const WindowHeader = ({
  innerRef, title,
@@ -20,8 +21,12 @@ export const WindowHeader = ({
 
 		<div className="button-container">
 			<button> - </button>
-			<button disabled={!resizable} onClick={toggleFullScreen}>  </button>
-			<button className={'close'} onClick={onClose}>  </button>
+			<button disabled={!resizable} onClick={toggleFullScreen}>
+				<FaIcon type={FaIconsType.SOLID} icon={'window-restore'} />
+			</button>
+			<button className={'close'} onClick={onClose}>
+				<FaIcon type={FaIconsType.SOLID} icon={'xmark'} />
+			</button>
 		</div>
 	</div>);
 };
