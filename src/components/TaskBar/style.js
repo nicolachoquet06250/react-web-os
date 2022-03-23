@@ -84,6 +84,7 @@ export const useTaskBarStyle = createUseStyles({
 		justifyContent: 'center',
 		alignItems: 'center',
 		position: 'relative',
+		cursor: 'pointer',
 
 		'&::before': {
 			content: `''`,

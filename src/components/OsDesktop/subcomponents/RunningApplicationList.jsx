@@ -1,5 +1,5 @@
 import React from "react";
-import { useControlApplication, useRunningApplications } from "../../../hooks/applications";
+import { minimizeRunningApplication as _minimizeRunningApplication, useControlApplication, useRunningApplications } from "../../../hooks/applications";
 
 export const RunningApplicationList = ({ onContextMenu = () => null }) => {
 	const [runningApps] = useRunningApplications();
@@ -9,10 +9,15 @@ export const RunningApplicationList = ({ onContextMenu = () => null }) => {
 		{runningApps.map((r, i) => {
 			const Component = r.component;
 
+			const minimizeRunningApplication = () => _minimizeRunningApplication(i);
+
 			return (<Component key={i}
 			                   onClose={() => stop(r.title, i)}
+			                   minimized={r.minimized}
+			                   onMinimize={minimizeRunningApplication}
+			                   onMaximize={() => console.log(i)}
 			                   onContextMenu={onContextMenu}
-								{...r.options}/>)
+							   {...r.options} />)
 		})}
 	</>);
 };

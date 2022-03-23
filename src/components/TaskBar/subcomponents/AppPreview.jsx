@@ -1,5 +1,6 @@
 import React from "react";
 import { useTaskBarStyle } from "../style";
+import { maximizeRunningApplication as _maximizeRunningApplication } from "../../../hooks/applications";
 
 export const AppPreview = ({
    show = false, instances = [],
@@ -9,17 +10,21 @@ export const AppPreview = ({
 	const { appPreviewContainer, appPreview } = useTaskBarStyle();
 
 	return (<div className={appPreviewContainer + ' ' + (show ? 'show' : '')}>
-		{instances.map((instance) =>
-			(<div key={instance.id}
-			      className={appPreview}
-			      data-title={(instance.title.length > 16 ? instance.title.split('').splice(0, 16).join('') + '...' : instance.title)}
-			      onMouseOver={onMouseOver}
-			      onMouseOut={onMouseOut}
-			      style={{ '--icon': 'url(' + instance.icon + ')' }}>
+		{instances.map((instance) => {
+			const maximizeRunningApplication = () => _maximizeRunningApplication(instance.id);
+
+			return (<div key={instance.id}
+			             className={appPreview}
+			             data-title={(instance.title.length > 16 ? instance.title.split('').splice(0, 16).join('') + '...' : instance.title)}
+			             onMouseOver={onMouseOver}
+			             onMouseOut={onMouseOut}
+			             onClick={maximizeRunningApplication}
+			             style={{ '--icon': 'url(' + instance.icon + ')' }}>
 				<button className={'close-button'}
 				        onClick={() => onCloseApp(instance.title, instance.id)}>
 					
 				</button>
-			</div>))}
+			</div>);
+		})}
 	</div>);
 };

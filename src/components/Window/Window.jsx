@@ -14,11 +14,13 @@ export const Window = ({
     headerBackground = 'transparent', headerColor = 'black',
 	bodyBackground = 'transparent',
 	resizable = true, children,
-	title,
+	title, minimized,
 	onClose = () => null,
 	onContextMenu = () => null,
 	onActive = () => null,
-	onUnactive = () => null
+	onUnactive = () => null,
+	onMinimize = () => null,
+	onMaximize = () => null
 }) => {
 	const { width: windowWidth, height: windowHeight } = useWindowSize();
 	const [currentWidth, setWidth] = useState(0);
@@ -116,6 +118,13 @@ export const Window = ({
 		setWidth(width);
 	}, [width]);
 
+	// evenement sur l'état de la fenêtre
+	useEffect(() => {
+		if (!minimized) {
+			onMaximize();
+		}
+	}, [minimized]);
+
 	const Header = windowHeader ?? WindowHeader;
 
 	const { windowStyle, windowBodyStyle } = useWindowStyle({
@@ -136,7 +145,7 @@ export const Window = ({
 	})
 
 	return (<>
-		<div className={windowStyle} onMouseDown={() => {
+		<div className={windowStyle + (minimized ? ' min' : '')} onMouseDown={() => {
 			onActive();
 			setActive(true);
 		}} ref={windowRef}>
@@ -147,7 +156,8 @@ export const Window = ({
 					toggleFullScreen={() => setFullScreen(!isFullScreen)}
 					onClose={onClose}
 					title={title}
-					onContextMenu={onContextMenu} />
+					onContextMenu={onContextMenu}
+					onMinimize={onMinimize} />
 
 			<div className={windowBodyStyle}
 			     onContextMenu={onContextMenu}>
@@ -178,7 +188,9 @@ Window.propTypes = {
 	onClose: PropTypes.func,
 	onContextMenu: PropTypes.func,
 	onActive: PropTypes.func,
-	onUnactive: PropTypes.func
+	onUnactive: PropTypes.func,
+	onMinimize: PropTypes.func,
+	onMaximize: PropTypes.func
 };
 
 Window.defaultTypes = {
@@ -196,5 +208,7 @@ Window.defaultTypes = {
 	onClose: () => null,
 	onContextMenu: () => null,
 	onActive: () => null,
-	onUnactive: () => null
+	onUnactive: () => null,
+	onMinimize: () => null,
+	onMaximize: () => null
 };

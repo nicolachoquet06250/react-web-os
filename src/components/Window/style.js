@@ -26,6 +26,13 @@ export const useWindowStyle = createUseStyles({
 
 		zIndex: active ? 1 : 0,
 
+		transform: 'scale(1)',
+		transition: 'transform .5s ease-out',
+
+		'&.min': {
+			transform: 'scale(0)'
+		},
+
 		'& ~ .left-resizer': {
 			// backgroundColor: 'red',
 			height: (height - 10) + 'px',

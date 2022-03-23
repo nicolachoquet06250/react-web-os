@@ -16,8 +16,10 @@ import { useDefaultPromptComponent, useLocation, useLocationControls } from "./h
  * @return {JSX.Element}
  */
 export const Terminal = ({
+	minimized,
     root = '/ce-pc', username = 'demo',
-    onClose = () => null, onContextMenu = () => null
+    onClose = () => null, onContextMenu = () => null,
+    onMinimize = () => null, onMaximize = () => null
 }) => {
 	const [active, setActive] = useState(true);
 	const [results, setResults] = useState([]);
@@ -37,10 +39,13 @@ export const Terminal = ({
 	                bodyBackground={'rgba(0, 0, 0, .5)'}
 	                headerBackground={'rgba(0, 0, 0, .5)'}
 	                headerColor={'wheat'}
+	                minimized={minimized}
 	                onClose={onClose}
 	                onContextMenu={handleContextMenu}
 					onActive={() => setActive(true)}
-					onUnactive={() => setActive(false)}>
+					onUnactive={() => setActive(false)}
+					onMinimize={onMinimize}
+					onMaximize={onMaximize} >
 		<div className={terminal}>
 			<div>
 				{results.map((r, i) => (<div key={i}>
@@ -49,7 +54,7 @@ export const Terminal = ({
 			</div>
 
 			{Prompt && (<Prompt username={username}
-						         active={active}
+						         active={active && !minimized}
 						         onResult={r =>
 							         setResults(r.length === 1 && r[0] === 'clear' ? [] : [...results, ...r])}/>)}
 		</div>

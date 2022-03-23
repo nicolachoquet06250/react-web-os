@@ -7,7 +7,11 @@ import { Body, Breadcrumb, Footer, TreeMenu } from "./subcomponents";
 import { useRegisterContextualMenu } from "../../hooks/contextual-menu";
 import { FileExplorerContextMenu } from "./subcomponents/ContextualMenus";
 
-export const FileExplorer = ({ onClose = () => null, onContextMenu = () => null }) => {
+export const FileExplorer = ({
+ minimized,
+ onClose = () => null, onContextMenu = () => null,
+ onMinimize = () => null, onMaximize = () => null
+}) => {
 	const [nbChildren, setNbChildren] = useState(0);
 	const [openedDirectories, setOpenedDirectories] = useState([]);
 	const [selectedDirectory, setSelectedDirectory] = useState([]);
@@ -53,10 +57,12 @@ export const FileExplorer = ({ onClose = () => null, onContextMenu = () => null 
 
 	return (<Window bodyBackground={'rgba(0, 0, 0, .5)'}
 					headerBackground={'rgba(0, 0, 0, .5)'}
-					headerColor={'wheat'}
+					headerColor={'wheat'} minimized={minimized}
 					title={<span>Explorateur de fichiers</span>}
 					onClose={onClose}
-					onContextMenu={handleContextMenu}>
+					onContextMenu={handleContextMenu}
+					onMinimize={onMinimize}
+					onMaximize={onMaximize}>
 		<div className={appContainer}>
 			<Breadcrumb selectedDirectory={selectedDirectory}
 			            onSelectDirectory={onSelectDirectoryFromBreadcrumb} />

@@ -243,7 +243,7 @@ export const useMove = (ref, enabled, positionX, positionY, {
 	const { x, y } = useMouse();
 
 	const handleRefMouseDown = useCallback(e => {
-		if (e.buttons === 1 && ['input', 'select', 'textarea'].indexOf(e.target.tagName.toLowerCase()) === -1) {
+		if (e.buttons === 1 && ['input', 'button', 'select', 'textarea'].indexOf(e.target.tagName.toLowerCase()) === -1) {
 			setMousePositionX(e.clientX);
 			setMousePositionY(e.clientY);
 			if (enabled) {

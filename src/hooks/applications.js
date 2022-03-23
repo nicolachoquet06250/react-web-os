@@ -129,6 +129,7 @@ export const useControlApplication = () => ({
 				title,
 				id: uniqId,
 				component: apps.filter(v => v.title === title)[0].component,
+				minimized: false,
 				options
 			}
 		]);
@@ -140,3 +141,17 @@ export const useControlApplication = () => ({
 		runningApps$.next(oldRunningApplications.filter((v, i) => i !== id));
 	}
 });
+
+export const minimizeRunningApplication = id => {
+	runningApps$.next(runningApps$.getValue().map((v, i) => i === id ? {
+		...v,
+		minimized: true
+	} : v))
+};
+
+export const maximizeRunningApplication = id => {
+	runningApps$.next(runningApps$.getValue().map((v, i) => i === id ? {
+		...v,
+		minimized: false
+	} : v))
+};

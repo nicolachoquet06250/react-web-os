@@ -11,10 +11,10 @@ export const useCommandWriter = (username, active, { onResult = () => null }) =>
 
 	const commandResult = useCommands(write, username);
 	const handleKeyDown = useCallback(e => {
-		e.preventDefault();
-		e.stopPropagation();
-
 		if (active) {
+			e.preventDefault();
+			e.stopPropagation();
+
 			setSelectedTouche('');
 			if (['Shift', 'Control', 'AltGraph', 'Backspace', 'Enter', 'Space'].indexOf(e.key) === -1) {
 				setSelectedTouche(e.key);

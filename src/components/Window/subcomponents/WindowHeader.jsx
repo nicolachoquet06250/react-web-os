@@ -8,7 +8,8 @@ export const WindowHeader = ({
  resizable = true,
  toggleFullScreen = () => null,
  onClose = () => null,
- onContextMenu = () => null
+ onContextMenu = () => null,
+ onMinimize = () => null
 }) => {
 	const { windowHeaderStyle } = useWindowStyle({ background, color });
 
@@ -20,10 +21,12 @@ export const WindowHeader = ({
 		</div>
 
 		<div className="button-container">
-			<button> - </button>
+			<button onClick={onMinimize}> - </button>
+
 			<button disabled={!resizable} onClick={toggleFullScreen}>
 				<FaIcon type={FaIconsType.SOLID} icon={'window-restore'} />
 			</button>
+
 			<button className={'close'} onClick={onClose}>
 				<FaIcon type={FaIconsType.SOLID} icon={'xmark'} />
 			</button>
