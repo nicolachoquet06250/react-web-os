@@ -29,21 +29,33 @@ export const StartMenu = ({ opened = false, onClickOutside = () => null, onConte
 		<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start', flexWrap: 'wrap', flex: 1 }}>
 			{startMenuPinApps.map((a, i) =>
 				(<button style={{
-					width: '25%',
+					width: 'calc(25% - 15px)',
+					height: '80px',
 					margin: '5px',
 					backgroundColor: 'transparent',
 					color: 'white',
 					border: 'none',
 					borderRadius: '5px',
 					padding: '5px',
-					cursor: 'pointer'
+					cursor: 'pointer',
+					display: 'flex',
+					flexDirection: 'column',
+					justifyContent: 'space-between',
+					alignItems: 'center'
 				}} key={i} onClick={() => {
 					run(a.title);
 					onClickOutside();
-				}}>
+				}} title={a.title}>
 					<img src={a.icon} alt={'icon ' + a.title} style={{ width: '100%' }} />
 
-					<span>{a.title}</span>
+					<span style={{
+						display: 'inline-block',
+						width: '100%',
+						overflow: 'hidden',
+						wordWrap: 'inherit',
+						whiteSpace: 'nowrap',
+						textOverflow: 'ellipsis',
+					}}>{a.title}</span>
 				</button>))}
 		</div>
 	</div>);
