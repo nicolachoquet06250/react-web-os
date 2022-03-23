@@ -13,7 +13,7 @@ export const StartMenu = ({ opened = false, onClickOutside = () => null, onConte
 
 	const startMenuPinApps = pinApps.filter(v => v.options.startMenu);
 
-	useEffect(() => console.log(startMenuPinApps), [pinApps]);
+	//useEffect(() => console.log(startMenuPinApps), [pinApps]);
 
 	const startMenuRef = useRef();
 
@@ -30,7 +30,7 @@ export const StartMenu = ({ opened = false, onClickOutside = () => null, onConte
 			{startMenuPinApps.map((a, i) =>
 				(<button style={{
 					width: 'calc(25% - 15px)',
-					height: '80px',
+					minHeight: '80px',
 					margin: '5px',
 					backgroundColor: 'transparent',
 					color: 'white',
@@ -51,6 +51,7 @@ export const StartMenu = ({ opened = false, onClickOutside = () => null, onConte
 					<span style={{
 						display: 'inline-block',
 						width: '100%',
+						marginTop: '5px',
 						overflow: 'hidden',
 						wordWrap: 'inherit',
 						whiteSpace: 'nowrap',
