@@ -48,7 +48,7 @@ export const useWindowStyle = createUseStyles({
 			height: (height - 10) + 'px',
 			width: '5px',
 			position: 'absolute',
-			left: positionX + 'px',
+			left: (positionX - 5) + 'px',
 			top: (positionY + 5) + 'px',
 			cursor: 'col-resize',
 
@@ -71,7 +71,7 @@ export const useWindowStyle = createUseStyles({
 			width: (width - 10) + 'px',
 			position: 'absolute',
 			left: (positionX + 5) + 'px',
-			top: positionY + 'px',
+			top: (positionY - 5) + 'px',
 			cursor: 'row-resize',
 
 			zIndex: active ? 1 : 0,

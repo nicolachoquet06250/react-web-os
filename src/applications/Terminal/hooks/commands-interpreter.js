@@ -75,6 +75,10 @@ export const useCommandInterpreter = (state, setState) => {
 						locationToBack = locationToBack.substring(0, locationToBack.length - 1);
 					}
 
+					if (locationToBack[0] !== '/') {
+						locationToBack = '/' + locationToBack;
+					}
+
 					if (exists(locationToBack)) {
 						setLocation(locationToBack);
 						setState([]);
