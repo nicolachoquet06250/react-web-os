@@ -6,17 +6,19 @@ import { useTaskBar } from "../../hooks/task-bar";
 import { useStartMenu } from "../../hooks/start-menu";
 import { useTaskBarStyle } from "./style";
 import { AppPreview, BatterySection, NetworkSection, TaskBarAppIcon, TaskBarDateSection } from "./subcomponents";
-import { useApplications, useRunningApplications } from "../../hooks/applications";
+import { useApplications, usePinApplications, useRunningApplications } from "../../hooks/applications";
 
 export const TaskBar = ({
     pinApps = [], runningApps = {},
-    onOpenApp = () => null, onCloseApp = () => null
+    onOpenApp = () => null, onCloseApp = () => null,
+	onContextMenu = () => null
 }) => {
 	const { taskBar, taskBarIconContainer } = useTaskBarStyle({});
 	const [calendarOpened, setCalendarOpened] = useState(false);
 	const [pinAndRunningApps, setPinAndRunningApps] = useState(pinApps);
 
 	const [applications] = useApplications();
+	const [pinApplications] = usePinApplications();
 
 	const notPinRunningApps = Object.keys(runningApps)
 		.filter(v => pinApps.map(_v => _v.title).indexOf(v) === -1 && runningApps[v].instanceNb !== 0)
@@ -44,9 +46,14 @@ export const TaskBar = ({
 	const { startMenuOpened, onOpenStartMenu, onCloseStartMenu } = useStartMenu();
 	const [applicationInstances] = useRunningApplications();
 
+	useEffect(() => {
+		onCloseStartMenu();
+	}, [pinApplications]);
+
 	return (<>
 		<StartMenu opened={startMenuOpened}
-		           onClickOutside={onCloseStartMenu} />
+		           onClickOutside={onCloseStartMenu}
+		           onContextMenu={onContextMenu} />
 
 		<AppPreview show={showAppPreview}
 		            instances={applicationInstances.map((v, i) => ({
@@ -72,7 +79,8 @@ export const TaskBar = ({
 					                 instanceNb={runningApps[title] ? runningApps[title].instanceNb : 0}
 					                 onClick={onAppAction(true).action(onOpenApp, title)}
 									 onMouseOver={onIconMouseOver(title, icon)}
-									 onMouseOut={onIconMouseOut} />))}
+									 onMouseOut={onIconMouseOut}
+									 onContextMenu={onContextMenu} />))}
 			</div>
 
 			<BatterySection />

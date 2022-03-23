@@ -86,7 +86,41 @@ export const useRegisterPinApp = (title) => ({
 	 * @param {boolean|undefined} startMenu
 	 */
 	unregister({ taskBar, startMenu }) {
+		const oldPinApps = pinApplications$.getValue();
+		const applications = applications$.getValue();
+		let _pinApplications;
 
+		if (applications.map(v => v.title).indexOf(title) !== -1) {
+			if (oldPinApps.map(v => v.title).indexOf(title) === -1) {
+				_pinApplications = [
+					...oldPinApps,
+					{
+						title,
+						icon: applications.reduce((r, c) => c.title === title ? c.icon : r, ''),
+						options: {
+							taskBar: taskBar ?? false,
+							startMenu: startMenu ?? false
+						}
+					}
+				];
+			} else {
+				_pinApplications = oldPinApps.reduce((r, c) =>
+					c.title === title ? [
+						...r,
+						{
+							title,
+							icon: applications.reduce((r, c) => c.title === title ? c.icon : r, ''),
+							options: {
+								taskBar: taskBar ?? c.options.taskBar,
+								startMenu: startMenu ?? c.options.startMenu
+							}
+						}
+					] : [...r, c], []
+				);
+			}
+
+			pinApplications$.next(_pinApplications);
+		}
 	}
 });
 

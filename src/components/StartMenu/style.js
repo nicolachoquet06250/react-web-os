@@ -7,7 +7,7 @@ export const useStartMenuStyle = createUseStyles({
 	 */
 	startMenu: ({ opened = false }) => ({
 		display: 'flex',
-		flexDirection: 'column',
+		flexDirection: 'row',
 		justifyContent: 'flex-start',
 		alignItems: 'flex-start',
 		minWidth: '500px',
@@ -27,7 +27,7 @@ export const useStartMenuStyle = createUseStyles({
 
 	applicationList: {
 		width: '200px',
-		height: '100%',
+		height: 'calc(100% - 5px)',
 		borderRight: '1px solid black',
 		paddingLeft: '5px',
 		paddingTop: '5px'

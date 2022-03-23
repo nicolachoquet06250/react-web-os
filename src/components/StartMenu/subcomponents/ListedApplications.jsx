@@ -4,7 +4,7 @@ import React, { Fragment } from "react";
 import { ListedApplicationCategoryButton } from "./ListedApplicationCategoryButton";
 import { ListedApplicationButton } from "./ListedApplicationButton";
 
-export const ListedApplications = ({ onRunApp = () => null }) => {
+export const ListedApplications = ({ onRunApp = () => null, onContextMenu = () => null }) => {
 	const { applicationList } = useStartMenuStyle({});
 
 	const [applications] = useApplications();
@@ -21,7 +21,9 @@ export const ListedApplications = ({ onRunApp = () => null }) => {
 
 				{applications
 					.filter(v => v.title.substring(0, 1).toLowerCase() === letter)
-					.map((a, i) => (<ListedApplicationButton {...a} key={i} onRun={onRunApp} />))}
+					.map((a, i) => (<ListedApplicationButton {...a} key={i}
+					                                         onRun={onRunApp}
+					                                         onContextMenu={onContextMenu} />))}
 			</Fragment>))}
 	</div>);
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { OsDesktop } from "../OsDesktop/OsDesktop";
 import { TaskBar } from "../TaskBar/TaskBar";
 import { ContextualMenu } from "../ContextualMenu/ContextualMenu";
@@ -6,7 +6,7 @@ import { useRegisterContextualMenu } from "../../hooks/contextual-menu";
 import { ContextualMenuWindowContent } from './subcomponents';
 import {
     useApplicationsInstances,
-    useControlApplication,
+    useControlApplication, usePinApplications,
     useTaskbarPinApplications
 } from "../../hooks/applications";
 import { useRegisterApps } from "../../hooks/app-registration";
@@ -24,6 +24,11 @@ export const App = () => {
 
     const taskbarPinApps = useTaskbarPinApplications();
     const appsInstances = useApplicationsInstances();
+    const [pinApplications] = usePinApplications();
+
+    useEffect(() => {
+        setShowedContextMenuId('');
+    }, [pinApplications]);
 
     // enregistrement des menus contextuels
     useRegisterContextualMenu('window', ContextualMenuWindowContent);
@@ -61,7 +66,8 @@ export const App = () => {
             <TaskBar pinApps={taskbarPinApps}
                      runningApps={appsInstances}
                      onOpenApp={run}
-                     onCloseApp={stop} />
+                     onCloseApp={stop}
+                     onContextMenu={handleContextMenu} />
         </OsDesktop>
     </div>);
 };
