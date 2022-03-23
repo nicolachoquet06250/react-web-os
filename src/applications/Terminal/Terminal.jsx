@@ -15,12 +15,7 @@ import { useDefaultPromptComponent, useLocation, useLocationControls } from "./h
  * @param {({ username: string, active: boolean, onResult: () => any }) => JSX.Element} customPrompt
  * @return {JSX.Element}
  */
-export const Terminal = ({
-	minimized,
-    root = '/ce-pc', username = 'demo',
-    onClose = () => null, onContextMenu = () => null,
-    onMinimize = () => null, onMaximize = () => null
-}) => {
+export const Terminal = ({ root = '/ce-pc', username = 'demo', onContextMenu = () => null, ...otherProps }) => {
 	const [active, setActive] = useState(true);
 	const [results, setResults] = useState([]);
 	const { terminal } = useTerminalStyle({});
@@ -39,13 +34,10 @@ export const Terminal = ({
 	                bodyBackground={'rgba(0, 0, 0, .5)'}
 	                headerBackground={'rgba(0, 0, 0, .5)'}
 	                headerColor={'wheat'}
-	                minimized={minimized}
-	                onClose={onClose}
 	                onContextMenu={handleContextMenu}
 					onActive={() => setActive(true)}
 					onUnactive={() => setActive(false)}
-					onMinimize={onMinimize}
-					onMaximize={onMaximize} >
+					{...otherProps} >
 		<div className={terminal}>
 			<div>
 				{results.map((r, i) => (<div key={i}>

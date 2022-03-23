@@ -6,11 +6,7 @@ import { useTouches } from "./hooks";
 import { useStyle } from "./style";
 import { CalculatriceTitle, CalculatriceContextMenu } from "./subcomponents";
 
-export const Calculatrice = ({
- minimized,
- onClose = () => null, onContextMenu = () => null,
- onMinimize = () => null, onMaximize = () => null
-}) => {
+export const Calculatrice = ({ onContextMenu = () => null, ...otherProps }) => {
 	const [calcul, setCalcul] = useState('0');
 	const [activated, setActivated] = useState(true);
 	const { touche: toucheStyle, touches: touchesStyle, calculatrice, ecran, toucheRow } = useStyle();
@@ -59,13 +55,11 @@ export const Calculatrice = ({
 	                minWidth={200} width={200}
 	                minHeight={300} height={300}
 	                resizable={false}
-	                title={<CalculatriceTitle />} minimized={minimized}
-	                onClose={onClose}
+	                title={<CalculatriceTitle />}
 	                onContextMenu={handleContextMenu}
 					onActive={() => setActivated(true)}
 					onUnactive={() => setActivated(false)}
-					onMinimize={onMinimize}
-					onMaximize={onMaximize}>
+					{...otherProps} >
 
 		<div className={calculatrice}>
 			<div className={ecran}> {calcul} </div>
