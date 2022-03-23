@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { useTaskBarStyle } from "../style";
 import { useRegisterPinApp } from "../../../hooks/applications";
 import { useRegisterContextualMenu } from "../../../hooks/contextual-menu";
