@@ -10,18 +10,18 @@ export const useWindowStyle = createUseStyles({
 		minWidth: minWidth + 'px',
 		minHeight: minHeight + 'px',
 
-		width: fullScreen ? false : width + 'px',
-		height: fullScreen ? false : height + 'px',
+		'&:not(.fullscreen)': {
+			width: width + 'px',
+			height: height + 'px',
+			borderRadius: '5px',
+		},
 
 		border: '1px solid black',
 		position: 'absolute',
 
-		top: (fullScreen ? 0 : positionY) + 'px',
-		left: (fullScreen ? 0 : positionX) + 'px',
-		right: fullScreen ? 0 : false,
-		bottom: fullScreen ? 0 : false,
+		top: positionY + 'px',
+		left: positionX + 'px',
 
-		borderRadius: fullScreen ? false : '5px',
 		overflow: 'hidden',
 
 		zIndex: active ? 1 : 0,
@@ -31,6 +31,16 @@ export const useWindowStyle = createUseStyles({
 
 		'&.min': {
 			transform: 'scale(0)'
+		},
+
+		'&.fullscreen': {
+			left: 0,
+			top: 0,
+			right: 0,
+			bottom: 0,
+			borderRadius: 0,
+			width: 'auto',
+			height: 'auto'
 		},
 
 		'& ~ .left-resizer': {

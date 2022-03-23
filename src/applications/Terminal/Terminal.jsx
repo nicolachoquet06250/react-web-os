@@ -46,7 +46,7 @@ export const Terminal = ({ root = '/ce-pc', username = 'demo', onContextMenu = (
 			</div>
 
 			{Prompt && (<Prompt username={username}
-						         active={active && !minimized}
+						         active={active && !otherProps.minimized}
 						         onResult={r =>
 							         setResults(r.length === 1 && r[0] === 'clear' ? [] : [...results, ...r])}/>)}
 		</div>
