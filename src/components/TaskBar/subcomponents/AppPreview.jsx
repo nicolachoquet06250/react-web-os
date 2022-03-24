@@ -1,6 +1,7 @@
 import React from "react";
 import { useTaskBarStyle } from "../style";
 import { maximizeRunningApplication as _maximizeRunningApplication } from "../../../hooks/applications";
+import { FaIcon, FaIconsType } from "../../FaIcon/FaIcon";
 
 export const AppPreview = ({
    show = false, instances = [],
@@ -22,7 +23,7 @@ export const AppPreview = ({
 			             style={{ '--icon': 'url(' + instance.icon + ')' }}>
 				<button className={'close-button'}
 				        onClick={() => onCloseApp(instance.title, instance.id)}>
-					
+					<FaIcon type={FaIconsType.SOLID} icon={'xmark'} />
 				</button>
 			</div>);
 		})}

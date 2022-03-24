@@ -20,7 +20,20 @@ export const keywords = [
 	'var',
 	'function',
 	'console',
-	'log'
+	'log',
+	'alert',
+	'error',
+	'warn',
+	'table',
+	'window',
+	'document',
+	'querySelector',
+	'querySelectorAll',
+	'innerHTML',
+	'innerText',
+	'classList',
+	'addEventListener',
+	'removeEventListener'
 ];
 
 export const generateWordClasses = (text, line, c, j) => {

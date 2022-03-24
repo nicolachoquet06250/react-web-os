@@ -9,8 +9,6 @@ import { SyntaxHighlight } from "../../components/SyntaxHighlight";
 export const VsCodeIcon = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/2048px-Visual_Studio_Code_1.35_icon.svg.png';
 
 export const VsCode = ({ onContextMenu = () => null, ...otherProps }) => {
-	const handleContextMenu = createContextMenuHandler(e => onContextMenu('vs-code', e.clientX, e.clientY))
-
 	const [active, setActive] = useState(true);
 	const [width, setWidth] = useState('auto');
 	const [content, setContent] = useState('');
@@ -18,8 +16,8 @@ export const VsCode = ({ onContextMenu = () => null, ...otherProps }) => {
 
 	const { editor } = useVsCodeStyles({ maxWidth: width });
 
+	const handleContextMenu = createContextMenuHandler(e => onContextMenu('vs-code', e.clientX, e.clientY));
 	const handleResize = _width => setWidth(_width + 'px');
-
 	const handleKeyDown = useCallback(e => {
 		if (active) {
 			e.preventDefault();
@@ -30,14 +28,15 @@ export const VsCode = ({ onContextMenu = () => null, ...otherProps }) => {
 		}
 	}, [active]);
 
+	const onPlay = () => eval(content);
+
 	useEffect(() => {
 		document.addEventListener('keydown', handleKeyDown);
 
 		return () => document.removeEventListener('keydown', handleKeyDown);
 	}, [active]);
-
 	useEffect(() => {
-		if (['Shift', 'Control', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(selectedTouch) === -1) {
+		if (['Shift', 'Control', 'AltGraph', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(selectedTouch) === -1) {
 			if (selectedTouch === 'Backspace') {
 				setContent(content.substring(0, content.length - 1));
 			} else if (selectedTouch === 'Enter') {
@@ -47,7 +46,6 @@ export const VsCode = ({ onContextMenu = () => null, ...otherProps }) => {
 			}
 		}
 	}, [selectedTouch]);
-
 	useEffect(() => {
 		setContent(`const name = 'Nicolas';
 
@@ -62,7 +60,7 @@ sayHello(name);
 	return (<Window headerBackground={'rgb(0, 0, 0)'}
 	                headerColor={'white'}
 	                bodyBackground={'rgb(0, 0, 0)'}
-	                title={<VsCodeTitle />}
+	                title={<VsCodeTitle onPlay={onPlay} />}
 	                onContextMenu={handleContextMenu}
 	                onResize={handleResize}
 	                onActive={() => setActive(true)}
