@@ -59,7 +59,11 @@ export const useSyntaxHighlightStyles = createUseStyles({
 		},
 
 		'& > .variable': {
-			color: 'green'
+			color: 'green',
+
+			'&.error': {
+				color: 'red'
+			}
 		},
 
 		'& > .function-name': {

@@ -23,7 +23,7 @@ export const keywords = [
 	'log'
 ];
 
-export const generateWordClasses = (line, c, j) => {
+export const generateWordClasses = (text, line, c, j) => {
 	const classes = [];
 
 	if (symbols.includes(c)) classes.push('symbol');
@@ -39,6 +39,10 @@ export const generateWordClasses = (line, c, j) => {
 			classes.push('string');
 		} else {
 			classes.push('variable');
+
+			if (text.indexOf(`const ${c}`) === -1 && text.indexOf(`let ${c}`) === -1 && text.indexOf(`var ${c}`) === -1) {
+				classes.push('error');
+			}
 		}
 	}
 

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import './VsCode.css';
 import { Window } from "../../components/Window/Window";
 import { createContextMenuHandler } from "../../hooks/utils/handler";
@@ -13,19 +13,51 @@ export const VsCode = ({ onContextMenu = () => null, ...otherProps }) => {
 
 	const [active, setActive] = useState(true);
 	const [width, setWidth] = useState('auto');
+	const [content, setContent] = useState('');
+	const [selectedTouch, setSelectedTouch] = useState('');
 
 	const { editor } = useVsCodeStyles({ maxWidth: width });
 
 	const handleResize = _width => setWidth(_width + 'px');
 
-	const js = `const name = 'Nicolas';
+	const handleKeyDown = useCallback(e => {
+		if (active) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			setSelectedTouch('');
+			setSelectedTouch(e.key);
+		}
+	}, [active]);
+
+	useEffect(() => {
+		document.addEventListener('keydown', handleKeyDown);
+
+		return () => document.removeEventListener('keydown', handleKeyDown);
+	}, [active]);
+
+	useEffect(() => {
+		if (['Shift', 'Control', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(selectedTouch) === -1) {
+			if (selectedTouch === 'Backspace') {
+				setContent(content.substring(0, content.length - 1));
+			} else if (selectedTouch === 'Enter') {
+				setContent(content + '\n');
+			} else {
+				setContent(content + selectedTouch);
+			}
+		}
+	}, [selectedTouch]);
+
+	useEffect(() => {
+		setContent(`const name = 'Nicolas';
 
 function sayHello(name) {
   console.log('Hello ' + name);
 }
 
 sayHello(name);
-`;
+`);
+	}, []);
 
 	return (<Window headerBackground={'rgb(0, 0, 0)'}
 	                headerColor={'white'}
@@ -37,7 +69,7 @@ sayHello(name);
 	                onUnactive={() => setActive(false)}
 					{...otherProps}>
 		<div className={editor}>
-			<SyntaxHighlight value={js}
+			<SyntaxHighlight value={content}
 			                 linesNumbers={true}
 			                 cursor={active && Cursor} />
 		</div>

@@ -32,7 +32,7 @@ export const SyntaxHighlight = ({ value = '', language = LANGUAGES.JAVASCRIPT, l
 				      className={(styles[language] ?? '') + ' line ' + (linesNumbers ? 'show-line-number' : '')}>
 					{line.map((c, j) =>
 						(<span key={j}
-						       className={generateWordClasses(line, c, j)}>
+						       className={generateWordClasses(value, line, c, j)}>
 							{c === ' ' ? <pre> </pre> : c}
 						</span>))}
 
