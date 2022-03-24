@@ -165,3 +165,39 @@ export const useTree = () => {
 		}
 	];
 };
+
+/**
+ * @param {string} path
+ * @param {Array<{ title: string, textTitle?: string, path: string, children: Array<any> }>} tree
+ * @return {{ title: string, textTitle?: string, path: string, children: Array<any> }}
+ */
+export const findElementInTree = (path, tree) => {
+		const splitPath = path.substring((path[0] === '/' ? 1 : 0), path.length).split('/');
+
+		for (const e of tree) {
+			if (e.title === splitPath[0]) {
+				if (splitPath.length > 1 && e.children.length > 0) {
+					splitPath.shift();
+					return findElementInTree(splitPath.join('/'), e.children);
+				}
+
+				return e;
+			}
+		}
+	};
+
+export const getIntermediatePaths = path => {
+	const splitPath = path.split('/');
+
+	const tmp = [];
+
+	for (const e of splitPath) {
+		if (tmp.length === 0) {
+			tmp.push(e);
+		} else {
+			tmp.push(tmp[tmp.length - 1] + '/' + e);
+		}
+	}
+
+	return tmp;
+};

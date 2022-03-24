@@ -1,13 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Window } from "../../components/Window/Window";
 import { createContextMenuHandler } from "../../hooks/utils/handler";
-import { useTree } from "./hooks";
+import { findElementInTree, getIntermediatePaths, useTree } from "./hooks";
 import { useStyle } from "./style";
 import { Body, Breadcrumb, Footer, TreeMenu } from "./subcomponents";
 import { useRegisterContextualMenu } from "../../hooks/contextual-menu";
 import { FileExplorerContextMenu } from "./subcomponents/ContextualMenus";
 
-export const FileExplorer = ({ onContextMenu = () => null, ...otherProps }) => {
+/**
+ * @param {string|false} root
+ * @param {() => any} onContextMenu
+ * @param {any[]} otherProps
+ * @return {JSX.Element}
+ */
+export const FileExplorer = ({ root = false, onContextMenu = () => null, ...otherProps }) => {
 	const [nbChildren, setNbChildren] = useState(0);
 	const [openedDirectories, setOpenedDirectories] = useState([]);
 	const [selectedDirectory, setSelectedDirectory] = useState([]);
@@ -24,12 +30,10 @@ export const FileExplorer = ({ onContextMenu = () => null, ...otherProps }) => {
 	const fileTree = useTree();
 
 	useEffect(() => {
-		setNbChildren(fileTree[0].children.length);
-
-		const tmp = [];
-		for (const v of fileTree) tmp.push(v.path);
-		setOpenedDirectories(tmp);
-		setSelectedDirectory([fileTree[0].title]);
+		const element = findElementInTree((root || '/Ce PC'), fileTree);
+		setNbChildren(element.children.length);
+		setSelectedDirectory(element.path.split('/'));
+		setOpenedDirectories(getIntermediatePaths(element.path));
 	}, []);
 
 	const onSelectDirectory = useCallback((title, n) => {
