@@ -2,43 +2,11 @@
 import { createUseStyles } from "react-jss";
 
 export const useVsCodeStyles = createUseStyles({
-	editor: ({ maxWidth }) => ({
-		display: 'flex',
-		flexDirection: 'column',
-		justifyContent: 'flex-start',
-		alignItems: 'flex-start',
+	editor: {
 		height: '100%',
 		color: 'white',
-		counterReset: 'section',
-		cursor: 'text',
-
-		'& > div': {
-			width: '100%',
-			minHeight: '20px',
-			maxWidth,
-			display: 'flex',
-			flexDirection: 'row',
-
-			'& > div:first-child': {
-				marginLeft: '20px',
-				maxWidth: `calc(${maxWidth} - 20px)`,
-				whiteSpace: 'nowrap'
-			},
-
-			'&::before': {
-				position: 'absolute',
-				counterIncrement: 'section',
-				content: `counter(section)`,
-				display: 'block',
-				minWidth: '15px',
-				marginRight: '5px',
-				textAlign: 'center',
-				backgroundColor: 'transparent',
-				borderRight: '1px solid wheat',
-				color: 'wheat'
-			}
-		}
-	}),
+		cursor: 'text'
+	},
 
 	cursor: {
 		display: 'inline-block',
