@@ -1,6 +1,7 @@
 import React from "react";
 import { useSyntaxHighlightStyles } from "./style";
 import { generateWordClasses, LANGUAGES, symbols } from "./helpers";
+import PropTypes from "prop-types";
 
 const analyse = (code, symbols) => code.split(['\n'])
 	.map(c => c.split('')
@@ -55,4 +56,17 @@ export const SyntaxHighlight = ({
 	                    lineNumbers={linesNumbers}
 	                    cursor={cursor}
 						originalText={value}/>);
+};
+
+SyntaxHighlight.propTypes = {
+	value: PropTypes.string,
+	language: PropTypes.string,
+	linesNumbers: PropTypes.bool,
+	cursor: PropTypes.func
+};
+
+SyntaxHighlight.defaultProps = {
+	language: LANGUAGES.JAVASCRIPT,
+	linesNumbers: false,
+	cursor: false
 };

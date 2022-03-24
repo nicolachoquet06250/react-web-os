@@ -1,5 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react";
-import './VsCode.css';
+import React, { useCallback, useEffect, useState } from "react";
 import { Window } from "../../components/Window/Window";
 import { createContextMenuHandler } from "../../hooks/utils/handler";
 import { useVsCodeStyles } from "./style";

@@ -18,6 +18,7 @@ export const keywords = [
 	'const',
 	'let',
 	'var',
+	'return',
 	'function',
 	'console',
 	'log',
@@ -43,7 +44,13 @@ export const generateWordClasses = (text, line, c, j) => {
 
 	if (keywords.includes(c)) classes.push('keyword');
 
-	if (line[j + 1] === '(' && !keywords.includes(c)) classes.push('function-name');
+	if (line[j + 1] === '(' && !keywords.includes(c)) {
+		classes.push('function-name');
+
+		if (text.indexOf(`function ${c}`) === -1 && text.indexOf(`const ${c} = (`) === -1) {
+			classes.push('error');
+		}
+	}
 
 	if (!keywords.includes(c) && !symbols.includes(c) && line[j + 1] !== '(') {
 		if (

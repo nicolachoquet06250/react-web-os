@@ -1,4 +1,5 @@
 import React from "react";
+import './Cursor.css';
 import { useVsCodeStyles } from "../style";
 
 export const Cursor = () => {
