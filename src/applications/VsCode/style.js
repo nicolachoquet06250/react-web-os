@@ -26,15 +26,16 @@ export const useVsCodeStyles = createUseStyles({
 			},
 
 			'&::before': {
-				position: 'fixed',
+				position: 'absolute',
 				counterIncrement: 'section',
 				content: `counter(section)`,
 				display: 'block',
 				minWidth: '15px',
 				marginRight: '5px',
 				textAlign: 'center',
-				backgroundColor: 'darkgray',
-				color: 'black'
+				backgroundColor: 'transparent',
+				borderRight: '1px solid wheat',
+				color: 'wheat'
 			}
 		}
 	}),
