@@ -3,7 +3,7 @@ import './VsCode.css';
 import { Window } from "../../components/Window/Window";
 import { createContextMenuHandler } from "../../hooks/utils/handler";
 import { useVsCodeStyles } from "./style";
-import { VsCodeTitle } from "./subcomponents";
+import { VsCodeTitle, Cursor } from "./subcomponents";
 import { SyntaxHighlight } from "../../components/SyntaxHighlight";
 
 export const VsCodeIcon = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/2048px-Visual_Studio_Code_1.35_icon.svg.png';
@@ -14,7 +14,9 @@ export const VsCode = ({ onContextMenu = () => null, ...otherProps }) => {
 	const [active, setActive] = useState(true);
 	const [width, setWidth] = useState('auto');
 
-	const { editor, cursor, afterCursor } = useVsCodeStyles({ maxWidth: width });
+	const { editor } = useVsCodeStyles({ maxWidth: width });
+
+	const handleResize = _width => setWidth(_width + 'px');
 
 	const js = `const name = 'Nicolas';
 
@@ -30,16 +32,14 @@ sayHello(name);
 	                bodyBackground={'rgb(0, 0, 0)'}
 	                title={<VsCodeTitle />}
 	                onContextMenu={handleContextMenu}
-	                onResize={(_width) => setWidth(_width + 'px')}
+	                onResize={handleResize}
 	                onActive={() => setActive(true)}
 	                onUnactive={() => setActive(false)}
 					{...otherProps}>
 		<div className={editor}>
-			<SyntaxHighlight value={js} linesNumbers={true} cursor={() => (<>
-				<div className={cursor}/>
-
-				<div className={afterCursor} />
-			</>)} />
+			<SyntaxHighlight value={js}
+			                 linesNumbers={true}
+			                 cursor={active && Cursor} />
 		</div>
 	</Window>);
 };
