@@ -1,0 +1,13 @@
+@keyframes VsCodeCursorAnimation {
+    0% {
+        background: rgba(255, 255, 255, 1)
+    }
+
+    50% {
+        background: rgba(255, 255, 255, .5)
+    }
+
+    100% {
+        background: rgba(255, 255, 255, 0)
+    }
+}

@@ -19,6 +19,7 @@ export const Window = ({
 	onContextMenu = () => null,
 	onActive = () => null,
 	onUnactive = () => null,
+	onResize = () => null,
 	onMinimize = () => null,
 	onMaximize = () => null
 }) => {
@@ -102,6 +103,8 @@ export const Window = ({
 
 		setHeight(height);
 		setTmpHeight(height);
+
+		onResize(width, height);
 	}, []);
 
 	// synchronisation des states par rapport aux changements externes
@@ -117,6 +120,13 @@ export const Window = ({
 	useEffect(() => {
 		setWidth(width);
 	}, [width]);
+
+	useEffect(() => {
+		onResize(
+			resizing ? tmpWidth : currentWidth,
+			resizing ? tmpHeight : currentHeight
+		);
+	}, [currentHeight, tmpHeight, currentWidth, tmpWidth]);
 
 	// evenement sur l'état de la fenêtre
 	useEffect(() => {
