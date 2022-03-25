@@ -59,19 +59,21 @@ export const DragAndDropUploader = ({
 		});
 	}, [style]);
 
-	return show &&
-		(<div style={style}
-             onDragEnter={handleDrag}
-             onDragOver={handleDrag}
-             onDrop={handleDrop}
-             onDragLeave={onHide}>
-			{imagesPreview && (<>
-				{imagesPreview.map((imagePreview, i) =>
-					(<img key={i} src={imagePreview}
-					      alt={'preview'}
-					      style={{ maxHeight: '200px' }} />))}
-			</>)}
+	return (<>
+		{show &&
+			(<div style={style}
+			      onDragEnter={handleDrag}
+			      onDragOver={handleDrag}
+			      onDrop={handleDrop}
+			      onDragLeave={onHide}>
+				{imagesPreview && (<>
+					{imagesPreview.map((imagePreview, i) =>
+						(<img key={i} src={imagePreview}
+						      alt={'preview'}
+						      style={{maxHeight: '200px'}}/>))}
+				</>)}
+			</div>)}
 
-			{children}
-		</div>);
+		{children}
+	</>);
 };
