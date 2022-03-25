@@ -12,7 +12,8 @@ export const symbols = [
 	' ', '?',
 	'!', '+',
 	'-', '*',
-	'/', '.'
+	'/', '.',
+	'=>'
 ];
 export const keywords = [
 	'const',
