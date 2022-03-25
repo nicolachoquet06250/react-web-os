@@ -25,8 +25,7 @@ export const DragAndDropUploader = ({
 		setStyle({
 			width, height,
 			position: 'absolute',
-			top: y, left: x,
-			backgroundColor: 'red'
+			top: y, left: x
 		});
 
 		document.addEventListener('dragenter', onShow);
@@ -37,7 +36,6 @@ export const DragAndDropUploader = ({
 	const handleDrop = useCallback(e => {
 		preventDefaults(e);
 
-		setStyle({ ...style, backgroundColor: 'red' });
 		const files = Array.from(e.dataTransfer.files);
 
 		Promise.all(files.map(file => new Promise(resolve => {
