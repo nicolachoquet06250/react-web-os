@@ -9,7 +9,7 @@ export const useLocation = createRxJsUseGetter(defaultLocation, currentLocation$
 
 export const useLocationControls = () => {
 	const [_, resetCurrentLocation] = useLocation();
-	const tree = useTree();
+	const [tree] = useTree();
 
 	return {
 		set(newLocation) {

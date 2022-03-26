@@ -6,33 +6,28 @@ const preventDefaults = e => {
 };
 
 export const DragAndDropUploader = ({
+	id,
     children,
-    width, height,
-    x, y,
+    width = '100%', height = '100%',
+    x = 0, y = 0,
 	showBackground = {},
 	show = false,
-    directory,
+	showPreview = false,
 	onShow = () => null,
-    onHide = () => null
+    onHide = () => null,
+	onUpload = () => null
 }) => {
 	const [style, setStyle] = useState({});
 	const [imagesPreview, setImagesPreview] = useState([]);
 
-	/**
-	 * @type {React.MutableRefObject<HTMLDivElement>}
-	 */
-	useEffect(() => {
+	const handleDrag = useCallback(e => {
+		preventDefaults(e);
+
 		setStyle({
-			width, height,
-			position: 'absolute',
-			top: y, left: x
+			...style,
+			...(Object.keys(showBackground).length > 0 ? showBackground : { backgroundColor: 'purple' }),
 		});
-
-		document.addEventListener('dragenter', onShow);
-
-		return () => document.removeEventListener('dragenter', onShow);
-	}, []);
-
+	}, [style]);
 	const handleDrop = useCallback(e => {
 		preventDefaults(e);
 
@@ -45,32 +40,69 @@ export const DragAndDropUploader = ({
 		})))
 			.then(_files => {
 				setImagesPreview(_files);
-				// onHide(files, _files);
+				onUpload(files, _files);
+				document.dispatchEvent(new CustomEvent('hide-all-drag-zone', {
+					detail: { id }
+				}));
 			});
 	}, [imagesPreview, style]);
-	const handleDrag = useCallback(e => {
+	const handleDragLeave = e => {
 		preventDefaults(e);
-		setStyle({
-			...style,
-			...(Object.keys(showBackground).length > 0 ? showBackground : { backgroundColor: 'purple' }),
+		onHide();
+	};
+	const handleHideAllDragZone = e => {
+		if (e.detail.id !== id) {
+			onHide();
+		}
+	};
 
+	/**
+	 * @type {React.MutableRefObject<HTMLDivElement>}
+	 */
+	useEffect(() => {
+		setStyle({
+			width, height,
+			position: 'absolute',
+			top: y, left: x,
+			zIndex: 1
 		});
-	}, [style]);
+
+		document.addEventListener('dragenter', onShow);
+		document.addEventListener('hide-all-drag-zone', handleHideAllDragZone);
+
+		return () => {
+			document.removeEventListener('dragenter', onShow);
+			document.removeEventListener('hide-all-drag-zone', handleHideAllDragZone);
+		}
+	}, []);
+
+	useEffect(() => {
+		console.log(show);
+
+		setStyle({
+			width, height,
+			position: 'absolute',
+			top: y, left: x,
+			zIndex: 1,
+			display: show ? 'block' : 'none'
+		});
+	}, [show]);
 
 	return (<>
-		{show &&
-			(<div style={style}
-			      onDragEnter={handleDrag}
-			      onDragOver={handleDrag}
-			      onDrop={handleDrop}
-			      onDragLeave={onHide}>
-				{imagesPreview && (<>
-					{imagesPreview.map((imagePreview, i) =>
-						(<img key={i} src={imagePreview}
-						      alt={'preview'}
-						      style={{maxHeight: '200px'}}/>))}
-				</>)}
-			</div>)}
+		<div style={style}
+		      onDragEnter={handleDrag}
+		      onDragEnterCapture={handleDrag}
+		      onDragOver={handleDrag}
+		      onDrop={handleDrop}
+		      onDragLeave={handleDragLeave}
+		      onDragLeaveCapture={handleDragLeave}>
+			{showPreview && imagesPreview && (<>
+				{imagesPreview.map((imagePreview, i) =>
+					(<img key={i} src={imagePreview}
+					      alt={'preview'}
+					      style={{maxHeight: '200px'}}/>))}
+			</>)}
+		</div>
 
 		{children}
 	</>);

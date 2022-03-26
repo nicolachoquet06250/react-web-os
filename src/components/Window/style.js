@@ -5,7 +5,7 @@ export const useWindowStyle = createUseStyles({
       minWidth = 0, minHeight = 0,
       width = 0, height = 0,
       positionX = 0, positionY = 0,
-      fullScreen = false, active
+      active
 	}) => ({
 		minWidth: minWidth + 'px',
 		minHeight: minHeight + 'px',
@@ -24,7 +24,7 @@ export const useWindowStyle = createUseStyles({
 
 		overflow: 'hidden',
 
-		zIndex: active ? 1 : 0,
+		zIndex: active ? 2 : 1,
 
 		transform: 'scale(1)',
 		transition: 'transform .5s ease-out',
@@ -162,6 +162,7 @@ export const useWindowStyle = createUseStyles({
 	}),
 
 	windowBodyStyle: ({ background, disableTextSelect }) => ({
+		position: 'relative',
 		height: 'calc(100% - 20px)',
 		overflow: 'auto',
 		backgroundColor: background,

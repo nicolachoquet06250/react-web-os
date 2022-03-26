@@ -27,7 +27,7 @@ export const FileExplorer = ({ root = false, onContextMenu = () => null, ...othe
 	const handleTreeMenuItemContextMenu = createContextMenuHandler(e =>
 		onContextMenu('file-explorer-tree-menu-item', e.clientX, e.clientY));
 
-	const fileTree = useTree();
+	const [fileTree] = useTree();
 
 	useEffect(() => {
 		const element = findElementInTree((root || '/Ce PC'), fileTree);

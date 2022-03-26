@@ -11,7 +11,7 @@ export const FileExplorerContextMenu = () => (<div style={{ padding: '10px' }}>
 
 export const FileExplorerTreeMenuItemContextMenu = ({ onHide = () => null }) => {
 	const [selectedDirectory] = useContextMenuSelectedDirectory();
-	const tree = useTree();
+	const [tree] = useTree();
 	const { run } = useControlApplication();
 
 	const openInTerminal = () => {

@@ -3,7 +3,7 @@ import { useLocation, useLocationControls } from "./location";
 import { useDate, useMonthName } from "../../../hooks/utils/date";
 
 export const useCommandInterpreter = (state, setState) => {
-	const tree = useTree();
+	const [tree] = useTree();
 	const [currentLocation] = useLocation();
 	const { set: setLocation, exists } = useLocationControls();
 	const currentMonthName = useMonthName();

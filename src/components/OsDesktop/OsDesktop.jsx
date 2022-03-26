@@ -10,7 +10,7 @@ import { DragAndDropUploader } from "../DragAndDropUploader/DragAndDropUploader"
 
 export const OsDesktop = ({ children, background, onContextMenu = () => null, ...events }) => {
 	const { osDesktop, desktopGrid } = useOsDesktopStyle({ background });
-	const tree = useTree();
+	const [tree] = useTree();
 	const { run } = useControlApplication();
 	const [showUploader, setShowUploader] = useState(false);
 
@@ -23,27 +23,24 @@ export const OsDesktop = ({ children, background, onContextMenu = () => null, ..
 
 	return (<div className={osDesktop} {...events}
 	             onContextMenu={handleDesktopContextMenu}>
-		<div className={desktopGrid}>
-			{findElementInTree('/Ce PC/Bureau', tree).children.map(((v, i) =>
-				(<button key={i} onDoubleClick={() => run('Explorateur de fichiers', {
-					root: v.path
-				})}>
-					<span>
-						<FaIcon type={FaIconsType.SOLID} icon={'folder'} />
-					</span>
-
-					<span> {v.title} </span>
-				</button>)))}
-		</div>
-
-		<DragAndDropUploader width={'100%'} height={'100%'}
-		                     x={0} y={0}
-		                     show={showUploader}
-		                     showBackground={{
-								 backgroundColor: 'rgba(0, 0, 0, .5)'
-		                     }}
+		<DragAndDropUploader id={'desktop'} show={showUploader}
+		                     showPreview={true}
+		                     showBackground={{ backgroundColor: 'rgba(0, 0, 0, .5)' }}
 		                     onShow={() => setShowUploader(true)}
-		                     onHide={() => setShowUploader(false)} />
+		                     onHide={() => setShowUploader(false)}>
+			<div className={desktopGrid}>
+					{findElementInTree('/Ce PC/Bureau', tree).children.map(((v, i) =>
+						(<button key={i} onDoubleClick={() => run('Explorateur de fichiers', {
+							root: v.path
+						})}>
+							<span>
+								<FaIcon type={FaIconsType.SOLID} icon={'folder'} />
+							</span>
+
+							<span> {v.title} </span>
+						</button>)))}
+			</div>
+		</DragAndDropUploader>
 
 		{children}
 	</div>);

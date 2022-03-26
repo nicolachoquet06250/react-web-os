@@ -118,6 +118,7 @@ export const useStyle = createUseStyles({
 	}),
 
 	appBody: {
+		position: 'relative',
 		flex: 1,
 		padding: '5px',
 		color: 'wheat',
