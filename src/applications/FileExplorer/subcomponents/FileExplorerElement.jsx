@@ -4,27 +4,50 @@ import { removeDirectory } from "../hooks";
 import { useClickAway, useKey } from "react-use";
 import { directoryIcon } from "./TreeMenu";
 
+/**
+ * @param {'directory'|'file'} type
+ * @param {string} title
+ * @param {string} path
+ * @param {number|null} size
+ * @param {string|null} content
+ * @param {string|null} mime
+ * @param {boolean} editable
+ * @param {() => any} onSelect
+ * @param {() => any} onCancel
+ * @param {() => any} onValid
+ * @return {JSX.Element}
+ */
 export const FileExplorerElement = ({
-	                                    title,
-	                                    path,
-	                                    editable = false,
-	                                    onSelect = () => null,
-	                                    onCancel = () => null,
-	                                    onValid = () => null
-                                    }) => {
+	type = 'directory',
+    title,
+    path,
+	size = null,
+	content = null,
+	mime = null,
+    editable = false,
+    onSelect = () => null,
+    onCancel = () => null,
+    onValid = () => null
+}) => {
 	const { appBodyButton } = useStyle({});
 	const [tmpTitle, setTmpTitle] = useState(title);
 
 	const ref = useRef();
+
+	const images = ['image/png'];
+	const imageMiniatureStyle = {
+		maxHeight: '50px',
+		width: 'auto'
+	};
 
 	const handleDelete = e => {
 		if (e.target.tagName.toLowerCase() === 'button') {
 			e.preventDefault();
 			e.stopPropagation();
 
-			console.log(`/${path}/${e.target.getAttribute('data-title')}`);
+			console.log(`${path}/${e.target.getAttribute('data-title')}`);
 
-			removeDirectory(`/${path}/${e.target.getAttribute('data-title')}`);
+			removeDirectory(`${path}/${e.target.getAttribute('data-title')}`);
 		}
 	};
 
@@ -50,16 +73,15 @@ export const FileExplorerElement = ({
 	                title={title}
 	                data-title={tmpTitle}
 	                onDoubleClick={onSelect}>
-		<img src={directoryIcon} alt={'directory'} />
+		{type === 'directory' && (<img src={directoryIcon} alt={'directory'}/>)}
+		{type === 'file' && images.indexOf(mime) !== -1 && (<img src={content} alt={title} style={imageMiniatureStyle} />)}
 
 		{!editable && (<span> {title} </span>)}
 		{editable && (<input type={'text'}
 		                     defaultValue={title}
 		                     placeholder={'new directory'}
 		                     autoFocus={true}
-		                     onInput={e => {
-			                     setTmpTitle(e.target.value);
-		                     }}
+		                     onInput={e => setTmpTitle(e.target.value)}
 		                     style={{
 			                     maxWidth: '80px',
 			                     backgroundColor: 'transparent',

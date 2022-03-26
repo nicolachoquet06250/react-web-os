@@ -1,6 +1,6 @@
 import { useStyle } from "../style";
-import { createDirectory, useTree } from "../hooks";
-import React, { useEffect, useState } from "react";
+import { createDirectory, addImageToDirectory, useTree } from "../hooks";
+import React, { Fragment, useEffect, useState } from "react";
 import { DragAndDropUploader } from "../../../components/DragAndDropUploader/DragAndDropUploader";
 import { useRegisterContextualMenu } from "../../../hooks/contextual-menu";
 import { ContextualMenuDesktopContent } from "../../../components/OsDesktop/subcomponents";
@@ -38,15 +38,36 @@ export const Body = ({ selectedDirectory = [], onSelectDirectory = () => null, o
 
 	return (<div className={appBody} onContextMenu={handleContextMenu}>
 		<DragAndDropUploader id={'body'} show={showUploader}
-		                     showPreview={true}
+		                     showPreview={false}
+		                     showBackground={{ backgroundColor: 'rgba(0, 0, 0, .5)' }}
 		                     onShow={() => setShowUploader(true)}
 		                     onHide={() => setShowUploader(false)}
-		                     showBackground={{ backgroundColor: 'rgba(0, 0, 0, .5)' }}>
+		                     onUpload={(files, b64Files) => {
+			                     setShowUploader(false);
+								 files.filter(f => f.type === 'image/png').map((f, i) =>
+									 addImageToDirectory(
+										 '/' + selectedDirectory.join('/'),
+										 f.name,
+										 b64Files[i],
+										 f.type,
+										 f.size
+									 )
+								 )
+		                     }}>
 			{_children.map((c, i) =>
-				(<FileExplorerElement key={c.path.replace('/', '-') + '-' + i}
-				                      title={c.title}
-				                      path={selectedDirectory.join('/')}
-				                      onSelect={() => onSelectDirectory(c.path)} />))}
+				(<Fragment key={c.path.replace('/', '-') + '-' + i}>
+					{c.type === 'directory' && (<FileExplorerElement type={c.type}
+					                                                 title={c.title}
+					                                                 path={'/' + selectedDirectory.join('/')}
+					                                                 onSelect={() => onSelectDirectory(c.path)} />)}
+					{c.type === 'file' && (<FileExplorerElement type={c.type}
+				                                                title={c.title}
+				                                                path={'/' + selectedDirectory.join('/')}
+					                                            mime={c.mime}
+					                                            size={c.size}
+					                                            content={c.content}
+				                                                onSelect={() => onSelectDirectory(c.path)} />)}
+				</Fragment>))}
 			{newDirectory && (<FileExplorerElement editable={true}
 			                                       title={newDirectoryTitle}
 			                                       path={'/' + selectedDirectory.join('/')}

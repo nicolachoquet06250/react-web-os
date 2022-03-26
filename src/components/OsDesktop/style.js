@@ -13,12 +13,11 @@ export const useOsDesktopStyle = createUseStyles({
 
 	desktopGrid: {
 		height: 'calc(100% - 25px)',
-		width: '100%',
-		display: 'flex',
+		display: 'inline-flex',
 		flexDirection: 'column',
 		justifyContent: 'flex-start',
 		alignItems: 'flex-start',
-		flexWrap: 'nowrap',
+		flexWrap: 'wrap',
 		padding: '5px',
 
 		'& > button': {
@@ -29,6 +28,7 @@ export const useOsDesktopStyle = createUseStyles({
 			cursor: 'pointer',
 			transition: 'background-color .2s ease-out',
 			borderRadius: '5px',
+			margin: '5px',
 
 			'&:active, &:focus': {
 				backgroundColor: 'blue'

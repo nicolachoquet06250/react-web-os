@@ -4,8 +4,6 @@ import { createContextMenuHandler } from "../../hooks/utils/handler";
 import { findElementInTree, getIntermediatePaths, useTree } from "./hooks";
 import { useStyle } from "./style";
 import { Body, Breadcrumb, Footer, TreeMenu } from "./subcomponents";
-import { useRegisterContextualMenu } from "../../hooks/contextual-menu";
-import { FileExplorerContextMenu } from "./subcomponents/ContextualMenus";
 
 /**
  * @param {string|false} root
@@ -18,8 +16,6 @@ export const FileExplorer = ({ root = false, onContextMenu = () => null, ...othe
 	const [openedDirectories, setOpenedDirectories] = useState([]);
 	const [selectedDirectory, setSelectedDirectory] = useState([]);
 	const { appContainer, appBodyContainer } = useStyle({});
-
-	// useRegisterContextualMenu('file-explorer', FileExplorerContextMenu);
 
 	const handleContextMenu = createContextMenuHandler(e =>
 		onContextMenu('file-explorer', e.clientX, e.clientY));

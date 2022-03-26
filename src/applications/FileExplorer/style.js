@@ -126,7 +126,8 @@ export const useStyle = createUseStyles({
 		flexDirection: 'row',
 		justifyContent: 'flex-start',
 		alignItems: 'flex-start',
-		flexWrap: 'wrap'
+		flexWrap: 'wrap',
+		overflow: 'auto'
 	},
 
 	appBodyButton: {
@@ -136,11 +137,13 @@ export const useStyle = createUseStyles({
 		justifyContent: 'center',
 		alignItems: 'center',
 		padding: '5px',
+		margin: '5px',
 		background: 'transparent',
 		color: 'wheat',
 		border: 'none',
 		cursor: 'pointer',
 		borderRadius: '5px',
+		overflow: 'hidden',
 
 		'&:active, &:focus': {
 			backgroundColor: 'darkblue'
