@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useOsDesktopStyle } from "./style";
 import { useRegisterContextualMenu } from "../../hooks/contextual-menu";
-import { ContextualMenuDesktopContent } from "./subcomponents";
-import { findElementInTree, useTree } from "../../applications/FileExplorer/hooks";
-import { FaIcon, FaIconsType } from "../FaIcon/FaIcon";
+import { ContextualMenuDesktopContent, DesktopElement } from "./subcomponents";
+import { createDirectory, findElementInTree, removeDirectory, useTree } from "../../applications/FileExplorer/hooks";
 import { useControlApplication } from "../../hooks/applications";
 import { DragAndDropUploader } from "../DragAndDropUploader/DragAndDropUploader";
 
@@ -13,13 +12,27 @@ export const OsDesktop = ({ children, background, onContextMenu = () => null, ..
 	const [tree] = useTree();
 	const { run } = useControlApplication();
 	const [showUploader, setShowUploader] = useState(false);
+	const [newDirectory, setNewDirectory] = useState(false);
+	const [newDirectoryTitle, setNewDirectoryTitle] = useState('new Directory');
 
-	useRegisterContextualMenu('desktop', ContextualMenuDesktopContent);
+	useRegisterContextualMenu('desktop', ({ ...props }) =>
+		(<ContextualMenuDesktopContent
+			onNewDirectory={() => setNewDirectory(true)}
+			{...props}
+		/>));
 
 	const handleDesktopContextMenu = e => {
 		e.preventDefault();
 		onContextMenu('desktop', e.clientX, e.clientY);
 	};
+	const handleRunApp = path => run('Explorateur de fichiers', {root: path});
+
+	const resetNewDirectory = () => {
+		setNewDirectory(false);
+		setNewDirectoryTitle('new directory');
+	};
+
+	const desktopElement = findElementInTree('/Ce PC/Bureau', tree) ?? { children: [] };
 
 	return (<div className={osDesktop} {...events}
 	             onContextMenu={handleDesktopContextMenu}>
@@ -29,16 +42,17 @@ export const OsDesktop = ({ children, background, onContextMenu = () => null, ..
 		                     onShow={() => setShowUploader(true)}
 		                     onHide={() => setShowUploader(false)}>
 			<div className={desktopGrid}>
-					{findElementInTree('/Ce PC/Bureau', tree).children.map(((v, i) =>
-						(<button key={i} onDoubleClick={() => run('Explorateur de fichiers', {
-							root: v.path
-						})}>
-							<span>
-								<FaIcon type={FaIconsType.SOLID} icon={'folder'} />
-							</span>
-
-							<span> {v.title} </span>
-						</button>)))}
+				{desktopElement.children.map(((v, i) =>
+					(<DesktopElement key={i}
+					                 title={v.title}
+					                 onRun={() => handleRunApp(v.path)} />)))}
+				{newDirectory && (<DesktopElement title={newDirectoryTitle}
+				                                  editable={true}
+												  onCancel={resetNewDirectory}
+												  onValid={v => {
+													  createDirectory(`/Ce PC/Bureau/${v}`);
+													  resetNewDirectory();
+												  }} />)}
 			</div>
 		</DragAndDropUploader>
 

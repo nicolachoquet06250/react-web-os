@@ -13,8 +13,6 @@ export const StartMenu = ({ opened = false, onClickOutside = () => null, onConte
 
 	const startMenuPinApps = pinApps.filter(v => v.options.startMenu);
 
-	//useEffect(() => console.log(startMenuPinApps), [pinApps]);
-
 	const startMenuRef = useRef();
 
 	useClickAway(startMenuRef, (e) => {

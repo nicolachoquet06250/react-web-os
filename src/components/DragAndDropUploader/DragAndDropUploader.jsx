@@ -75,10 +75,7 @@ export const DragAndDropUploader = ({
 			document.removeEventListener('hide-all-drag-zone', handleHideAllDragZone);
 		}
 	}, []);
-
 	useEffect(() => {
-		console.log(show);
-
 		setStyle({
 			width, height,
 			position: 'absolute',

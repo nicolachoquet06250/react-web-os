@@ -31,10 +31,10 @@ export const FileExplorer = ({ root = false, onContextMenu = () => null, ...othe
 
 	useEffect(() => {
 		const element = findElementInTree((root || '/Ce PC'), fileTree);
-		setNbChildren(element.children.length);
-		setSelectedDirectory(element.path.split('/'));
-		setOpenedDirectories(getIntermediatePaths(element.path));
-	}, []);
+		setNbChildren(element?.children.length ?? 0);
+		setSelectedDirectory(element?.path.split('/') ?? ['Ce PC']);
+		setOpenedDirectories(getIntermediatePaths(element?.path ?? 'Ce PC'));
+	}, [fileTree]);
 
 	const onSelectDirectory = useCallback((title, n) => {
 		setNbChildren(n);

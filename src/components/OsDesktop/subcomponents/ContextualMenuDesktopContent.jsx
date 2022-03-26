@@ -13,11 +13,14 @@ const useContextMenuStyle = createUseStyles({
 	}
 });
 
-export const ContextualMenuDesktopContent = ({ onHide = () => null }) => {
+export const ContextualMenuDesktopContent = ({ onHide = () => null, onNewDirectory = () => null }) => {
 	const { button } = useContextMenuStyle();
 
 	return (<div style={{ padding: '10px' }}>
-		<button className={button}>
+		<button className={button} onClick={() => {
+			onNewDirectory();
+			onHide();
+		}}>
 			Créer un nouveau répertoire
 		</button>
 

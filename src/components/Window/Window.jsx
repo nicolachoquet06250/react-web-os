@@ -135,11 +135,6 @@ export const Window = ({
 
 	const Header = windowHeader ?? WindowHeader;
 
-	/*useEffect(() => {
-		console.log((resizing && side === 'left'), moving, tmpPositionX, _positionX, ((resizing && side === 'left') || moving ? tmpPositionX : _positionX));
-		console.log((resizing && side === 'top'), moving, tmpPositionY, _positionY, ((resizing && side === 'top') || moving ? tmpPositionY : _positionY));
-	}, [resizing, moving, side, tmpPositionX, tmpPositionY, _positionX, _positionY])*/
-
 	const { windowStyle, windowBodyStyle } = useWindowStyle({
 		minWidth, minHeight,
 		width: (resizing ? tmpWidth : currentWidth),
