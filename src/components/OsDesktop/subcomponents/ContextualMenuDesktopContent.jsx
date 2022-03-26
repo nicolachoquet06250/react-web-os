@@ -24,8 +24,8 @@ export const ContextualMenuDesktopContent = ({ onHide = () => null, onNewDirecto
 			Créer un nouveau répertoire
 		</button>
 
-		<button className={button}>
+		{/*<button className={button}>
 			Créer un nouveau fichier
-		</button>
+		</button>*/}
 	</div>);
 }

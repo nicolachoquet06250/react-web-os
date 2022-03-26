@@ -7,7 +7,6 @@ export const DesktopElement = ({
     title,
     editable = false,
     onRun = () => null,
-    onChange = () => null,
     onCancel = () => null,
     onValid = () => null
 }) => {
@@ -54,7 +53,6 @@ export const DesktopElement = ({
 		                     placeholder={'new directory'}
 		                     autoFocus={true}
 		                     onInput={e => {
-			                     onChange(e.target.value);
 			                     setTmpTitle(e.target.value);
 		                     }}
 		                     style={{
