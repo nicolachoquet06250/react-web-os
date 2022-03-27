@@ -56,6 +56,10 @@ export const DesktopElement = ({
 		}
 	};
 
+	const handleDoubleClick = () => {
+		if (type === 'directory') onRun();
+	};
+
 	useKey('Escape', () => {
 		if (editable) onCancel();
 	});
@@ -76,7 +80,7 @@ export const DesktopElement = ({
 	return (<button ref={ref}
 	                title={tmpTitle}
 	                data-title={tmpTitle}
-	                onDoubleClick={onRun}
+	                onDoubleClick={handleDoubleClick}
 	                style={{ alignItems: (editable ? 'flex-start' : false), maxWidth: '70px' }}>
 
 		{type === 'directory' && (<span style={iconsStyle}>

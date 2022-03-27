@@ -59,6 +59,10 @@ export const FileExplorerElement = ({
 		}
 	};
 
+	const handleDoubleClick = () => {
+		if (type === 'directory') onSelect();
+	};
+
 	useKey('Escape', () => {
 		if (editable) onCancel();
 	});
@@ -80,7 +84,7 @@ export const FileExplorerElement = ({
 	                className={appBodyButton}
 	                title={title}
 	                data-title={tmpTitle}
-	                onDoubleClick={onSelect}>
+	                onDoubleClick={handleDoubleClick}>
 		{type === 'directory' && (<img src={directoryIcon} alt={'directory'} />)}
 		{type === 'file' && acceptedImageFormats.indexOf(mime) !== -1 && (() => {
 			if (['image/png', 'image/jpeg'].indexOf(mime) !== -1) {
