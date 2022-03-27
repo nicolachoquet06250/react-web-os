@@ -124,6 +124,7 @@ export const DesktopElement = ({
 				wordWrap: 'inherit',
 				whiteSpace: 'nowrap',
 				textOverflow: 'ellipsis',
+				color: 'white'
 			}}> {title} </span>)}
 			{editable && (<input type={'text'}
 			                     defaultValue={title}
