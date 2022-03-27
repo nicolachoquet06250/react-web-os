@@ -4,6 +4,7 @@ import { Calculatrice, CalculatriceIcon } from "../applications/Calculatrice/Cal
 import { VsCode, VsCodeIcon } from "../applications/VsCode/VsCode";
 import { FileExplorer, FileExplorerIcon } from "../applications/FileExplorer/FileExplorer";
 import { Terminal, TerminalIcon } from "../applications/Terminal/Terminal";
+import { BlocNote, BlocNoteIcon } from "../applications/BlocNote/BlocNote";
 
 export const useRegisterApps = () => {
 	const { register: registerCalculatrice } = useRegisterPinApp('Calculatrice');
@@ -32,6 +33,11 @@ export const useRegisterApps = () => {
 			TerminalIcon,
 			Terminal
 		);
+		useRegisterApplication(
+			'Bloc Note',
+			BlocNoteIcon,
+			BlocNote
+		)
 
 		// épinglage dans la bar des taches
 		registerCalculatrice({ taskBar: true });

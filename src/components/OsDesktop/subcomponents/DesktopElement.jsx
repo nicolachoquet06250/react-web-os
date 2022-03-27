@@ -3,6 +3,7 @@ import { removeDirectory } from "../../../applications/FileExplorer/hooks";
 import { useClickAway, useKey } from "react-use";
 import { FaIcon, FaIconsType } from "../../FaIcon/FaIcon";
 import { directoryIcon } from "../../../applications/FileExplorer/subcomponents";
+import { useControlApplication } from "../../../hooks/applications";
 
 /**
  * @param {'directory'|'file'} type
@@ -31,6 +32,8 @@ export const DesktopElement = ({
 }) => {
 	const [tmpTitle, setTmpTitle] = useState(title);
 
+	const { run } = useControlApplication();
+
 	const ref = useRef();
 
 	const imageMiniatureStyle = {
@@ -58,6 +61,11 @@ export const DesktopElement = ({
 
 	const handleDoubleClick = () => {
 		if (type === 'directory') onRun();
+		if (type === 'file' && ['text/plain'].indexOf(mime) !== -1) {
+			run('Bloc Note', {
+				filePath: `/Ce PC/Bureau/${title}`
+			});
+		}
 	};
 
 	useKey('Escape', () => {

@@ -364,6 +364,40 @@ export const addFileToDirectory = (directoryPath, name, content, mime, size) => 
 
 /**
  * @param {string} path
+ * @return {string}
+ */
+export const getDecodedFileContent = path => {
+	const getContent = (path, title, tree) => {
+		const splitPath = path.split('/');
+		if (splitPath[0] === '') splitPath.shift();
+
+		for (const e of tree) {
+			if (e.type === 'directory') {
+				splitPath.shift();
+				const r = getContent(splitPath.join('/'), title, e.children);
+				if (r) {
+					return r;
+				}
+			} else if (e.type === 'file' && e.title === title) {
+				return e.content;
+			}
+		}
+
+		return '';
+	};
+
+	const splitPath = path.split('/');
+	const title = splitPath.pop();
+
+	const content = getContent(splitPath.join('/'), title, tree$.getValue());
+
+	if (!content) return content;
+
+	return window.atob(content.replace('data:text/plain;base64,', ''));
+};
+
+/**
+ * @param {string} path
  * @param {Array<{ title: string, textTitle?: string, path: string, children: Array<any> }>} tree
  * @return {{ title: string, textTitle?: string, path: string, children: Array<any> }}
  */

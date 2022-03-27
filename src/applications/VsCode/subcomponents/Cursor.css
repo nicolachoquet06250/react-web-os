@@ -1,13 +1,24 @@
 @keyframes VsCodeCursorAnimation {
     0% {
-        background: rgba(255, 255, 255, 1)
+        /*background: rgba(255, 255, 255, 1)*/
+        opacity: 1;
+    }
+
+    25% {
+        opacity: .5;
     }
 
     50% {
-        background: rgba(255, 255, 255, .5)
+        /*background: rgba(255, 255, 255, .5)*/
+        opacity: 0;
+    }
+
+    75% {
+        opacity: .5;
     }
 
     100% {
-        background: rgba(255, 255, 255, 0)
+        /*background: rgba(255, 255, 255, 0)*/
+        opacity: 1;
     }
 }

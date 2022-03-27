@@ -8,14 +8,14 @@ export const useVsCodeStyles = createUseStyles({
 		cursor: 'text'
 	},
 
-	cursor: {
+	cursor: ({ color = 'rgba(255, 255, 255, 1)', height = '20px' }) => ({
 		display: 'inline-block',
-		height: '20px',
+		height,
 		width: '2px',
-		background: 'rgba(255, 255, 255, 1)',
+		background: color,
 		marginLeft: '2px',
 		animation: 'VsCodeCursorAnimation .5s ease-out infinite'
-	},
+	}),
 
 	afterCursor: {
 		flex: 1

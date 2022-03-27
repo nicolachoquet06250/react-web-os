@@ -107,6 +107,10 @@ export const useWindowStyle = createUseStyles({
 		justifyContent: 'flex-end',
 		alignItems: 'center',
 
+		'& *': {
+			color: (color ?? 'black'),
+		},
+
 		'& > div:first-child': {
 			flex: 1,
 			color: 'wheat',
