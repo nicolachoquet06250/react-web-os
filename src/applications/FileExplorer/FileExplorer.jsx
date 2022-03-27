@@ -15,6 +15,7 @@ export const FileExplorer = ({ root = false, onContextMenu = () => null, ...othe
 	const [nbChildren, setNbChildren] = useState(0);
 	const [openedDirectories, setOpenedDirectories] = useState([]);
 	const [selectedDirectory, setSelectedDirectory] = useState([]);
+	const [filesUploaded, setFilesUploaded] = useState(false);
 	const { appContainer, appBodyContainer } = useStyle({});
 
 	const handleContextMenu = createContextMenuHandler(e =>
@@ -26,10 +27,18 @@ export const FileExplorer = ({ root = false, onContextMenu = () => null, ...othe
 	const [fileTree] = useTree();
 
 	useEffect(() => {
-		const element = findElementInTree((root || '/Ce PC'), fileTree);
-		setNbChildren(element?.children.length ?? 0);
-		setSelectedDirectory(element?.path.split('/') ?? ['Ce PC']);
-		setOpenedDirectories(getIntermediatePaths(element?.path ?? 'Ce PC'));
+		if (filesUploaded) {
+			const element = findElementInTree('/' + filesUploaded.join('/'), fileTree);
+			setNbChildren(element?.children.length ?? 0);
+			setSelectedDirectory(element?.path.split('/') ?? ['Ce PC']);
+			setOpenedDirectories(getIntermediatePaths(element?.path ?? 'Ce PC'));
+			setFilesUploaded(false);
+		} else {
+			const element = findElementInTree((root || '/Ce PC'), fileTree);
+			setNbChildren(element?.children.length ?? 0);
+			setSelectedDirectory(element?.path.split('/') ?? ['Ce PC']);
+			setOpenedDirectories(getIntermediatePaths(element?.path ?? 'Ce PC'));
+		}
 	}, [fileTree]);
 
 	const onSelectDirectory = useCallback((title, n) => {
@@ -69,7 +78,8 @@ export const FileExplorer = ({ root = false, onContextMenu = () => null, ...othe
 
 				<Body selectedDirectory={selectedDirectory}
 				      onSelectDirectory={onSelectDirectoryFromBreadcrumb}
-				      onContextMenu={onContextMenu} />
+				      onContextMenu={onContextMenu}
+				      onUploadFile={setFilesUploaded} />
 			</div>
 
 			<Footer>
