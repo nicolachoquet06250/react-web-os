@@ -59,12 +59,23 @@ export const DesktopElement = ({
 		}
 	};
 
+	const formats = {
+		text: ['text/plain'],
+		image: ['image/png', 'image/jpeg']
+	};
+
 	const handleDoubleClick = () => {
 		if (type === 'directory') onRun();
-		if (type === 'file' && ['text/plain'].indexOf(mime) !== -1) {
-			run('Bloc Note', {
-				filePath: `/Ce PC/Bureau/${title}`
-			});
+		if (type === 'file') {
+			if (formats.text.indexOf(mime) !== -1) {
+				run('Bloc Note', {
+					filePath: `/Ce PC/Bureau/${title}`
+				});
+			} else if (formats.image.indexOf(mime) !== -1) {
+				run(`Visionneuse d'images`, {
+					imagePath: `/Ce PC/Bureau/${title}`
+				});
+			}
 		}
 	};
 

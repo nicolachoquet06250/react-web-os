@@ -367,33 +367,67 @@ export const addFileToDirectory = (directoryPath, name, content, mime, size) => 
  * @return {string}
  */
 export const getDecodedFileContent = path => {
-	const getContent = (path, title, tree) => {
+	const getElement = (path, title, tree) => {
 		const splitPath = path.split('/');
 		if (splitPath[0] === '') splitPath.shift();
 
 		for (const e of tree) {
 			if (e.type === 'directory') {
 				splitPath.shift();
-				const r = getContent(splitPath.join('/'), title, e.children);
+				const r = getElement(splitPath.join('/'), title, e.children);
 				if (r) {
 					return r;
 				}
 			} else if (e.type === 'file' && e.title === title) {
-				return e.content;
+				return e;
 			}
 		}
 
-		return '';
+		return null;
 	};
 
 	const splitPath = path.split('/');
 	const title = splitPath.pop();
 
-	const content = getContent(splitPath.join('/'), title, tree$.getValue());
+	const element = getElement(splitPath.join('/'), title, tree$.getValue());
 
-	if (!content) return content;
+	if (!element) return element;
 
-	return window.atob(content.replace('data:text/plain;base64,', ''));
+	return window.atob(element.content.replace(`data:${element.mime};base64,`, ''));
+};
+
+/**
+ * @param {string} path
+ * @return {string}
+ */
+export const getFileContent = path => {
+	const getElement = (path, title, tree) => {
+		const splitPath = path.split('/');
+		if (splitPath[0] === '') splitPath.shift();
+
+		for (const e of tree) {
+			if (e.type === 'directory') {
+				splitPath.shift();
+				const r = getElement(splitPath.join('/'), title, e.children);
+				if (r) {
+					return r;
+				}
+			} else if (e.type === 'file' && e.title === title) {
+				return e;
+			}
+		}
+
+		return null;
+	};
+
+	const splitPath = path.split('/');
+	const title = splitPath.pop();
+
+	const element = getElement(splitPath.join('/'), title, tree$.getValue());
+
+	if (!element) return element;
+
+	return element.content;
 };
 
 /**

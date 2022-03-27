@@ -29,6 +29,7 @@ export const useOsDesktopStyle = createUseStyles({
 			transition: 'background-color .2s ease-out',
 			borderRadius: '5px',
 			margin: '5px',
+			padding: 0,
 
 			'&:active, &:focus': {
 				backgroundColor: 'blue'

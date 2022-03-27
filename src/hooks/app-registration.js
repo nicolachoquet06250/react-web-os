@@ -5,6 +5,7 @@ import { VsCode, VsCodeIcon } from "../applications/VsCode/VsCode";
 import { FileExplorer, FileExplorerIcon } from "../applications/FileExplorer/FileExplorer";
 import { Terminal, TerminalIcon } from "../applications/Terminal/Terminal";
 import { BlocNote, BlocNoteIcon } from "../applications/BlocNote/BlocNote";
+import { ImageViewer, ImageViewerIcon } from "../applications/ImageViewer/ImageViewer";
 
 export const useRegisterApps = () => {
 	const { register: registerCalculatrice } = useRegisterPinApp('Calculatrice');
@@ -37,11 +38,15 @@ export const useRegisterApps = () => {
 			'Bloc Note',
 			BlocNoteIcon,
 			BlocNote
-		)
+		);
+		useRegisterApplication(
+			'Visionneuse d\'images',
+			ImageViewerIcon,
+			ImageViewer
+		);
 
 		// épinglage dans la bar des taches
 		registerCalculatrice({ taskBar: true });
-		// registerVsCode({ taskBar: true });
 		registerFileExplorer({ taskBar: true });
 		registerTerminal({ taskBar: true });
 	}, []);

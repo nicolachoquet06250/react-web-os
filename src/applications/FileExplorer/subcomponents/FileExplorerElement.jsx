@@ -62,12 +62,23 @@ export const FileExplorerElement = ({
 		}
 	};
 
+	const formats = {
+		text: ['text/plain'],
+		image: ['image/png', 'image/jpeg']
+	};
+
 	const handleDoubleClick = () => {
 		if (type === 'directory') onSelect();
-		if (type === 'file' && ['text/plain'].indexOf(mime) !== -1) {
-			run('Bloc Note', {
-				filePath: `${path}/${title}`
-			});
+		if (type === 'file') {
+			if (formats.text.indexOf(mime) !== -1) {
+				run('Bloc Note', {
+					filePath: `${path}/${title}`
+				});
+			} else if (formats.image.indexOf(mime) !== -1) {
+				run(`Visionneuse d'images`, {
+					imagePath: `${path}/${title}`
+				});
+			}
 		}
 	};
 
