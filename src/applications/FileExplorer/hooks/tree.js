@@ -303,9 +303,7 @@ export const removeDirectory = directoryPath => {
 	tree$.next(getNewTree(tree, path, directoryName));
 };
 
-export const addImageToDirectory = (directoryPath, name, content, mime, size) => {
-	// console.log(directoryPath, name, content, mime, size);
-
+export const addFileToDirectory = (directoryPath, name, content, mime, size) => {
 	const tree = tree$.getValue();
 
 	/**
@@ -362,7 +360,6 @@ export const addImageToDirectory = (directoryPath, name, content, mime, size) =>
 	};
 
 	tree$.next(getNewTree(tree, directoryPath, name, content, mime, size));
-	// console.log(getNewTree(tree, directoryPath, name, content, mime, size))
 };
 
 /**

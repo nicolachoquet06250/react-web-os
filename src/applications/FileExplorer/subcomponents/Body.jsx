@@ -1,5 +1,5 @@
 import { useStyle } from "../style";
-import { createDirectory, addImageToDirectory, useTree } from "../hooks";
+import { createDirectory, addFileToDirectory, useTree } from "../hooks";
 import React, { Fragment, useEffect, useState } from "react";
 import { DragAndDropUploader } from "../../../components/DragAndDropUploader/DragAndDropUploader";
 import { useRegisterContextualMenu } from "../../../hooks/contextual-menu";
@@ -36,16 +36,19 @@ export const Body = ({ selectedDirectory = [], onSelectDirectory = () => null, o
 		setNewDirectoryTitle('new directory');
 	};
 
+	const acceptedFilesFormat = ['image/png', 'image/jpeg', 'text/plain'];
+
 	return (<div className={appBody} onContextMenu={handleContextMenu}>
 		<DragAndDropUploader id={'body'} show={showUploader}
 		                     showPreview={false}
 		                     showBackground={{ backgroundColor: 'rgba(0, 0, 0, .5)' }}
+		                     acceptedFileTypes={acceptedFilesFormat}
 		                     onShow={() => setShowUploader(true)}
 		                     onHide={() => setShowUploader(false)}
 		                     onUpload={(files, b64Files) => {
 			                     setShowUploader(false);
-								 files.filter(f => f.type === 'image/png').map((f, i) =>
-									 addImageToDirectory(
+								 files.map((f, i) =>
+									 addFileToDirectory(
 										 '/' + selectedDirectory.join('/'),
 										 f.name,
 										 b64Files[i],
@@ -65,6 +68,7 @@ export const Body = ({ selectedDirectory = [], onSelectDirectory = () => null, o
 				                                                path={'/' + selectedDirectory.join('/')}
 					                                            mime={c.mime}
 					                                            size={c.size}
+					                                            acceptedImageFormats={acceptedFilesFormat}
 					                                            content={c.content}
 				                                                onSelect={() => onSelectDirectory(c.path)} />)}
 				</Fragment>))}

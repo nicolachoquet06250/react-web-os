@@ -4,7 +4,7 @@ import { useOsDesktopStyle } from "./style";
 import { useRegisterContextualMenu } from "../../hooks/contextual-menu";
 import { ContextualMenuDesktopContent, DesktopElement } from "./subcomponents";
 import {
-	addImageToDirectory,
+	addFileToDirectory,
 	createDirectory,
 	findElementInTree,
 	removeDirectory,
@@ -40,6 +40,7 @@ export const OsDesktop = ({ children, background, onContextMenu = () => null, ..
 	};
 
 	const desktopElement = findElementInTree('/Ce PC/Bureau', tree) ?? { children: [] };
+	const acceptedFilesFormat = ['image/png', 'image/jpeg', 'text/plain'];
 
 	return (<div className={osDesktop} {...events}
 	             onContextMenu={handleDesktopContextMenu}>
@@ -47,12 +48,13 @@ export const OsDesktop = ({ children, background, onContextMenu = () => null, ..
 		                     show={showUploader}
 		                     showPreview={false}
 		                     showBackground={{ backgroundColor: 'rgba(0, 0, 0, .5)' }}
+		                     acceptedFileTypes={acceptedFilesFormat}
 		                     onShow={() => setShowUploader(true)}
 		                     onHide={() => setShowUploader(false)}
 		                     onUpload={(files, b64Files) => {
 			                     setShowUploader(false);
-			                     files.filter(f => f.type === 'image/png').map((f, i) =>
-				                     addImageToDirectory(
+								 files.map((f, i) =>
+				                     addFileToDirectory(
 					                     `/Ce PC/Bureau`,
 					                     f.name,
 					                     b64Files[i],
@@ -71,6 +73,7 @@ export const OsDesktop = ({ children, background, onContextMenu = () => null, ..
 					                                           title={v.title}
 					                                           mime={v.mime}
 					                                           size={v.size}
+						                                       acceptedFileFormats={acceptedFilesFormat}
 					                                           content={v.content} />)}
 
 

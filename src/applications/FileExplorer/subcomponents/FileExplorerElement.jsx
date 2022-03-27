@@ -3,6 +3,7 @@ import { useStyle } from "../style";
 import { removeDirectory } from "../hooks";
 import { useClickAway, useKey } from "react-use";
 import { directoryIcon } from "./TreeMenu";
+import { FaIcon, FaIconsType } from "../../../components/FaIcon/FaIcon";
 
 /**
  * @param {'directory'|'file'} type
@@ -11,6 +12,7 @@ import { directoryIcon } from "./TreeMenu";
  * @param {number|null} size
  * @param {string|null} content
  * @param {string|null} mime
+ * @param {Array<string>} acceptedImageFormats
  * @param {boolean} editable
  * @param {() => any} onSelect
  * @param {() => any} onCancel
@@ -24,6 +26,7 @@ export const FileExplorerElement = ({
 	size = null,
 	content = null,
 	mime = null,
+	acceptedImageFormats = [],
     editable = false,
     onSelect = () => null,
     onCancel = () => null,
@@ -34,10 +37,15 @@ export const FileExplorerElement = ({
 
 	const ref = useRef();
 
-	const images = ['image/png'];
 	const imageMiniatureStyle = {
 		maxHeight: '50px',
 		width: 'auto'
+	};
+	const iconsStyle = {
+		display: 'inline-block',
+		fontSize: '40px',
+		width: '50px',
+		height: '50px'
 	};
 
 	const handleDelete = e => {
@@ -73,20 +81,32 @@ export const FileExplorerElement = ({
 	                title={title}
 	                data-title={tmpTitle}
 	                onDoubleClick={onSelect}>
-		{type === 'directory' && (<img src={directoryIcon} alt={'directory'}/>)}
-		{type === 'file' && images.indexOf(mime) !== -1 && (<img src={content} alt={title} style={imageMiniatureStyle} />)}
+		{type === 'directory' && (<img src={directoryIcon} alt={'directory'} />)}
+		{type === 'file' && acceptedImageFormats.indexOf(mime) !== -1 && (() => {
+			if (['image/png', 'image/jpeg'].indexOf(mime) !== -1) {
+				return (<img src={content} alt={title} style={imageMiniatureStyle} />);
+			} else if (['text/plain'].indexOf(mime) !== -1) {
+				return (<span style={iconsStyle}>
+					<FaIcon type={FaIconsType.SOLID} icon={'file-lines'} />
+				</span>);
+			}
 
-		{!editable && (<span> {title} </span>)}
-		{editable && (<input type={'text'}
-		                     defaultValue={title}
-		                     placeholder={'new directory'}
-		                     autoFocus={true}
-		                     onInput={e => setTmpTitle(e.target.value)}
-		                     style={{
-			                     maxWidth: '80px',
-			                     backgroundColor: 'transparent',
-			                     border: '1px solid blue',
-			                     color: 'white'
-		                     }} />)}
+			return (<></>);
+		})()}
+
+		{(type === 'directory' || acceptedImageFormats.indexOf(mime) !== -1) && (<>
+			{!editable && (<span> {title} </span>)}
+			{editable && (<input type={'text'}
+			                     defaultValue={title}
+			                     placeholder={'new directory'}
+			                     autoFocus={true}
+			                     onInput={e => setTmpTitle(e.target.value)}
+			                     style={{
+				                     maxWidth: '80px',
+				                     backgroundColor: 'transparent',
+				                     border: '1px solid blue',
+				                     color: 'white'
+			                     }} />)}
+		</>)}
 	</button>);
 };

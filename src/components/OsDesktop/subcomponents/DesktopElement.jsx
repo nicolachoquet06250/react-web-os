@@ -10,6 +10,7 @@ import { directoryIcon } from "../../../applications/FileExplorer/subcomponents"
  * @param {number|null} size
  * @param {string|null} content
  * @param {string|null} mime
+ * @param {Array<string>} acceptedFileFormats
  * @param {boolean} editable
  * @param {() => any} onRun
  * @param {() => any} onCancel
@@ -22,6 +23,7 @@ export const DesktopElement = ({
    size = null,
    content = null,
    mime = null,
+   acceptedFileFormats = [],
    editable = false,
    onRun = () => null,
    onCancel = () => null,
@@ -31,7 +33,6 @@ export const DesktopElement = ({
 
 	const ref = useRef();
 
-	const images = ['image/png'];
 	const imageMiniatureStyle = {
 		height: '70px',
 		width: '70px',
@@ -39,6 +40,11 @@ export const DesktopElement = ({
 		backgroundPosition: 'center',
 		backgroundRepeat: 'no-repeat',
 		backgroundSize: '60px auto'
+	};
+	const iconsStyle = {
+		display: 'inline-block',
+		width: '70px',
+		height: '70px'
 	};
 
 	const handleDelete = e => {
@@ -73,33 +79,41 @@ export const DesktopElement = ({
 	                onDoubleClick={onRun}
 	                style={{ alignItems: (editable ? 'flex-start' : false), maxWidth: '70px' }}>
 
-		{type === 'directory' && (<span style={{
-			display: 'inline-block',
-			width: '70px',
-			height: '70px'
-		}}>
+		{type === 'directory' && (<span style={iconsStyle}>
 			<FaIcon type={FaIconsType.SOLID} icon={'folder'} />
 		</span>)}
-		{type === 'file' && images.indexOf(mime) !== -1 && (<div style={imageMiniatureStyle} />)}
+		{type === 'file' && acceptedFileFormats.indexOf(mime) !== -1 && (() => {
+			if (['image/png', 'image/jpeg'].indexOf(mime) !== -1) {
+				return (<div style={imageMiniatureStyle} />);
+			} else if (['text/plain'].indexOf(mime) !== -1) {
+				return (<span style={iconsStyle}>
+					<FaIcon type={FaIconsType.SOLID} icon={'file-lines'} />
+				</span>)
+			}
 
-		{!editable && (<span style={{
-			maxWidth: '70px',
-			overflow: 'hidden',
-			wordWrap: 'inherit',
-			whiteSpace: 'nowrap',
-			textOverflow: 'ellipsis',
-		}}> {title} </span>)}
-		{editable && (<input type={'text'}
-		                     defaultValue={title}
-		                     placeholder={'new directory'}
-		                     autoFocus={true}
-		                     onInput={e => {
-			                     setTmpTitle(e.target.value);
-		                     }}
-		                     style={{
-			                     maxWidth: '80px',
-			                     backgroundColor: 'transparent',
-			                     border: '1px solid blue'
-		                     }} />)}
+			return (<></>);
+		})()}
+
+		{(type === 'directory' || acceptedFileFormats.indexOf(mime) !== -1) && (<>
+			{!editable && (<span style={{
+				maxWidth: '70px',
+				overflow: 'hidden',
+				wordWrap: 'inherit',
+				whiteSpace: 'nowrap',
+				textOverflow: 'ellipsis',
+			}}> {title} </span>)}
+			{editable && (<input type={'text'}
+			                     defaultValue={title}
+			                     placeholder={'new directory'}
+			                     autoFocus={true}
+			                     onInput={e => {
+				                     setTmpTitle(e.target.value);
+			                     }}
+			                     style={{
+				                     maxWidth: '80px',
+				                     backgroundColor: 'transparent',
+				                     border: '1px solid blue'
+			                     }} />)}
+		</>)}
 	</button>);
 };

@@ -11,6 +11,7 @@ export const DragAndDropUploader = ({
     width = '100%', height = '100%',
     x = 0, y = 0,
 	showBackground = {},
+	acceptedFileTypes = [],
 	show = false,
 	showPreview = false,
 	onShow = () => null,
@@ -31,7 +32,7 @@ export const DragAndDropUploader = ({
 	const handleDrop = useCallback(e => {
 		preventDefaults(e);
 
-		const files = Array.from(e.dataTransfer.files);
+		const files = Array.from(e.dataTransfer.files).filter(v => acceptedFileTypes.indexOf(v.type) !== -1);
 
 		Promise.all(files.map(file => new Promise(resolve => {
 			let reader = new FileReader()
@@ -45,7 +46,7 @@ export const DragAndDropUploader = ({
 					detail: { id }
 				}));
 			});
-	}, [imagesPreview, style]);
+	}, [imagesPreview, style, acceptedFileTypes]);
 	const handleDragLeave = e => {
 		preventDefaults(e);
 		onHide();
