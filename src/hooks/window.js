@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useMouse } from "./utils/mouse";
-import { isFunction } from "rxjs/internal/util/isFunction";
 
 const findElementFromClass = (root, className) => {
 	if (root === null) return null;
