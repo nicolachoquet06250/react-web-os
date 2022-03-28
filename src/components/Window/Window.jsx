@@ -21,7 +21,9 @@ export const Window = ({
 	onUnactive = () => null,
 	onResize = () => null,
 	onMinimize = () => null,
-	onMaximize = () => null
+	onMaximize = () => null,
+	onMoving = () => null,
+	onMoveEnd = () => null
 }) => {
 	const { width: windowWidth, height: windowHeight } = useWindowSize();
 	const [currentWidth, setWidth] = useState(0);
@@ -40,6 +42,9 @@ export const Window = ({
 
 	const [active, setActive] = useState(true);
 
+	/**
+	 * @type {React.MutableRefObject<HTMLDivElement>}
+	 */
 	const windowRef = useRef();
 	const windowHeaderRef = createRef();
 
@@ -113,6 +118,9 @@ export const Window = ({
 		setFullScreen(fullScreen);
 	}, [fullScreen]);
 	useEffect(() => {
+		onResize(windowRef.current.offsetWidth, windowRef.current.offsetHeight);
+	}, [isFullScreen]);
+	useEffect(() => {
 		if (positionX) setPositionX(positionX);
 	}, [positionX]);
 	useEffect(() => {
@@ -121,6 +129,10 @@ export const Window = ({
 	useEffect(() => {
 		setWidth(width);
 	}, [width]);
+	useEffect(() => {
+		if (moving) onMoving();
+		else onMoveEnd();
+	}, [moving]);
 
 	useEffect(() => {
 		onResize(
@@ -199,7 +211,9 @@ Window.propTypes = {
 	onActive: PropTypes.func,
 	onUnactive: PropTypes.func,
 	onMinimize: PropTypes.func,
-	onMaximize: PropTypes.func
+	onMaximize: PropTypes.func,
+	onMoving: PropTypes.func,
+	onMoveEnd: PropTypes.func
 };
 
 Window.defaultTypes = {
@@ -219,5 +233,7 @@ Window.defaultTypes = {
 	onActive: () => null,
 	onUnactive: () => null,
 	onMinimize: () => null,
-	onMaximize: () => null
+	onMaximize: () => null,
+	onMoving: () => null,
+	onMoveEnd: () => null
 };

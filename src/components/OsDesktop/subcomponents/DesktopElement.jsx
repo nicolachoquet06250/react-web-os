@@ -60,22 +60,46 @@ export const DesktopElement = ({
 	};
 
 	const formats = {
-		text: ['text/plain'],
-		image: ['image/png', 'image/jpeg']
+		text: {
+			format: ['text/plain'],
+			run() {
+				run('Bloc Note', {
+					filePath: `/Ce PC/Bureau/${title}`
+				});
+			},
+			component: () => (<span style={iconsStyle}>
+				<FaIcon type={FaIconsType.SOLID} icon={'file-lines'} />
+			</span>)
+		},
+		image: {
+			format: ['image/png', 'image/jpeg'],
+			run() {
+				run(`Visionneuse d'images`, {
+					imagePath: `/Ce PC/Bureau/${title}`
+				});
+			},
+			component: () => (<div style={imageMiniatureStyle} />)
+		},
+		video: {
+			format: ['video/mp4'],
+			run() {
+				run('Lecteur de vidéos', {
+					videoPath: `/Ce PC/Bureau/${title}`
+				});
+			},
+			component: () => (<span style={iconsStyle}>
+				<FaIcon type={FaIconsType.SOLID} icon={'film'} />
+			</span>)
+		}
 	};
 
 	const handleDoubleClick = () => {
 		if (type === 'directory') onRun();
 		if (type === 'file') {
-			if (formats.text.indexOf(mime) !== -1) {
-				run('Bloc Note', {
-					filePath: `/Ce PC/Bureau/${title}`
-				});
-			} else if (formats.image.indexOf(mime) !== -1) {
-				run(`Visionneuse d'images`, {
-					imagePath: `/Ce PC/Bureau/${title}`
-				});
-			}
+			Array.from(Object.keys(formats))
+				.reduce((r, c) =>
+					formats[c].format.indexOf(mime) !== -1
+						? formats[c] : r, null)?.run();
 		}
 	};
 
@@ -102,20 +126,15 @@ export const DesktopElement = ({
 	                onDoubleClick={handleDoubleClick}
 	                style={{ alignItems: (editable ? 'flex-start' : false), maxWidth: '70px' }}>
 
-		{type === 'directory' && (<span style={iconsStyle}>
-			<FaIcon type={FaIconsType.SOLID} icon={'folder'} />
-		</span>)}
-		{type === 'file' && acceptedFileFormats.indexOf(mime) !== -1 && (() => {
-			if (['image/png', 'image/jpeg'].indexOf(mime) !== -1) {
-				return (<div style={imageMiniatureStyle} />);
-			} else if (['text/plain'].indexOf(mime) !== -1) {
-				return (<span style={iconsStyle}>
-					<FaIcon type={FaIconsType.SOLID} icon={'file-lines'} />
-				</span>)
-			}
-
-			return (<></>);
-		})()}
+		{type === 'directory' &&
+			(<span style={iconsStyle}>
+				<FaIcon type={FaIconsType.SOLID} icon={'folder'} />
+			</span>)}
+		{type === 'file' && acceptedFileFormats.indexOf(mime) !== -1 &&
+			(() => Array.from(Object.keys(formats))
+				.reduce((r, c) =>
+					formats[c].format.indexOf(mime) !== -1
+						? formats[c] : r, null)?.component() ?? (<></>))()}
 
 		{(type === 'directory' || acceptedFileFormats.indexOf(mime) !== -1) && (<>
 			{!editable && (<span style={{
@@ -130,9 +149,7 @@ export const DesktopElement = ({
 			                     defaultValue={title}
 			                     placeholder={'new directory'}
 			                     autoFocus={true}
-			                     onInput={e => {
-				                     setTmpTitle(e.target.value);
-			                     }}
+			                     onInput={e => setTmpTitle(e.target.value)}
 			                     style={{
 				                     maxWidth: '80px',
 				                     backgroundColor: 'transparent',

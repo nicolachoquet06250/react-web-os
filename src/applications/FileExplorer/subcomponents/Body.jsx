@@ -14,7 +14,6 @@ export const Body = ({ selectedDirectory = [], onSelectDirectory = () => null, o
 	const [showUploader, setShowUploader] = useState(false);
 	const [newDirectory, setNewDirectory] = useState(false);
 	const [newDirectoryTitle, setNewDirectoryTitle] = useState('new directory');
-	// const [filesUploaded, setFilesUploaded] = useState(false);
 
 	useRegisterContextualMenu('file-explorer-body', (props) =>
 		(<ContextualMenuDesktopContent {...props}
@@ -23,24 +22,13 @@ export const Body = ({ selectedDirectory = [], onSelectDirectory = () => null, o
 	const handleContextMenu = createContextMenuHandler(e => onContextMenu('file-explorer-body', e.clientX, e.clientY));
 
 	useEffect(() => {
-		/*if (filesUploaded) {
-			setChildren(filesUploaded
-				.reduce((r, c) =>
-						r.filter(v =>
-							(v.title === c) || (v.textTitle && v.textTitle === c)
-						)[0]?.children ?? [],
-					[...tree]
-				));
-			setFilesUploaded(false);
-		} else {*/
-			setChildren(selectedDirectory
-				.reduce((r, c) =>
-						r.filter(v =>
-							(v.title === c) || (v.textTitle && v.textTitle === c)
-						)[0]?.children ?? [],
-					[...tree]
-				));
-		// }
+		setChildren(selectedDirectory
+			.reduce((r, c) =>
+					r.filter(v =>
+						(v.title === c) || (v.textTitle && v.textTitle === c)
+					)[0]?.children ?? [],
+				[...tree]
+			));
 	}, [selectedDirectory]);
 
 	const resetNewDirectory = () => {
@@ -48,7 +36,7 @@ export const Body = ({ selectedDirectory = [], onSelectDirectory = () => null, o
 		setNewDirectoryTitle('new directory');
 	};
 
-	const acceptedFilesFormat = ['image/png', 'image/jpeg', 'text/plain'];
+	const acceptedFilesFormat = ['image/png', 'image/jpeg', 'text/plain', 'video/mp4'];
 
 	return (<div className={appBody} onContextMenu={handleContextMenu}>
 		<DragAndDropUploader id={'body'} show={showUploader}
@@ -59,7 +47,6 @@ export const Body = ({ selectedDirectory = [], onSelectDirectory = () => null, o
 		                     onHide={() => setShowUploader(false)}
 		                     onUpload={(files, b64Files) => {
 			                     setShowUploader(false);
-								 // setFilesUploaded([...selectedDirectory]);
 								 onUploadFile([...selectedDirectory]);
 								 files.map((f, i) =>
 									 addFileToDirectory(

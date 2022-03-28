@@ -1,14 +1,14 @@
 import React from "react";
-import { useTerminalStyle } from "../../../../applications/Terminal/style";
 import { useLocation } from "../../../../applications/Terminal/hooks";
 import { useCommandWriter } from "../../../../applications/Terminal/hooks/terminal-write";
 import { useCustomPromptStyle } from "./style";
+import { useDefaultPromptStyle } from "../../../../applications/Terminal/style";
 
 export const Prompt2 = ({ username, active, onResult = () => null }) => {
 	const {
 		prompt, cursor,
 		promptWrite, afterCursor
-	} = useTerminalStyle({});
+	} = useDefaultPromptStyle({});
 	const {
 		customPrompt, groupList,
 		writeGroup, group,
