@@ -27,6 +27,7 @@ export const TaskBar = ({
 			{
 				title: v,
 				icon: applications.filter(_v => _v.title === v)[0]?.icon,
+				background: applications.filter(_v => _v.title === v)[0]?.background,
 				options: {
 					taskBar: true,
 					startMenu: false
@@ -56,7 +57,7 @@ export const TaskBar = ({
 		           onContextMenu={onContextMenu} />
 
 		<AppPreview show={showAppPreview}
-		            instances={applicationInstances.map((v, i) => ({
+		            instances={applicationInstances.filter(v => !v.background).map((v, i) => ({
 			            ...v,
 			            id: i,
 			            icon
@@ -73,10 +74,10 @@ export const TaskBar = ({
 			<StartMenuButton onClick={onOpenStartMenu} />
 
 			<div className={taskBarIconContainer}>
-				{pinAndRunningApps.map(({ title, icon }, i) =>
+				{pinAndRunningApps.filter(v => !v.background).map(({ title, icon, background }, i) =>
 					(<TaskBarAppIcon key={i}
 					                 icon={icon} title={title}
-					                 instanceNb={runningApps[title] ? runningApps[title].instanceNb : 0}
+					                 instanceNb={runningApps[title] && !background ? runningApps[title].instanceNb : 0}
 					                 onClick={onAppAction(true).action(onOpenApp, title)}
 									 onMouseOver={onIconMouseOver(title, icon)}
 									 onMouseOut={onIconMouseOut}

@@ -1,10 +1,10 @@
 import React from "react";
-import { useTerminalStyle } from "../style";
+import { useDefaultPromptStyle } from "../style";
 import { useLocation } from "../hooks";
 import { useCommandWriter } from "../hooks/terminal-write";
 
 export const Prompt = ({ username, active, onResult = () => null }) => {
-	const { prompt, promptHeader, cursor, promptWrite, afterCursor } = useTerminalStyle({});
+	const { prompt, promptHeader, cursor, promptWrite, afterCursor } = useDefaultPromptStyle({});
 
 	const [currentLocation] = useLocation();
 	const { tmpWrite } = useCommandWriter(username, active, { onResult });

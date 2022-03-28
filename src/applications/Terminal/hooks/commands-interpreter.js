@@ -1,6 +1,21 @@
 import { useTree } from "../../FileExplorer/hooks";
 import { useLocation, useLocationControls } from "./location";
 import { useDate, useMonthName } from "../../../hooks/utils/date";
+import { BehaviorSubject } from "rxjs";
+import { createRxJsUseGetter } from "../../../hooks/utils/rxjs-getter";
+import { useEffect, useState } from "react";
+
+const customCommandsInterpreters = [];
+const customCommandsInterpreters$ = new BehaviorSubject(customCommandsInterpreters);
+
+export const useCustomCommandsInterpreters = createRxJsUseGetter(customCommandsInterpreters, customCommandsInterpreters$);
+
+export const useRegisterCommandsInterpreter = (interpreter = () => []) => {
+	customCommandsInterpreters$.next([
+		...customCommandsInterpreters$.getValue(),
+		interpreter
+	])
+};
 
 export const useCommandInterpreter = (state, setState) => {
 	const [tree] = useTree();
@@ -139,6 +154,7 @@ export const useCommandInterpreter = (state, setState) => {
 				}
 			}
 		},
+		...(customCommandsInterpreters$.getValue().flat().map(interpreter => interpreter(state, setState)).flat()),
 		{
 			regex: /(.+)/gm,
 			run() {

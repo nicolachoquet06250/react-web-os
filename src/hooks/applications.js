@@ -18,14 +18,15 @@ export const useApplications = createRxJsUseGetter(applications, applications$);
  * @param {string} title
  * @param {string} icon
  * @param {(props: any[]) => JSX.Element} component
+ * @param {boolean} background
  */
-export const useRegisterApplication = (title, icon, component) => {
+export const useRegisterApplication = (title, icon, component, background = false) => {
 	const oldApps = applications$.getValue();
 
 	if (oldApps.map(v => v.title).indexOf(title) === -1) {
 		const _applications = [
 			...oldApps,
-			{title, icon, component}
+			{title, icon, component, background}
 		];
 
 		applications$.next(_applications);

@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
+import './terminal.css';
 import { Window } from "../../components/Window/Window";
 import { createContextMenuHandler } from "../../hooks/utils/handler";
 import Icon from '../../assets/images/terminal-icon.png';
-import './terminal.css';
-import { useTerminalStyle } from "./style";
 import { TerminalTitle } from "./subcomponents";
 import { useDefaultPromptComponent, useLocation, useLocationControls } from "./hooks";
+import { useRunAllTerminalPlugins } from "./hooks/plugins";
+import { useTerminalStyle } from "./style";
 
 /**
  * @param {string} root
  * @param {string} username
  * @param {() => any} onClose
  * @param {() => any} onContextMenu
- * @param {({ username: string, active: boolean, onResult: () => any }) => JSX.Element} customPrompt
  * @return {JSX.Element}
  */
 export const Terminal = ({ root = '/ce-pc', username = 'demo', onContextMenu = () => null, ...otherProps }) => {
@@ -21,6 +21,8 @@ export const Terminal = ({ root = '/ce-pc', username = 'demo', onContextMenu = (
 	const { terminal } = useTerminalStyle({});
 	const { set: setLocation } = useLocationControls();
 	const { Prompt } = useDefaultPromptComponent();
+
+	useRunAllTerminalPlugins();
 
 	const [_, resetCurrentLocation] = useLocation();
 

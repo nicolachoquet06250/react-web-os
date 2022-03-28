@@ -1,11 +1,6 @@
 import { createUseStyles } from "react-jss";
 
-export const useTerminalStyle = createUseStyles({
-	terminal: {
-		color: 'green',
-		padding: '5px'
-	},
-
+export const useDefaultPromptStyle = createUseStyles({
 	prompt: {
 		display: 'flex',
 		justifyContent: 'flex-start',
@@ -44,4 +39,11 @@ export const useTerminalStyle = createUseStyles({
 			color: 'transparent'
 		}
 	})
+});
+
+export const useTerminalStyle = createUseStyles({
+	terminal: {
+		color: 'green',
+		padding: '5px'
+	}
 });
