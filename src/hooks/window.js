@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useMouse } from "./utils/mouse";
+import { isFunction } from "rxjs/internal/util/isFunction";
 
 const findElementFromClass = (root, className) => {
 	if (root === null) return null;
@@ -21,6 +22,7 @@ const getDirection = (side, originalPosition, currentPosition) => {
 
 export const useResize = (
 	ref,
+	fullscreen,
 	width, height,
 	minWidth, minHeight,
 	maxWidth, maxHeight,
@@ -155,7 +157,7 @@ export const useResize = (
 
 			window.removeEventListener('mouseup', handleMouseUp);
 		};
-	}, []);
+	}, [fullscreen]);
 	useEffect(() => {
 		setTmpWidth(width);
 	}, [width]);

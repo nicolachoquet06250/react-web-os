@@ -45,6 +45,7 @@ export const Window = ({
 
 	const { resizing, side } = useResize(
 		windowRef,
+		isFullScreen,
 		currentWidth, currentHeight,
 		minWidth, minHeight,
 		windowWidth, windowHeight,
