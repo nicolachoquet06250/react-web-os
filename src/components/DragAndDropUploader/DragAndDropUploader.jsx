@@ -63,7 +63,7 @@ export const DragAndDropUploader = ({
 	useEffect(() => {
 		setStyle({
 			width, height,
-			position: 'absolute',
+			position: 'fixed',
 			top: y, left: x,
 			zIndex: 1
 		});

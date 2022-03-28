@@ -95,7 +95,14 @@ export const ImageViewer = ({ imagePath = '', onContextMenu = () => null, ...oth
 	                onContextMenu={handleContextMenu}
 	                {...otherProps}>
 		<div style={{ height: '100%', width: `100%`, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-			{content && (<img src={content} alt={imagePath} style={{ maxWidth: '100%', maxHeight: '100%', width: 'calc(100% - 60px)', height: 'auto' }} />)}
+			{content && (<img src={content}
+			                  alt={imagePath}
+			                  style={{
+								  maxWidth: 'calc(100% - 60px)',
+				                  maxHeight: '100%',
+				                  width: 'auto',
+				                  height: 'auto'
+							  }} />)}
 
 			<div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
 				<button className={navButton} onClick={handlePrevious}>
