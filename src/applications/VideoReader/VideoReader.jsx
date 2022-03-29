@@ -48,7 +48,6 @@ const useVideoReaderStyle = createUseStyles({
 
 	allVid: ({ load, active, moving }) => ({
 		width: '100%',
-		maxWidth: '800px',
 		position: 'relative',
 		overflow: 'hidden',
 		borderRadius: '5px',
