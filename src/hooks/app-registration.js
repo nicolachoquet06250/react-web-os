@@ -6,14 +6,11 @@ import { FileExplorer, FileExplorerIcon } from "../applications/FileExplorer/Fil
 import { Terminal, TerminalIcon } from "../applications/Terminal/Terminal";
 import { BlocNote, BlocNoteIcon } from "../applications/BlocNote/BlocNote";
 import { ImageViewer, ImageViewerIcon } from "../applications/ImageViewer/ImageViewer";
-import { useRegisterTerminalPlugin } from "../applications/Terminal/hooks/plugins";
-import { useRegisterCommandsInterpreter } from "../applications/Terminal/hooks";
 import { Git } from "../applications/Git/Git";
-import { AudioVideoReader, AudioVideoReaderIcon } from "../applications/VideoReader/VideoReader";
+import { AudioVideoReader, AudioVideoReaderIcon } from "../applications/AudioVideoReader/AudioVideoReader";
 
 export const useRegisterApps = () => {
 	const { register: registerCalculatrice } = useRegisterPinApp('Calculatrice');
-	const { register: registerVsCode } = useRegisterPinApp('Vs Code');
 	const { register: registerFileExplorer } = useRegisterPinApp('Explorateur de fichiers');
 	const { register: registerTerminal } = useRegisterPinApp('Terminal');
 	const { run } = useControlApplication();
@@ -67,17 +64,5 @@ export const useRegisterApps = () => {
 		registerTerminal({ taskBar: true });
 
 		run('Git');
-
-		/*useRegisterTerminalPlugin('git_interpreter', () => {
-			useRegisterCommandsInterpreter((state, setState) => [
-				{
-					regex: /^git status$/g,
-					run() {
-						setState(['première commande git']);
-						console.log('première commande git')
-					}
-				}
-			])
-		});*/
 	}, []);
 };

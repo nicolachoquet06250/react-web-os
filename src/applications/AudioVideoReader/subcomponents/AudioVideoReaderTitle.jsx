@@ -1,5 +1,5 @@
 import React from 'react';
-import { AudioVideoReaderIcon } from '../VideoReader';
+import { AudioVideoReaderIcon } from '../AudioVideoReader';
 
 export const AudioVideoReaderTitle = ({ path }) => (<>
 	<span className={'emoji'}>

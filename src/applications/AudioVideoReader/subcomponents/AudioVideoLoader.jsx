@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useVideoReaderStyle } from '../style';
 import { FaIcon, FaIconsType } from '../../../components/FaIcon/FaIcon';
 
-export const VideoLoader = ({ show = true, color = 'black' }) => {
+export const AudioVideoLoader = ({ show = true, color = 'black' }) => {
 	const [lightState, setLightState] = useState('red');
 	const [showLoader, setShowLoader] = useState(true);
 	const { loader } = useVideoReaderStyle({ color });
