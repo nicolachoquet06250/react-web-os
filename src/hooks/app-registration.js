@@ -10,11 +10,13 @@ import { Git } from "../applications/Git/Git";
 import { AudioVideoReader, AudioVideoReaderIcon } from "../applications/AudioVideoReader/AudioVideoReader";
 import { ReactVisualEditor, ReactVisualEditorIcon } from "../applications/ReactVisualEditor/ReactVisualEditor";
 import { VueVisualEditor, VueVisualEditorIcon } from "../applications/VueVisualEditor/VueVisualEditor";
+import { MonCV, MonCVIcon } from "../applications/MonCV/MonCV";
 
 export const useRegisterApps = () => {
 	const { register: registerCalculatrice } = useRegisterPinApp('Calculatrice');
 	const { register: registerFileExplorer } = useRegisterPinApp('Explorateur de fichiers');
 	const { register: registerTerminal } = useRegisterPinApp('Terminal');
+	const { register: registerMonCv } = useRegisterPinApp('Mon CV');
 	const { run } = useControlApplication();
 
 	useEffect(() => {
@@ -69,11 +71,18 @@ export const useRegisterApps = () => {
 			VueVisualEditorIcon,
 			VueVisualEditor
 		);
+		useRegisterApplication(
+			'Mon CV',
+			MonCVIcon,
+			MonCV
+		);
 
 		// épinglage dans la bar des taches
+		registerMonCv({ startMenu: true });
 		registerCalculatrice({ taskBar: true });
 		registerFileExplorer({ taskBar: true });
-		registerTerminal({ taskBar: true });
+		registerTerminal({ taskBar: true, startMenu: true });
+		registerMonCv({ taskBar: true });
 
 		run('Git');
 	}, []);
