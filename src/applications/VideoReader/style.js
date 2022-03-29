@@ -14,6 +14,10 @@ export const useVideoReaderStyle = createUseStyles({
 		maxHeight: `calc(${height} - 25px)`
 	}),
 
+	audio: {
+		display: 'none'
+	},
+
 	allVid: ({ load, active, moving }) => ({
 		width: '100%',
 		position: 'relative',
@@ -136,7 +140,7 @@ export const useVideoReaderStyle = createUseStyles({
 		}*/
 	},
 
-	loader: {
+	loader: ({ color = 'black' }) => ({
 		position: 'absolute',
 		top: 0,
 		left: 0,
@@ -146,6 +150,7 @@ export const useVideoReaderStyle = createUseStyles({
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
+		color,
 
 		'& > span > .red': {
 			position: 'absolute',
@@ -177,5 +182,5 @@ export const useVideoReaderStyle = createUseStyles({
 			borderRadius: '50px',
 			backgroundColor: 'green'
 		}
-	}
+	})
 });

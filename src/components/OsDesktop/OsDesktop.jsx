@@ -40,7 +40,7 @@ export const OsDesktop = ({ children, background, onContextMenu = () => null, ..
 	};
 
 	const desktopElement = findElementInTree('/Ce PC/Bureau', tree) ?? { children: [] };
-	const acceptedFilesFormat = ['image/png', 'image/jpeg', 'image/gif', 'text/plain', 'video/mp4'];
+	const acceptedFilesFormat = ['image/png', 'image/jpeg', 'image/gif', 'text/plain', 'video/mp4', 'audio/mpeg'];
 
 	return (<div className={osDesktop} {...events}
 	             onContextMenu={handleDesktopContextMenu}>

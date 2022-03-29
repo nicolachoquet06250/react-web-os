@@ -1,14 +1,14 @@
 import React from 'react';
-import { VideoReaderIcon } from '../VideoReader';
+import { AudioVideoReaderIcon } from '../VideoReader';
 
-export const VideoReaderTitle = ({ path }) => (<>
+export const AudioVideoReaderTitle = ({ path }) => (<>
 	<span className={'emoji'}>
-		<img src={VideoReaderIcon} alt={'video reader icon'}
+		<img src={AudioVideoReaderIcon} alt={'video reader icon'}
 		     style={{ width: '15px', height: '15px', transform: 'translateY(2px)' }} />
 	</span>
 
 	<span>
-		Lecteur de vidéos
+		Lecteur multimédia
 	</span>
 
 	<span style={{

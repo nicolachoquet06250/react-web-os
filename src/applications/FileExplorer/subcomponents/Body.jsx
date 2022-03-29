@@ -36,7 +36,7 @@ export const Body = ({ selectedDirectory = [], onSelectDirectory = () => null, o
 		setNewDirectoryTitle('new directory');
 	};
 
-	const acceptedFilesFormat = ['image/png', 'image/jpeg', 'image/gif', 'text/plain', 'video/mp4'];
+	const acceptedFilesFormat = ['image/png', 'image/jpeg', 'image/gif', 'text/plain', 'video/mp4', 'audio/mpeg'];
 
 	return (<div className={appBody} onContextMenu={handleContextMenu}>
 		<DragAndDropUploader id={'body'} show={showUploader}

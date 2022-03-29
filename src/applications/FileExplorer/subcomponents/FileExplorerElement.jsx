@@ -68,7 +68,7 @@ export const FileExplorerElement = ({
 			format: ['text/plain'],
 			run() {
 				run('Bloc Note', {
-					filePath: `/Ce PC/Bureau/${title}`
+					filePath: `${path}/${title}`
 				});
 			},
 			component: () => (<span style={iconsStyle}>
@@ -79,7 +79,7 @@ export const FileExplorerElement = ({
 			format: ['image/png', 'image/jpeg', 'image/gif'],
 			run() {
 				run(`Visionneuse d'images`, {
-					imagePath: `/Ce PC/Bureau/${title}`,
+					imagePath: `${path}/${title}`,
 					mime
 				});
 			},
@@ -90,12 +90,25 @@ export const FileExplorerElement = ({
 		video: {
 			format: ['video/mp4'],
 			run() {
-				run('Lecteur de vidéos', {
-					videoPath: `/Ce PC/Bureau/${title}`
+				run('Lecteur multimédia', {
+					videoPath: `${path}/${title}`,
+					mime
 				});
 			},
 			component: () => (<span style={iconsStyle}>
 				<FaIcon type={FaIconsType.SOLID} icon={'film'} />
+			</span>)
+		},
+		audio: {
+			format: ['audio/mpeg'],
+			run() {
+				run('Lecteur multimédia', {
+					videoPath: `${path}/${title}`,
+					mime
+				});
+			},
+			component: () => (<span style={iconsStyle}>
+				<FaIcon type={FaIconsType.SOLID} icon={'file-audio'} />
 			</span>)
 		}
 	};

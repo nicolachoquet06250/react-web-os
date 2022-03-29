@@ -9,7 +9,7 @@ import { ImageViewer, ImageViewerIcon } from "../applications/ImageViewer/ImageV
 import { useRegisterTerminalPlugin } from "../applications/Terminal/hooks/plugins";
 import { useRegisterCommandsInterpreter } from "../applications/Terminal/hooks";
 import { Git } from "../applications/Git/Git";
-import { VideoReader, VideoReaderIcon } from "../applications/VideoReader/VideoReader";
+import { AudioVideoReader, AudioVideoReaderIcon } from "../applications/VideoReader/VideoReader";
 
 export const useRegisterApps = () => {
 	const { register: registerCalculatrice } = useRegisterPinApp('Calculatrice');
@@ -56,9 +56,9 @@ export const useRegisterApps = () => {
 			true
 		);
 		useRegisterApplication(
-			'Lecteur de vidéos',
-			VideoReaderIcon,
-			VideoReader
+			'Lecteur multimédia',
+			AudioVideoReaderIcon,
+			AudioVideoReader
 		);
 
 		// épinglage dans la bar des taches

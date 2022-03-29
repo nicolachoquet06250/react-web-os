@@ -97,12 +97,25 @@ export const DesktopElement = ({
 		video: {
 			format: ['video/mp4'],
 			run() {
-				run('Lecteur de vidéos', {
-					videoPath: `/Ce PC/Bureau/${title}`
+				run('Lecteur multimédia', {
+					videoPath: `/Ce PC/Bureau/${title}`,
+					mime
 				});
 			},
 			component: () => (<span style={iconsStyle}>
 				<FaIcon type={FaIconsType.SOLID} icon={'film'} />
+			</span>)
+		},
+		audio: {
+			format: ['audio/mpeg'],
+			run() {
+				run('Lecteur multimédia', {
+					videoPath: `/Ce PC/Bureau/${title}`,
+					mime
+				});
+			},
+			component: () => (<span style={iconsStyle}>
+				<FaIcon type={FaIconsType.SOLID} icon={'file-audio'} />
 			</span>)
 		}
 	};

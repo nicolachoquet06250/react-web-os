@@ -34,6 +34,8 @@ export const DragAndDropUploader = ({
 
 		const files = Array.from(e.dataTransfer.files).filter(v => acceptedFileTypes.indexOf(v.type) !== -1);
 
+		// console.log(Array.from(e.dataTransfer.files));
+
 		Promise.all(files.map(file => new Promise(resolve => {
 			let reader = new FileReader()
 			reader.readAsDataURL(file)
