@@ -5,6 +5,7 @@ import { useClickAway, useKey } from "react-use";
 import { directoryIcon } from "./TreeMenu";
 import { FaIcon, FaIconsType } from "../../../components/FaIcon/FaIcon";
 import { useControlApplication } from "../../../hooks/applications";
+import { GifImage } from '../../../components/GifImage/GifImage';
 
 /**
  * @param {'directory'|'file'} type
@@ -62,8 +63,6 @@ export const FileExplorerElement = ({
 		}
 	};
 
-
-
 	const formats = {
 		text: {
 			format: ['text/plain'],
@@ -77,13 +76,16 @@ export const FileExplorerElement = ({
 			</span>)
 		},
 		image: {
-			format: ['image/png', 'image/jpeg'],
+			format: ['image/png', 'image/jpeg', 'image/gif'],
 			run() {
 				run(`Visionneuse d'images`, {
-					imagePath: `/Ce PC/Bureau/${title}`
+					imagePath: `/Ce PC/Bureau/${title}`,
+					mime
 				});
 			},
-			component: () => (<img src={content} alt={title} style={imageMiniatureStyle} />)
+			component: () => (mime === 'image/gif' 
+				? (<GifImage src={content} alt={title} style={imageMiniatureStyle} />) 
+					: (<img src={content} alt={title} style={imageMiniatureStyle} />))
 		},
 		video: {
 			format: ['video/mp4'],

@@ -1,3 +1,5 @@
+import { FaIcon, FaIconsType } from "../../../components/FaIcon/FaIcon";
+
 const addNumberToScreen = (v, calcul, setCalcul) => setCalcul(calcul === '0' ? `${v}` : (calcul + `${v}`));
 
 const addSymbolToScreen = (s, calcul, setCalcul) => setCalcul(calcul + s);
@@ -28,7 +30,7 @@ export const useTouches = (calcul, setCalcul) => [
 			value: 'C'
 		},
 		{
-			value: '',
+			value: (<FaIcon type={FaIconsType.SOLID} icon={'delete-left'} />),
 			action() {
 				setCalcul(
 					calcul.length <= 1 ?

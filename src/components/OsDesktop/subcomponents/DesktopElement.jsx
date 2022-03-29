@@ -2,8 +2,8 @@ import React, { useRef, useState } from "react";
 import { removeDirectory } from "../../../applications/FileExplorer/hooks";
 import { useClickAway, useKey } from "react-use";
 import { FaIcon, FaIconsType } from "../../FaIcon/FaIcon";
-import { directoryIcon } from "../../../applications/FileExplorer/subcomponents";
 import { useControlApplication } from "../../../hooks/applications";
+import { GifImage } from '../../../components/GifImage/GifImage';
 
 /**
  * @param {'directory'|'file'} type
@@ -44,6 +44,17 @@ export const DesktopElement = ({
 		backgroundRepeat: 'no-repeat',
 		backgroundSize: '60px auto'
 	};
+	const gitContainerStyle = {
+		width: '60px',
+		height: '70px',
+		padding: '5px',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center'
+	};
+	const gifMiniatureStyle = {
+		width: '100%'
+	};
 	const iconsStyle = {
 		display: 'inline-block',
 		width: '70px',
@@ -72,13 +83,16 @@ export const DesktopElement = ({
 			</span>)
 		},
 		image: {
-			format: ['image/png', 'image/jpeg'],
+			format: ['image/png', 'image/jpeg', 'image/gif'],
 			run() {
 				run(`Visionneuse d'images`, {
-					imagePath: `/Ce PC/Bureau/${title}`
+					imagePath: `/Ce PC/Bureau/${title}`,
+					mime
 				});
 			},
-			component: () => (<div style={imageMiniatureStyle} />)
+			component: () => (mime === 'image/gif' 
+				? (<div style={gitContainerStyle}><GifImage src={content} alt={title} style={gifMiniatureStyle} /></div>) 
+					: (<div style={imageMiniatureStyle} />))
 		},
 		video: {
 			format: ['video/mp4'],
