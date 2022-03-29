@@ -26,9 +26,7 @@ export const App = () => {
     const appsInstances = useApplicationsInstances();
     const [pinApplications] = usePinApplications();
 
-    useEffect(() => {
-        setShowedContextMenuId('');
-    }, [pinApplications]);
+    useEffect(() => setShowedContextMenuId(''), [pinApplications]);
 
     // enregistrement des menus contextuels
     useRegisterContextualMenu('window', ContextualMenuWindowContent);

@@ -39,7 +39,7 @@ export const usePinApplications = createRxJsUseGetter(pinApplications, pinApplic
 /**
  * @param {string} title
  */
-export const useRegisterPinApp = (title) => ({
+export const useRegisterPinApp = title => ({
 	/**
 	 * @param {boolean|undefined} taskBar
 	 * @param {boolean|undefined} startMenu
