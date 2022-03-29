@@ -167,7 +167,7 @@ const Audio = ({ content, mime, width, height, active, moving }) => {
 
 	return (<div className={allVid} style={{ height: '100%' }}>
 		<div className={'play-pause-frame'}
-			 onClick={handleTogglePlay}>
+			 onClick={handleTogglePlay} style={{ color: 'white' }}>
 			<FaIcon type={FaIconsType.SOLID} icon={(play ? 'play' : 'pause')} />
 		</div>
 
