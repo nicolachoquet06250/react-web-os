@@ -8,6 +8,8 @@ import { BlocNote, BlocNoteIcon } from "../applications/BlocNote/BlocNote";
 import { ImageViewer, ImageViewerIcon } from "../applications/ImageViewer/ImageViewer";
 import { Git } from "../applications/Git/Git";
 import { AudioVideoReader, AudioVideoReaderIcon } from "../applications/AudioVideoReader/AudioVideoReader";
+import { ReactVisualEditor, ReactVisualEditorIcon } from "../applications/ReactVisualEditor/ReactVisualEditor";
+import { VueVisualEditor, VueVisualEditorIcon } from "../applications/VueVisualEditor/VueVisualEditor";
 
 export const useRegisterApps = () => {
 	const { register: registerCalculatrice } = useRegisterPinApp('Calculatrice');
@@ -56,6 +58,16 @@ export const useRegisterApps = () => {
 			'Lecteur multimédia',
 			AudioVideoReaderIcon,
 			AudioVideoReader
+		);
+		useRegisterApplication(
+			'React Visual Editor',
+			ReactVisualEditorIcon,
+			ReactVisualEditor
+		);
+		useRegisterApplication(
+			'Vue Visual Editor',
+			VueVisualEditorIcon,
+			VueVisualEditor
 		);
 
 		// épinglage dans la bar des taches

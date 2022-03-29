@@ -15,6 +15,7 @@ export const Window = ({
 	bodyBackground = 'transparent',
 	resizable = true, children,
 	title, minimized,
+	bodyAddStyle = '',
 	onClose = () => null,
 	onContextMenu = () => null,
 	onActive = () => null,
@@ -180,7 +181,7 @@ export const Window = ({
 					onContextMenu={onContextMenu}
 					onMinimize={onMinimize} />
 
-			<div className={windowBodyStyle}
+			<div className={windowBodyStyle + ' ' + bodyAddStyle}
 			     onContextMenu={onContextMenu}>
 				{children}
 			</div>
