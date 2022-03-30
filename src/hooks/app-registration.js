@@ -12,6 +12,7 @@ import { ReactVisualEditor, ReactVisualEditorIcon } from "../applications/ReactV
 import { VueVisualEditor, VueVisualEditorIcon } from "../applications/VueVisualEditor/VueVisualEditor";
 import { MonCV, MonCVIcon } from "../applications/MonCV/MonCV";
 import { IE, IEIcon } from "../applications/IE/IE";
+import { WebBrowser, WebBrowserIcon } from "../applications/WebBrowser/WebBrowser";
 
 export const useRegisterApps = () => {
 	const { register: registerCalculatrice } = useRegisterPinApp('Calculatrice');
@@ -82,6 +83,11 @@ export const useRegisterApps = () => {
 			'Internet Explorer',
 			IEIcon,
 			IE
+		);
+		useRegisterApplication(
+			'Navigateur web',
+			WebBrowserIcon,
+			WebBrowser
 		);
 
 		// épinglage dans la bar des taches
