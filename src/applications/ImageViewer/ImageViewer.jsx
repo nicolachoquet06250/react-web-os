@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Window } from "../../components/Window/Window";
 import { findElementInTree, getFileContent, useTree } from "../FileExplorer/hooks";
 import { createContextMenuHandler } from "../../hooks/utils/handler";
 import { FaIcon, FaIconsType } from "../../components/FaIcon/FaIcon";
 import { useStyle } from './style';
 import { ImageViewerTitle } from './subcomponents';
-import { GifImage, TRIGGERS } from '../../components/GifImage/GifImage';
 
 export const ImageViewerIcon = 'https://www.ohmymac.fr/wp-content/uploads/2016/01/apercu_icone.png';
 

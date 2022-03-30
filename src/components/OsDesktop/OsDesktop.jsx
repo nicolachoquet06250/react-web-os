@@ -12,7 +12,7 @@ import {
 } from "../../applications/FileExplorer/hooks";
 import { useControlApplication } from "../../hooks/applications";
 import { DragAndDropUploader } from "../DragAndDropUploader/DragAndDropUploader";
-import { FileExplorerElement } from "../../applications/FileExplorer/subcomponents/FileExplorerElement";
+import { DesktopShortcut } from "./subcomponents/DesktopShortcut";
 
 export const OsDesktop = ({ children, background, onContextMenu = () => null, ...events }) => {
 	const { osDesktop, desktopGrid } = useOsDesktopStyle({ background });
@@ -64,6 +64,8 @@ export const OsDesktop = ({ children, background, onContextMenu = () => null, ..
 			                     )
 		                     }}>
 			<div className={desktopGrid}>
+				<DesktopShortcut title={'Internet Explorer'} />
+
 				{desktopElement.children.map(((v, i) =>
 					(<Fragment key={i}>
 						{v.type === 'directory' && (<DesktopElement type={v.type}

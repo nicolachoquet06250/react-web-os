@@ -170,10 +170,14 @@ export const useControlApplication = () => ({
 		]);
 	},
 
-	stop(title, id) {
+	stop(title, id = null) {
 		const oldRunningApplications = runningApps$.getValue();
 
-		runningApps$.next(oldRunningApplications.filter((v, i) => i !== id));
+		if (id !== null) {
+			runningApps$.next(oldRunningApplications.filter((v, i) => i !== id));
+		} else {
+			runningApps$.next(oldRunningApplications.filter(v => v.title !== title));
+		}
 	}
 });
 
