@@ -47,6 +47,10 @@ export const useStartMenuStyle = createUseStyles({
 			width: '20px',
 			height: '20px',
 			marginRight: '5px'
+		},
+
+		'& > span': {
+			fontSize: '10px',
 		}
 	},
 
