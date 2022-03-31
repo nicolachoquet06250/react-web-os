@@ -97,6 +97,7 @@ export const useWindowStyle = createUseStyles({
 	windowHeaderStyle: ({ background, color }) => ({
 		height: '20px',
 		width: '100%',
+		overflow: 'hidden',
 
 		background,
 

@@ -21,6 +21,7 @@ html *:hover {
 /* For Chrome and other browsers except Firefox */
 html * ::-webkit-scrollbar {
     width: 0.5em;
+    height: 0.5em;
     background-color: #5e1092;
 }
 html *::-webkit-scrollbar-thumb {
