@@ -30,7 +30,8 @@ export const useStartMenuStyle = createUseStyles({
 		height: 'calc(100% - 5px)',
 		borderRight: '1px solid black',
 		paddingLeft: '5px',
-		paddingTop: '5px'
+		paddingTop: '5px',
+		overflow: 'auto'
 	},
 
 	categorizedApplication: {
@@ -42,6 +43,7 @@ export const useStartMenuStyle = createUseStyles({
 		cursor: 'pointer',
 		border: 'none',
 		color: 'white',
+		marginBottom: '5px',
 
 		'& > img': {
 			width: '20px',

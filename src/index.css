@@ -7,7 +7,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html * {
+  /* For Firefox */
+  overflow: auto;
+  scrollbar-color: #825bc0 #5e1092;
+  scrollbar-width: none;
+}
+
+html *:hover {
+  scrollbar-width: thin;
+}
+
+/* For Chrome and other browsers except Firefox */
+html * ::-webkit-scrollbar {
+    width: 0.5em;
+    background-color: #5e1092;
+}
+html *::-webkit-scrollbar-thumb {
+    background-color: #825bc0;
 }
