@@ -608,7 +608,108 @@ export const MonCV = ({ ...otherProps }) => {
 					</div>
 				</section>
 
-				<section className={projects} />
+				<section className={projects}>
+					<h1> Projets </h1>
+
+					<div>
+						<ul>
+							<li>
+								<h4 style={{ margin: 0 }}>
+									Système d'exploitation web
+									<span className={badge}>
+										<FaIcon type={FaIconsType.BRANDS} icon={'react'} style={{ marginRight: '5px' }} />
+										React.js
+									</span>
+									<span className={badge}>
+										<FaIcon type={FaIconsType.BRANDS} icon={'windows'} style={{ marginRight: '5px' }} />
+										Windows 10
+									</span>
+								</h4>
+
+								<h5 style={{ marginTop: '10px', marginBottom: '10px' }}>Inspiration du disign windows 10</h5>
+
+								<span style={{ fontSize: '12px' }}>
+									<FaIcon type={FaIconsType.SOLID} icon={'hourglass-start'} /> Févr. 2022&nbsp;
+									<FaIcon type={FaIconsType.SOLID} icon={'hourglass'} /> En cours
+								</span>
+
+								<div>
+									<FaIcon type={FaIconsType.SOLID} icon={'globe'} style={{ marginRight: '10px' }} />
+									<a href={window.location.href} target={'_blank'}>{window.location.href}</a>
+								</div>
+							</li>
+
+							<li>
+								<h4 style={{ marginBottom: '10px' }}>
+									Editeur visuel
+									<span className={badge}>
+										<FaIcon type={FaIconsType.BRANDS} icon={'react'} style={{ marginRight: '5px' }} /> React.js
+									</span>
+								</h4>
+
+								<span style={{ fontSize: '12px' }}>
+									<FaIcon type={FaIconsType.SOLID} icon={'hourglass-start'} /> Déc. 2021&nbsp;
+									<FaIcon type={FaIconsType.SOLID} icon={'hourglass-end'} /> Févr. 2022
+								</span>
+
+								<div>
+									<FaIcon type={FaIconsType.SOLID} icon={'globe'} style={{ marginRight: '10px' }} />
+									<a href={'https://visual-editor.react.nicolaschoquet.fr'} target={'_blank'}>
+										https://visual-editor.react.nicolaschoquet.fr
+									</a>
+								</div>
+							</li>
+
+							<li>
+								<h4 style={{ marginBottom: '10px' }}>
+									Editeur visuel
+									<span className={badge}>
+										<FaIcon type={FaIconsType.BRANDS} icon={'vuejs'} style={{ marginRight: '5px' }} /> Vue.js
+									</span>
+								</h4>
+
+								<span style={{ fontSize: '12px' }}>
+									<FaIcon type={FaIconsType.SOLID} icon={'hourglass-start'} /> Déc. 2021&nbsp;
+									<FaIcon type={FaIconsType.SOLID} icon={'hourglass-end'} /> Févr. 2022
+								</span>
+
+								<div>
+									<FaIcon type={FaIconsType.SOLID} icon={'globe'} style={{ marginRight: '10px' }} />
+									<a href={'https://visual-editor.vue.nicolaschoquet.fr'} target={'_blank'}>
+										https://visual-editor.vue.nicolaschoquet.fr
+									</a>
+								</div>
+							</li>
+
+							<li>
+								<h4 style={{ marginBottom: 0 }}>
+									Système d'exploitation web
+									<span className={badge}>
+										<FaIcon type={FaIconsType.BRANDS} icon={'vuejs'} style={{ marginRight: '5px' }} /> Vue.js
+									</span>
+									<span className={badge}>
+										<FaIcon type={FaIconsType.BRANDS} icon={'apple'} style={{ marginRight: '5px' }} />
+										MacOS
+									</span>
+								</h4>
+
+								<h5 style={{ marginTop: '10px', marginBottom: '10px' }}>Inspiration du disign MacOS Big Sur</h5>
+
+								<span style={{ fontSize: '12px' }}>
+									<FaIcon type={FaIconsType.SOLID} icon={'hourglass-start'} /> Nov. 2021&nbsp;
+									<FaIcon type={FaIconsType.SOLID} icon={'hourglass'} /> En cours
+								</span>
+
+								<div>
+									<FaIcon type={FaIconsType.SOLID} icon={'globe'} style={{ marginRight: '10px' }} />
+									<a href={'https://www.nicolaschoquet.fr'} target={'_blank'}>
+										https://www.nicolaschoquet.fr
+									</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</section>
 
 				<section className={formations} />
 			</div>
