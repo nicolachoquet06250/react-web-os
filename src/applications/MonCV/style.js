@@ -23,7 +23,8 @@ export const useStyle = createUseStyles({
 		minHeight: '100%',
 		borderLeft: '1px solid black',
 		borderRight: '1px solid black',
-		backgroundColor: 'black'
+		backgroundColor: 'black',
+		paddingLeft: '10px'
 	},
 
 	header: {
@@ -132,5 +133,49 @@ export const useStyle = createUseStyles({
 		alignItems: 'center',
 		fontSize: '12px',
 		fontWeight: 'normal'
+	},
+
+	danger: {
+		backgroundColor: 'darkred',
+		color: 'white'
+	},
+
+	success: {
+		backgroundColor: 'darkgreen',
+		color: 'white'
+	},
+
+	card: {
+		marginBottom: '10px',
+
+		'& > header': {
+			display: 'flex',
+			flexDirection: 'row',
+			justifyContent: 'flex-start',
+			alignItems: 'center',
+
+			'& > div': {
+				paddingLeft: '10px',
+				display: 'flex',
+				flexDirection: 'column',
+
+				'& > .titles-container': {
+					marginBottom: '15px',
+
+					'& > h2, & > h3': {
+						margin: 0
+					}
+				},
+
+				'& > h2': {
+					marginTop: 0,
+					marginBottom: '15px',
+				},
+
+				'& > span': {
+					marginBottom: '5px'
+				}
+			}
+		}
 	}
 });
