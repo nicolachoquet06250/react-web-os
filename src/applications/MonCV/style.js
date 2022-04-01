@@ -71,12 +71,20 @@ export const useStyle = createUseStyles({
 		}
 	},
 
-	technicals_skils: {
+	technicals_skills: {
 		paddingLeft: '5px',
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'center',
 		alignItems: 'flex-start',
+
+		'& h1': {
+			marginBottom: 0,
+
+			'& + p': {
+				marginTop: '5px'
+			}
+		},
 
 		'& ul > li': {
 			listStyle: 'none',
@@ -87,7 +95,7 @@ export const useStyle = createUseStyles({
 			'& > span': {
 				textTransform: 'unset',
 			},
-			
+
 			'& > [class^=fa-]': {
 				marginRight: '10px'
 			}
@@ -100,7 +108,8 @@ export const useStyle = createUseStyles({
 			width: '100%',
 
 			'& > div': {
-				width: '50%'
+				minWidth: '50%',
+				maxWidth: '100%',
 			}
 		}
 	},
@@ -115,11 +124,13 @@ export const useStyle = createUseStyles({
 		paddingLeft: '5px',
 		paddingRight: '5px',
 		backgroundColor: 'rgba(255, 255, 255, .5)',
-		color: 'black',
+		color: 'white',
 		borderRadius: '5px',
 		marginLeft: '10px',
 		display: 'inline-flex',
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
+		fontSize: '12px',
+		fontWeight: 'normal'
 	}
 });

@@ -156,6 +156,7 @@ export const useTaskBarStyle = createUseStyles({
 		border: 'none',
 		backgroundColor: 'transparent',
 		transition: 'backgroundColor .2s ease-out',
+		overflow: 'hidden',
 
 		'&:hover': {
 			backgroundColor: 'black'
