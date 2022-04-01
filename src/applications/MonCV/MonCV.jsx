@@ -52,7 +52,7 @@ export const MonCV = ({ ...otherProps }) => {
 								<li>
 									<FaIcon type={FaIconsType.BRANDS} icon={'js'} />
 
-									Vanilla (ES6+)
+									Vanilla <span className={badge}>ES6+</span>
 								</li>
 
 								<li>
