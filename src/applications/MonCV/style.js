@@ -96,14 +96,11 @@ export const useStyle = createUseStyles({
 		'& ul > li': {
 			listStyle: 'none',
 			display: 'flex',
-			justifyContent: 'flex-start',
-			alignItems: 'center',
+			flexDirection: 'column',
+			justifyContent: 'center',
+			alignItems: 'flex-start',
 
-			'& > span': {
-				textTransform: 'unset',
-			},
-
-			'& > [class^=fa-]': {
+			'& > div > [class^=fa-]': {
 				marginRight: '10px'
 			}
 		},
@@ -234,5 +231,18 @@ export const useStyle = createUseStyles({
 				}
 			}
 		}
-	})
+	}),
+
+	hobbies: {
+		'& > ul': {
+			display: 'flex',
+			flexDirection: 'row',
+			width: 'calc(100% - 40px)',
+			flexWrap: 'wrap',
+
+			'& > li': {
+				minWidth: '50%'
+			}
+		}
+	}
 });

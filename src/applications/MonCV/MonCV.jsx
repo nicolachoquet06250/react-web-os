@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { FaIcon, FaIconsType } from "../../components/FaIcon/FaIcon";
 import { Window } from "../../components/Window/Window";
 import { useStyle } from './style';
-import { MonCVTitle } from './subcomponents';
+import { MonCVTitle, StarNotation } from './subcomponents';
 import { VsCodeIcon } from '../VsCode/VsCode';
 import android from './assets/logo-android.png';
 import angular from './assets/logo-angular.png';
@@ -31,6 +31,7 @@ export const MonCV = ({ ...otherProps }) => {
 	const [sideWidth, setSideWidth] = useState(0);
 	const [windowWidth, setWindowWidth] = useState(0);
 	const [rotation, setRotation] = useState(0);
+	const [githubAccountData, setGithubAccountData] = useState(null);
 	const { y: scrollY } = useScroll(containerRef);
 
 	const {
@@ -39,7 +40,7 @@ export const MonCV = ({ ...otherProps }) => {
 		technicals_skills, experiences,
 		projects, formations,
 		badge, danger, success,
-		card, side
+		card, side, hobbies
 	} = useStyle({ sideWidth, rotation });
 
 	const header_data = {
@@ -64,13 +65,6 @@ export const MonCV = ({ ...otherProps }) => {
 			{
 				icon: {
 					type: FaIconsType.BRANDS,
-					icon: 'github'
-				},
-				href: 'https://github.com/nicolachoquet06250'
-			},
-			{
-				icon: {
-					type: FaIconsType.BRANDS,
 					icon: 'linkedin'
 				},
 				href: 'https://www.linkedin.com/in/nicolas-choquet-23323993/'
@@ -91,7 +85,8 @@ export const MonCV = ({ ...otherProps }) => {
 								icon: 'js'
 							},
 							title: 'Vanilla',
-							version: 'ES6+'
+							version: 'ES6+',
+							note: 4.5
 						},
 						{
 							icon: {
@@ -99,7 +94,8 @@ export const MonCV = ({ ...otherProps }) => {
 								icon: 'react'
 							},
 							title: 'React.js',
-							version: 'v16+'
+							version: 'v16+',
+							note: 4
 						},
 						{
 							icon: {
@@ -107,7 +103,8 @@ export const MonCV = ({ ...otherProps }) => {
 								icon: 'vuejs'
 							},
 							title: 'Vue.js',
-							version: 'v3+'
+							version: 'v3+',
+							note: 4
 						},
 					]
 				},
@@ -120,7 +117,8 @@ export const MonCV = ({ ...otherProps }) => {
 								icon: 'angular'
 							},
 							title: 'Angular',
-							version: 'v10+'
+							version: 'v10+',
+							note: 3
 						},
 					]
 				},
@@ -131,15 +129,25 @@ export const MonCV = ({ ...otherProps }) => {
 			languages: [
 				{
 					title: 'PHP',
-					version: 'v7/8',
+					version: 'v8.1',
 					frameworks: [
+						{
+							icon: {
+								type: FaIconsType.BRANDS,
+								icon: 'php'
+							},
+							title: 'From Scratch',
+							version: 'v5+',
+							note: 4.5
+						},
 						{
 							icon: {
 								type: FaIconsType.BRANDS,
 								icon: 'laravel'
 							},
 							title: 'Laravel',
-							version: 'v5+'
+							version: 'v5+',
+							note: 4
 						},
 						{
 							icon: {
@@ -147,7 +155,8 @@ export const MonCV = ({ ...otherProps }) => {
 								icon: 'symfony'
 							},
 							title: 'Symfony',
-							version: 'v5+'
+							version: 'v5+',
+							note: 3
 						},
 					]
 				},
@@ -161,12 +170,13 @@ export const MonCV = ({ ...otherProps }) => {
 								icon: 'python'
 							},
 							title: 'Django',
-							version: 'v4+'
+							version: 'v4+',
+							note: 4.5
 						}
 					]
 				},
 				{
-					title: 'JavaScript / TypeScript',
+					title: 'JavaScript',
 					frameworks: [
 						{
 							icon: {
@@ -174,8 +184,14 @@ export const MonCV = ({ ...otherProps }) => {
 								icon: 'node'
 							},
 							title: 'Node.js',
-							version: 'v10+'
+							version: 'v10+',
+							note: 4.5
 						},
+					]
+				},
+				{
+					title: 'TypeScript',
+					frameworks: [
 						{
 							image: {
 								src: 'https://cdn.iconscout.com/icon/free/png-256/deno-3629899-3031711.png',
@@ -187,7 +203,8 @@ export const MonCV = ({ ...otherProps }) => {
 								}
 							},
 							title: 'Deno.js',
-							version: 'v1+'
+							version: 'v1+',
+							note: 3
 						},
 					]
 				},
@@ -213,14 +230,16 @@ export const MonCV = ({ ...otherProps }) => {
 									marginRight: '10px'
 								}
 							},
-							version: 'v3+'
+							version: 'v3+',
+							note: 3
 						},
 						{
 							title: 'React Native',
 							icon: {
 								type: FaIconsType.BRANDS,
 								icon: 'react'
-							}
+							},
+							note: 4
 						}
 					]
 				}
@@ -241,7 +260,8 @@ export const MonCV = ({ ...otherProps }) => {
 								icon: 'atom'
 							},
 							title: 'Electron.js',
-							version: 'v10+'
+							version: 'v10+',
+							note: 4
 						}
 					]
 				}
@@ -262,7 +282,8 @@ export const MonCV = ({ ...otherProps }) => {
 							icon: {
 								type: FaIconsType.BRANDS,
 								icon: 'react'
-							}
+							},
+							note: 3
 						},
 						{
 							title: 'Aframe.js',
@@ -276,7 +297,8 @@ export const MonCV = ({ ...otherProps }) => {
 									borderRadius: '50px'
 								}
 							},
-							version: 'v1+'
+							version: 'v1+',
+							note: 4
 						}
 					]
 				}
@@ -298,7 +320,8 @@ export const MonCV = ({ ...otherProps }) => {
 									height: '15px',
 									marginRight: '10px'
 								}
-							}
+							},
+							note: 2
 						},
 						{
 							title: 'MariaDB',
@@ -310,7 +333,8 @@ export const MonCV = ({ ...otherProps }) => {
 									height: '15px',
 									marginRight: '10px'
 								}
-							}
+							},
+							note: 2
 						},
 					]
 				},
@@ -327,7 +351,8 @@ export const MonCV = ({ ...otherProps }) => {
 									height: '15px',
 									marginRight: '10px'
 								}
-							}
+							},
+							note: 3
 						}
 					]
 				}
@@ -397,7 +422,6 @@ export const MonCV = ({ ...otherProps }) => {
 			]
 		}
 	];
-
 	const proExperiences = [
 		{
 			title: {
@@ -596,7 +620,6 @@ export const MonCV = ({ ...otherProps }) => {
 			une base de donnée prestashop.`
 		}
 	];
-
 	const personalProjects = [
 		{
 			title: `Système d'exploitation web`,
@@ -685,7 +708,6 @@ export const MonCV = ({ ...otherProps }) => {
 			]
 		},
 	];
-
 	const myFormations = [
 		{
 			image: {
@@ -751,15 +773,141 @@ export const MonCV = ({ ...otherProps }) => {
 			}
 		},
 	];
+	const hobbiesCategories = [
+		{
+			title: 'Technologie',
+			hobbies: [
+				{
+					label: 'Programmation'
+				},
+				{
+					label: 'Veille technologique'
+				},
+				{
+					label: 'Réalité virtuelle',
+					badges: ['VR']
+				},
+				{
+					label: 'Réalité augmentée',
+					badges: ['AR']
+				}
+			]
+		},
+		{
+			title: 'Art',
+			hobbies: [
+				{
+					label: 'Dessin'
+				},
+				{
+					label: 'Peinture'
+				},
+				{
+					label: 'Architecture'
+				}
+			]
+		},
+		{
+			title: 'Sport',
+			badges: ['amateur'],
+			hobbies: [
+				{
+					label: 'Natation'
+				},
+				{
+					label: 'Badminton'
+				},
+				{
+					label: 'Ping-Pong'
+				}
+			]
+		},
+		{
+			title: 'Sciences',
+			hobbies: [
+				{
+					label: 'Astronomie'
+				},
+				{
+					label: 'Paléontologie'
+				},
+				{
+					label: 'Archéologie'
+				}
+			]
+		},
+		{
+			title: 'Autres',
+			hobbies: [
+				{
+					label: 'Théâtre'
+				},
+				{
+					label: 'Voyages',
+					badges: ['Croisières']
+				},
+				{
+					label: 'Karaokés',
+					badges: [`Keen'V`, `Ben l'oncle soul`, 'Michel Delpech']
+				},
+				{
+					label: 'Cinéma',
+					badges: ['Super-Héros', 'Science-fiction']
+				},
+				{
+					label: 'Musique',
+					badges: ['Rap', 'Pop', 'R&B', 'Soul', 'Reggae']
+				}
+			]
+		}
+	];
+	const langes = [
+		{
+			label: 'Français',
+			note: 4,
+			badges: ['natale']
+		},
+		{
+			label: 'Anglais',
+			note: 3
+		}
+	];
 
 	useEffect(() => {
 		setRotation(scrollY / 10);
 	}, [scrollY]);
 
-	useEffect(() => {
+	const onResize = useCallback(() => {
 		const bodyWidth = body.current.offsetWidth;
 		setSideWidth(((windowWidth - bodyWidth) / 2));
 	}, [windowWidth]);
+
+	useEffect(() => {
+		onResize();
+
+		window.addEventListener('resize', onResize);
+
+		return () => {
+			window.removeEventListener('resize', onResize);
+		}
+	}, [windowWidth]);
+
+	useEffect(() => {
+		fetch('https://api.github.com/users/nicolachoquet06250', {
+			method: 'get',
+		}).then(r => r.json())
+			.then(json => {
+				console.log(json);
+
+				setGithubAccountData({
+					avatar: json.avatar_url,
+					bio: json.bio,
+					url: json.html_url,
+					name: json.name,
+					public_repos: json.public_repos
+				});
+			});
+	}, []);
 
 	return (<Window headerBackground={'black'}
 	                headerColor={'white'}
@@ -835,6 +983,34 @@ export const MonCV = ({ ...otherProps }) => {
 					</div>
 				</header>
 
+				<div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+					{githubAccountData &&
+						(<a href={githubAccountData.url} target={'_blank'} style={{ textDecoration: 'none', color: 'white' }}>
+							<div style={{width: 'calc(100% - 10px)', display: 'flex', flexDirection: 'column', border: '1px solid white', borderRadius: '5px' }}>
+								<div style={{ display: 'flex', flexDirection: 'row' }}>
+									<div style={{ maxWidth: '100px', display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+										<img src={githubAccountData.avatar} alt={'github account avatar'}
+										     style={{ height: 'min-content', borderBottomRightRadius: '5px' }} />
+									</div>
+
+									<div style={{ paddingLeft: '10px' }}>
+										<h4 style={{ margin: 0 }}>{githubAccountData.name}</h4>
+										<p style={{ maxWidth: '400px' }}>{githubAccountData.bio.split('\r\n').map((c, i) =>
+											(<Fragment key={i}>{c}<br /></Fragment>))}</p>
+									</div>
+								</div>
+
+								<div>
+									<span style={{ paddingLeft: '5px' }}>
+										<FaIcon type={FaIconsType.BRANDS} icon={'github'} style={{ marginRight: '5px' }} />
+
+										{githubAccountData.public_repos}
+									</span>
+								</div>
+							</div>
+						</a>)}
+				</div>
+
 				<section className={technicals_skills}>
 					<h1> Compétences techniques </h1>
 
@@ -856,26 +1032,32 @@ export const MonCV = ({ ...otherProps }) => {
 													{l.title}
 													{l.version &&
 														(<span className={badge}>
-													{l.version}
-												</span>)}
+															{l.version}
+														</span>)}
 												</h2>
 
 												<ul>
 													{l.frameworks.map((f, k) =>
 														(<li key={k}>
-															{f.icon && (<FaIcon type={f.icon.type} icon={f.icon.icon} />)}
+															<div>
+																{f.icon &&
+																	(<FaIcon type={f.icon.type} icon={f.icon.icon} />)}
 
-															{f.image &&
-																(<img src={f.image.src}
-																      alt={f.image.alt}
-																      style={f.image.style ?? {}} />)}
+																{f.image &&
+																	(<img src={f.image.src}
+																	      alt={f.image.alt}
+																	      style={f.image.style ?? {}} />)}
 
-															{f.title}
+																{f.title}
 
-															{f.version &&
-																(<span className={badge}>
-															{f.version}
-														</span>)}
+																{f.version &&
+																	(<span className={badge}>
+																		{f.version}
+																	</span>)}
+															</div>
+															{f.note && (<p>
+																<StarNotation note={f.note}/>
+															</p>)}
 														</li>))}
 												</ul>
 											</div>))}
@@ -1103,6 +1285,48 @@ export const MonCV = ({ ...otherProps }) => {
 								</li>))}
 						</ul>
 					</div>
+				</section>
+
+				<section>
+					<h1> Langues parlées </h1>
+
+					<ul>
+						{langes.map((l, i) =>
+							(<li key={i}>
+								{l.label}:
+
+								<StarNotation note={l.note} style={{ marginLeft: '5px' }} />
+
+								{l.badges && l.badges.map((b, j) =>
+									(<span key={j} className={badge}> {b} </span>))}
+							</li>))}
+					</ul>
+				</section>
+
+				<section className={hobbies}>
+					<h1> Centres d'intérêt </h1>
+
+					<ul>
+						{hobbiesCategories.map((c, i) =>
+							(<li key={i}>
+								<h2>
+									{c.title}
+
+									{c.badges && c.badges.map((b, j) =>
+										(<span key={j} className={badge}> {b} </span>))}
+								</h2>
+
+								<ul>
+									{c.hobbies.map((h, j) =>
+										(<li key={j}>
+											{h.label}
+
+											{h.badges && h.badges.map((b, k) =>
+												(<span key={k} className={badge}> {b} </span>))}
+										</li>))}
+								</ul>
+							</li>))}
+					</ul>
 				</section>
 			</div>
 
