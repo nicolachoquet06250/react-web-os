@@ -16,15 +16,18 @@ export const AppPreview = ({
 
 			return (<div key={instance.id}
 			             className={appPreview}
-			             data-title={(instance.title.length > 16 ? instance.title.split('').splice(0, 16).join('') + '...' : instance.title)}
 			             onMouseOver={onMouseOver}
 			             onMouseOut={onMouseOut}
 			             onClick={maximizeRunningApplication}
 			             style={{ '--icon': 'url(' + instance.icon + ')' }}>
-				<button className={'close-button'}
-				        onClick={() => onCloseApp(instance.title, instance.id)}>
-					<FaIcon type={FaIconsType.SOLID} icon={'xmark'} />
-				</button>
+				<header>
+					{(instance.title.length > 16 ? instance.title.split('').splice(0, 16).join('') + '...' : instance.title)}
+
+					<button className={'close-button'}
+					        onClick={() => onCloseApp(instance.title, instance.id)}>
+						<FaIcon type={FaIconsType.SOLID} icon={'xmark'} />
+					</button>
+				</header>
 			</div>);
 		})}
 	</div>);

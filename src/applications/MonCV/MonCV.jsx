@@ -1,20 +1,46 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaIcon, FaIconsType } from "../../components/FaIcon/FaIcon";
 import { Window } from "../../components/Window/Window";
 import { useStyle } from './style';
 import { MonCVTitle } from './subcomponents';
 import { VsCodeIcon } from '../VsCode/VsCode';
+import android from './assets/logo-android.png';
+import angular from './assets/logo-angular.png';
+import capacitor from './assets/logo-capacitor.png';
+import deno from './assets/logo-deno.png';
+import electron from './assets/logo-electron.png';
+import ionic from './assets/logo-ionic.png';
+import js from './assets/logo-js.png';
+import laravel from './assets/logo-laravel.png';
+import node from './assets/logo-node.png';
+import php from './assets/logo-php.png';
+import react from './assets/logo-react.png';
+import symfony from './assets/logo-symfony.png';
+import ts from './assets/logo-ts.png';
+import vue from './assets/logo-vue.png';
+import { useScroll } from "react-use";
 
 export const MonCVIcon = 'https://media-exp1.licdn.com/dms/image/C4E03AQEwtxo_iShUoQ/profile-displayphoto-shrink_200_200/0/1639727436609?e=1654128000&v=beta&t=7LZK63GBj8KWkE7gBalPM5SE21czYhIKuIu7vN7cmag';
 
 export const MonCV = ({ ...otherProps }) => {
+	/**
+	 * @type {React.MutableRefObject<HTMLDivElement>}
+	 */
+	const body = useRef();
+	const containerRef = useRef(null);
+	const [sideWidth, setSideWidth] = useState(0);
+	const [windowWidth, setWindowWidth] = useState(0);
+	const [rotation, setRotation] = useState(0);
+	const { y: scrollY } = useScroll(containerRef);
+
 	const {
 		monCVContainer, monCV,
 		header, linksContainer,
 		technicals_skills, experiences,
 		projects, formations,
-		badge, danger, success, card
-	} = useStyle();
+		badge, danger, success,
+		card, side
+	} = useStyle({ sideWidth, rotation });
 
 	const header_data = {
 		image: MonCVIcon,
@@ -726,13 +752,53 @@ export const MonCV = ({ ...otherProps }) => {
 		},
 	];
 
+	useEffect(() => {
+		setRotation(scrollY / 10);
+	}, [scrollY]);
+
+	useEffect(() => {
+		const bodyWidth = body.current.offsetWidth;
+		setSideWidth(((windowWidth - bodyWidth) / 2));
+	}, [windowWidth]);
+
 	return (<Window headerBackground={'black'}
 	                headerColor={'white'}
 	                minWidth={422} width={422}
 	                title={<MonCVTitle />}
+	                onResize={w => setWindowWidth(w)}
 	                {...otherProps}>
-		<div className={monCVContainer}>
-			<div className={monCV}>
+		<div className={monCVContainer} ref={containerRef}>
+			<div className={side}>
+				<div>
+					<img src={android} alt={'logo android'} style={{ height: 'auto' }} />
+				</div>
+
+				<div>
+					<img src={angular} alt={'logo angular'} style={{ height: 'auto' }} />
+				</div>
+
+				<div>
+					<img src={capacitor} alt={'logo capacitor'} style={{ height: 'auto' }} />
+				</div>
+
+				<div>
+					<img src={deno} alt={'logo deno'} style={{ height: 'auto' }} />
+				</div>
+
+				<div>
+					<img src={electron} alt={'logo electron'} style={{ height: 'auto' }} />
+				</div>
+
+				<div>
+					<img src={ionic} alt={'logo ionic'} style={{ height: 'auto' }} />
+				</div>
+
+				<div>
+					<img src={js} alt={'logo js'} style={{ height: 'auto' }} />
+				</div>
+			</div>
+
+			<div ref={body} className={monCV}>
 				<header className={header}>
 					<div style={{ maxWidth: '200px' }}>
 						<img src={header_data.image} alt={'photo de moi'} />
@@ -862,7 +928,7 @@ export const MonCV = ({ ...otherProps }) => {
 
 												{e.badges && (<span style={{ display: 'flex', flexWrap: 'wrap' }}>
 													{e.badges.map((b, j) =>
-														(<span className={badge} style={{ display: 'flex', marginTop: '2px' }}>
+														(<span key={j} className={badge} style={{ display: 'flex', marginTop: '2px' }}>
 															{b.image &&
 																(<img src={b.image.src} alt={b.image.alt}
 																      style={b.image.style ?? {}} />)}
@@ -972,7 +1038,7 @@ export const MonCV = ({ ...otherProps }) => {
 
 										{p.badges &&
 											p.badges.map((b, j) =>
-												(<span className={badge}>
+												(<span key={j} className={badge}>
 													{b.icon &&
 														(<FaIcon type={b.icon.type} icon={b.icon.icon}
 												                 style={{marginRight: '5px'}}/>)}
@@ -1038,6 +1104,36 @@ export const MonCV = ({ ...otherProps }) => {
 						</ul>
 					</div>
 				</section>
+			</div>
+
+			<div className={side}>
+				<div>
+					<img src={laravel} alt={'logo laravel'} style={{ height: 'auto' }} />
+				</div>
+
+				<div>
+					<img src={node} alt={'logo node'} style={{ height: 'auto' }} />
+				</div>
+
+				<div>
+					<img src={php} alt={'logo php'} style={{ height: 'auto' }} />
+				</div>
+
+				<div>
+					<img src={react} alt={'logo react'} style={{ height: 'auto' }} />
+				</div>
+
+				<div>
+					<img src={symfony} alt={'logo symfony'} style={{ height: 'auto' }} />
+				</div>
+
+				<div>
+					<img src={ts} alt={'logo ts'} style={{ height: 'auto' }} />
+				</div>
+
+				<div>
+					<img src={vue} alt={'logo vue'} style={{ height: 'auto' }} />
+				</div>
 			</div>
 		</div>
 	</Window>);

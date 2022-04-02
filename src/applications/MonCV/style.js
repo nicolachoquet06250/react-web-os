@@ -2,9 +2,11 @@ import { createUseStyles } from "react-jss";
 
 export const useStyle = createUseStyles({
 	monCVContainer: {
+		position: 'relative',
 		width: '100%',
 		height: '100%',
 		display: 'flex',
+		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'flex-start',
 		overflowY: 'auto',
@@ -14,6 +16,10 @@ export const useStyle = createUseStyles({
 
 		'& *': {
 			color: 'white'
+		},
+
+		'&:hover': {
+			scrollbarWidth: 'none'
 		}
 	},
 
@@ -178,5 +184,56 @@ export const useStyle = createUseStyles({
 				}
 			}
 		}
-	}
+	},
+
+	side: ({ sideWidth = 0, rotation = 0 }) => ({
+		position: 'fixed',
+		top: '21px',
+		bottom: 0,
+		width: sideWidth + 'px',
+		backgroundColor: 'purple',
+		display: 'flex',
+		flexDirection: 'column',
+
+		'&:first-child': {
+			left: 0,
+		},
+
+		'&:last-child': {
+			right: 0,
+		},
+
+		'& > div': {
+			overflow: 'hidden',
+			display: 'flex',
+			alignItems: 'center!important',
+			flex: 1,
+			width: 'calc(100% - 10px)',
+
+			'& > img': {
+				transition: 'transform .2s ease-out',
+				height: '30px!important',
+				minHeight: '30px',
+				width: 'auto'
+			},
+
+			'&:nth-child(odd)': {
+				justifyContent: 'flex-end',
+				marginRight: '10px',
+
+				'& > img': {
+					transform: `rotate(${rotation}deg)`
+				}
+			},
+
+			'&:nth-child(even)': {
+				justifyContent: 'flex-start',
+				marginLeft: '10px',
+
+				'& > img': {
+					transform: `rotate(-${rotation}deg)`
+				}
+			}
+		}
+	})
 });

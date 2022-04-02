@@ -111,7 +111,7 @@ export const Window = ({
 		setHeight(height);
 		setTmpHeight(height);
 
-		onResize(width, height);
+		onResize(width, height, fullScreen);
 	}, []);
 
 	// synchronisation des states par rapport aux changements externes
@@ -119,7 +119,7 @@ export const Window = ({
 		setFullScreen(fullScreen);
 	}, [fullScreen]);
 	useEffect(() => {
-		onResize(windowRef.current.offsetWidth, windowRef.current.offsetHeight);
+		onResize(windowRef.current.offsetWidth, windowRef.current.offsetHeight, isFullScreen);
 	}, [isFullScreen]);
 	useEffect(() => {
 		if (positionX) setPositionX(positionX);
@@ -138,7 +138,8 @@ export const Window = ({
 	useEffect(() => {
 		onResize(
 			resizing ? tmpWidth : currentWidth,
-			resizing ? tmpHeight : currentHeight
+			resizing ? tmpHeight : currentHeight,
+			false
 		);
 	}, [currentHeight, tmpHeight, currentWidth, tmpWidth]);
 

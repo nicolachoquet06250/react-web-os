@@ -75,34 +75,19 @@ export const useTaskBarStyle = createUseStyles({
 
 	appPreview: {
 		width: '180px',
-		height: '100px',
+		height: '121px',
 		backgroundColor: 'rgba(0, 0, 0, .3)',
 		marginRight: '5px',
-		borderBottomLeftRadius: '5px',
-		borderBottomRightRadius: '5px',
+		borderRadius: '5px',
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
 		position: 'relative',
 		cursor: 'pointer',
 
-		'&::before': {
-			content: `''`,
+		'& > header': {
 			position: 'absolute',
-			top: '-16px',
-			left: '5px',
-			height: '15px',
-			width: '15px',
-			backgroundImage: 'var(--icon)',
-			backgroundSize: 'cover',
-			backgroundPosition: 'center',
-			backgroundRepeat: 'no-repeat'
-		},
-
-		'&::after': {
-			content: `attr(data-title)`,
-			position: 'absolute',
-			top: '-21px',
+			top: 0,
 			left: 0,
 			right: 0,
 			borderTopLeftRadius: '5px',
@@ -112,29 +97,40 @@ export const useTaskBarStyle = createUseStyles({
 			height: '21px',
 			display: 'flex',
 			justifyContent: 'center',
-			alignItems: 'center'
-		},
-
-		'& > .close-button': {
-			position: 'absolute',
-			height: '15px',
-			width: '15px',
-			top: '-15px',
-			right: '5px',
-			zIndex: 2,
-			fontSize: '12px',
-			cursor: 'pointer',
-			backgroundColor: 'transparent',
-			color: 'white',
-			border: 'none',
-			transition: 'background-color .2s ease-out',
-			borderRadius: '5px',
-			display: 'flex',
-			justifyContent: 'center',
 			alignItems: 'center',
 
-			'&:hover': {
-				backgroundColor: 'red'
+			'& > .close-button': {
+				position: 'absolute',
+				height: '15px',
+				width: '15px',
+				right: '5px',
+				zIndex: 2,
+				fontSize: '12px',
+				cursor: 'pointer',
+				backgroundColor: 'transparent',
+				color: 'white',
+				border: 'none',
+				transition: 'background-color .2s ease-out',
+				borderRadius: '5px',
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+
+				'&:hover': {
+					backgroundColor: 'red'
+				}
+			},
+
+			'&::before': {
+				content: `''`,
+				position: 'absolute',
+				left: '5px',
+				height: '15px',
+				width: '15px',
+				backgroundImage: 'var(--icon)',
+				backgroundSize: 'cover',
+				backgroundPosition: 'center',
+				backgroundRepeat: 'no-repeat'
 			}
 		}
 	},
