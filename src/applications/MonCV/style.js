@@ -102,7 +102,7 @@ export const useStyle = createUseStyles({
 			}
 		},
 
-		'& > div': {
+		'& [class^=card-] > div': {
 			display: 'flex',
 			flexDirection: 'row',
 			flexWrap: 'wrap',
@@ -147,6 +147,7 @@ export const useStyle = createUseStyles({
 
 	card: {
 		marginBottom: '10px',
+		width: '100%',
 
 		'& > header': {
 			display: 'flex',
