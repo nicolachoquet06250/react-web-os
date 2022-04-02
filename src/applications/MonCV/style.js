@@ -191,7 +191,6 @@ export const useStyle = createUseStyles({
 		top: '21px',
 		bottom: 0,
 		width: sideWidth + 'px',
-		backgroundColor: 'purple',
 		display: 'flex',
 		flexDirection: 'column',
 
