@@ -1,4 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from "react";
+import { useScroll } from "react-use";
 import { FaIcon, FaIconsType } from "../../components/FaIcon/FaIcon";
 import { Window } from "../../components/Window/Window";
 import { useStyle } from './style';
@@ -18,7 +19,6 @@ import react from './assets/logo-react.png';
 import symfony from './assets/logo-symfony.png';
 import ts from './assets/logo-ts.png';
 import vue from './assets/logo-vue.png';
-import { useScroll } from "react-use";
 
 export const MonCVIcon = 'https://media-exp1.licdn.com/dms/image/C4E03AQEwtxo_iShUoQ/profile-displayphoto-shrink_200_200/0/1639727436609?e=1654128000&v=beta&t=7LZK63GBj8KWkE7gBalPM5SE21czYhIKuIu7vN7cmag';
 
@@ -61,16 +61,16 @@ export const MonCV = ({ ...otherProps }) => {
 					icon: 'globe'
 				},
 				href: 'https://webos.react.nicolaschoquet.fr'
-			},
-			{
-				icon: {
-					type: FaIconsType.BRANDS,
-					icon: 'linkedin'
-				},
-				href: 'https://www.linkedin.com/in/nicolas-choquet-23323993/'
 			}
 		]
 	};
+
+	const linkedin_data = {
+		avatar: 'https://media-exp1.licdn.com/dms/image/C4E03AQEwtxo_iShUoQ/profile-displayphoto-shrink_200_200/0/1639727436609?e=1654128000&v=beta&t=7LZK63GBj8KWkE7gBalPM5SE21czYhIKuIu7vN7cmag',
+		bio: `Bonjour à vous,\r\nSortis d'un master en Ingénieuri en développement software, j'ai été embauché en CDI début septembre 2019 par la société de services norsys.`,
+		url: 'https://www.linkedin.com/in/nicolas-choquet-23323993/',
+		name: 'Nicolas Choquet'
+	}
 
 	const skills = [
 		{
@@ -907,6 +907,11 @@ export const MonCV = ({ ...otherProps }) => {
 					public_repos: json.public_repos
 				});
 			});
+
+		/*fetch('https://www.linkedin.com/in/nicolas-choquet-23323993/', {
+			method: 'get'
+		}).then(r => r.text())
+			.then(html => console.log(html))*/
 	}, []);
 
 	return (<Window headerBackground={'black'}
@@ -985,7 +990,8 @@ export const MonCV = ({ ...otherProps }) => {
 
 				<div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
 					{githubAccountData &&
-						(<a href={githubAccountData.url} target={'_blank'} style={{ textDecoration: 'none', color: 'white' }}>
+						(<a href={githubAccountData.url} target={'_blank'}
+						    style={{ textDecoration: 'none', color: 'white' }}>
 							<div style={{width: 'calc(100% - 10px)', display: 'flex', flexDirection: 'column', border: '1px solid white', borderRadius: '5px' }}>
 								<div style={{ display: 'flex', flexDirection: 'row' }}>
 									<div style={{ maxWidth: '100px', display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
@@ -994,18 +1000,47 @@ export const MonCV = ({ ...otherProps }) => {
 									</div>
 
 									<div style={{ paddingLeft: '10px' }}>
-										<h4 style={{ margin: 0 }}>{githubAccountData.name}</h4>
-										<p style={{ maxWidth: '400px' }}>{githubAccountData.bio.split('\r\n').map((c, i) =>
+										<h4 style={{ margin: 0, display: 'flex', alignItems: 'center' }}>
+											<FaIcon type={FaIconsType.BRANDS} icon={'github'} style={{ marginRight: '5px' }} />
+
+											{githubAccountData.name}
+										</h4>
+
+										<p style={{ maxWidth: '400px', paddingRight: '20px' }}>{githubAccountData.bio.split('\r\n').map((c, i) =>
 											(<Fragment key={i}>{c}<br /></Fragment>))}</p>
 									</div>
 								</div>
 
 								<div>
-									<span style={{ paddingLeft: '5px' }}>
+									<span style={{ paddingLeft: '5px', display: 'flex', alignItems: 'center' }}>
 										<FaIcon type={FaIconsType.BRANDS} icon={'github'} style={{ marginRight: '5px' }} />
 
-										{githubAccountData.public_repos}
+										{githubAccountData.public_repos} repos
 									</span>
+								</div>
+							</div>
+						</a>)}
+
+					{linkedin_data &&
+						(<a href={linkedin_data.url} target={'_blank'}
+						    style={{ textDecoration: 'none', color: 'white', marginTop: '5px' }}>
+							<div style={{width: 'calc(100% - 10px)', display: 'flex', flexDirection: 'column', border: '1px solid white', borderRadius: '5px' }}>
+								<div style={{ display: 'flex', flexDirection: 'row' }}>
+									<div style={{ maxWidth: '100px', display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+										<img src={linkedin_data.avatar} alt={'github account avatar'}
+										     style={{ height: 'min-content', borderBottomRightRadius: '5px' }} />
+									</div>
+
+									<div style={{ paddingLeft: '10px' }}>
+										<h4 style={{ margin: 0, display: 'flex', alignItems: 'center' }}>
+											<FaIcon type={FaIconsType.BRANDS} icon={'linkedin'} style={{ marginRight: '5px' }} />
+
+											{linkedin_data.name}
+										</h4>
+
+										<p style={{ maxWidth: '400px', paddingRight: '20px' }}>{linkedin_data.bio.split('\r\n').map((c, i) =>
+											(<Fragment key={i}>{c}<br /></Fragment>))}</p>
+									</div>
 								</div>
 							</div>
 						</a>)}
