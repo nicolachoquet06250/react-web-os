@@ -65,7 +65,7 @@ export const Calculatrice = ({ onContextMenu = () => null, ...otherProps }) => {
 			<div className={ecran}> {calcul} </div>
 
 			<div className={touchesStyle}>
-				{touches.map((line, i) => (<div key={i} className={toucheRow}>
+				{touches.map((line, i) => (<div key={i} type={'button'} className={toucheRow}>
 					{line.map((touche, j) => (<button key={j}
 					                                  onClick={touche?.action ?? (() => null)}
 													  className={toucheStyle}

@@ -184,10 +184,11 @@ export const useStyle = createUseStyles({
 	},
 
 	side: ({ sideWidth = 0, rotation = 0 }) => ({
-		position: 'fixed',
-		top: '21px',
+		position: 'sticky',
+		top: 0,
 		bottom: 0,
 		width: sideWidth + 'px',
+		height: '100%',
 		display: 'flex',
 		flexDirection: 'column',
 

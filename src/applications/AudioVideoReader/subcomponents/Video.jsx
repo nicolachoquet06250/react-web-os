@@ -82,12 +82,12 @@ export const Video = ({ content, mime, width, height, active, moving }) => {
 			</div>
 
 			<div className={buttons}>
-				<button onClick={handleTogglePlay}>
+				<button type={'button'} onClick={handleTogglePlay}>
 					<FaIcon type={FaIconsType.SOLID} icon={getPlayIcon()} />
 				</button>
 
 				<div>
-					<button onClick={handleToggleMute}>
+					<button type={'button'} onClick={handleToggleMute}>
 						<FaIcon type={FaIconsType.SOLID} icon={getVolumeIcon()} />
 					</button>
 

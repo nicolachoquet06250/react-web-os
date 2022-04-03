@@ -31,7 +31,7 @@ export const CalendarBodyBlock = ({ date, disabled = false }) => {
 					const externalClass = isExternal ? 'external' : '';
 
 					return (<td key={j} style={{ textAlign: 'center' }}>
-						<button className={dayButton + ` ${activeClass} ${externalClass}`} disabled={isExternal || disabled}>
+						<button type={'button'} className={dayButton + ` ${activeClass} ${externalClass}`} disabled={isExternal || disabled}>
 							{day.day}
 						</button>
 					</td>)

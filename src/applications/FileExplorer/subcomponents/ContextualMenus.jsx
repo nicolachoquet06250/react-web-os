@@ -21,7 +21,7 @@ export const FileExplorerTreeMenuItemContextMenu = ({ onHide = () => null }) => 
 	};
 
 	return (<div style={{ padding: '10px' }}>
-		<button style={{ color: 'white', backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}
+		<button type={'button'} style={{ color: 'white', backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}
 		        onClick={openInTerminal}>
 			Ouvrir dans le terminal
 		</button>

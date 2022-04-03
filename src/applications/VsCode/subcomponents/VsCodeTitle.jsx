@@ -34,7 +34,7 @@ export const VsCodeTitle = ({ onPlay }) => {
 
 		<span style={{ color: 'white' }}> VsCode </span>
 
-		<button className={button} onClick={onPlay}>
+		<button type={'button'} className={button} onClick={onPlay}>
 			<FaIcon type={FaIconsType.SOLID} icon={'play'} />
 		</button>
 	</>);

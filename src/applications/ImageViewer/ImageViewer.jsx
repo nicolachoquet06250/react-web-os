@@ -65,11 +65,11 @@ export const ImageViewer = ({ imagePath = '', mime = '', onContextMenu = () => n
 			{content && (<img src={content} alt={imagePath} className={imageStyle} />)}
 
 			<div className={buttons}>
-				<button className={navButton} onClick={handlePrevious}>
+				<button type={'button'} className={navButton} onClick={handlePrevious}>
 					<FaIcon type={FaIconsType.SOLID} icon={'angle-left'} />
 				</button>
 
-				<button className={navButton} onClick={handleNext}>
+				<button type={'button'} className={navButton} onClick={handleNext}>
 					<FaIcon type={FaIconsType.SOLID} icon={'angle-right'} />
 				</button>
 			</div>

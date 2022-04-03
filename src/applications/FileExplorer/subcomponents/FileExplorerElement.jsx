@@ -83,8 +83,8 @@ export const FileExplorerElement = ({
 					mime
 				});
 			},
-			component: () => (mime === 'image/gif' 
-				? (<GifImage src={content} alt={title} style={imageMiniatureStyle} />) 
+			component: () => (mime === 'image/gif'
+				? (<GifImage src={content} alt={title} style={imageMiniatureStyle} />)
 					: (<img src={content} alt={title} style={imageMiniatureStyle} />))
 		},
 		video: {
@@ -141,6 +141,7 @@ export const FileExplorerElement = ({
 	});
 
 	return (<button ref={ref}
+	                type={'button'}
 	                className={appBodyButton}
 	                title={title}
 	                data-title={tmpTitle}

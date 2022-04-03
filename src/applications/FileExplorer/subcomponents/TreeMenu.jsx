@@ -20,7 +20,7 @@ export const TreeMenu = ({
 		(<ul className={_title !== '' && !openedDirectories.includes(_title) ? 'close' : ''}>
 			{treeMenu.filter(v => v.type === 'directory').map(({ title, children, path, icon }, i) =>
 				(<li key={i} className={`${children.length === 0 ? 'void' : ''} ${_title !== '' && !openedDirectories.includes(path) ? 'close' : ''}`}>
-					<button onClick={() => onSelectDirectory((_title === '' ? '' : _title + '/') + title, children.length)}
+					<button type={'button'} onClick={() => onSelectDirectory((_title === '' ? '' : _title + '/') + title, children.length)}
 					        onContextMenu={e => {
 								setContextMenuSelectedDirectory(path);
 						        onContextMenu(e);

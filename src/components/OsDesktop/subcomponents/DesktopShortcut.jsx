@@ -13,6 +13,7 @@ export const DesktopShortcut = ({ title }) => {
     }, [applications]);
 
     return (<button title={title}
+                    type={'button'}
                     data-title={title}
                     onDoubleClick={handleDoubleClick}
                     style={{ alignItems: 'center', maxWidth: '70px' }}>

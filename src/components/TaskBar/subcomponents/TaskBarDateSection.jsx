@@ -15,9 +15,10 @@ export const TaskBarDateSection = ({ onClick = () => null }) => {
 		{date.getDate() < 10 ? '0' : ''}{date.getDate()}/{date.getMonth() + 1 < 10 ? '0' : ''}{date.getMonth() + 1}/{date.getFullYear()}
 	</span>;
 
-	return (<button className={taskBarDateSection}
-	             title={day + ' ' + date.getDate() + ' ' + month + ' ' + date.getFullYear()}
-	             onClick={onClick}>
+	return (<button type={'button'}
+	                className={taskBarDateSection}
+		             title={day + ' ' + date.getDate() + ' ' + month + ' ' + date.getFullYear()}
+		             onClick={onClick}>
 		<Hour />
 		<Date />
 	</button>);

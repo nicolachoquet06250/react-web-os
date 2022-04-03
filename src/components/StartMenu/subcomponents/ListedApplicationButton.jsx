@@ -19,12 +19,12 @@ const ListedApplicationButtonContextualMenu = ({ title, onHide = () => null }) =
 	};
 
 	return (<div style={{ padding: '10px' }}>
-		<button style={{ color: 'white', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', marginTop: '5px', marginBottom: '5px' }}
+		<button type={'button'} style={{ color: 'white', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', marginTop: '5px', marginBottom: '5px' }}
 		        onClick={pinAppToTaskBar}>
 			Epingler à la bar des taches
 		</button>
 
-		<button style={{ color: 'white', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', marginTop: '5px', marginBottom: '5px' }}
+		<button type={'button'} style={{ color: 'white', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', marginTop: '5px', marginBottom: '5px' }}
 		        onClick={pinAppToStartMenu}>
 			Epingler au menu démarrer
 		</button>
@@ -44,7 +44,7 @@ export const ListedApplicationButton = ({ title, icon, onRun = () => null, onCon
 
 	const handleContextMenu = createContextMenuHandler(e => onContextMenu('start-menu-listed-application-button-' + title, e.clientX, e.clientY))
 
-	return (<button className={categorizedApplication}
+	return (<button type={'button'} className={categorizedApplication}
 	                onClick={onRunApp}
 	                onContextMenu={handleContextMenu}>
 		<img src={icon} alt={`${title} icon`} />

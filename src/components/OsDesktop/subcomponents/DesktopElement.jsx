@@ -90,8 +90,8 @@ export const DesktopElement = ({
 					mime
 				});
 			},
-			component: () => (mime === 'image/gif' 
-				? (<div style={gitContainerStyle}><GifImage src={content} alt={title} style={gifMiniatureStyle} /></div>) 
+			component: () => (mime === 'image/gif'
+				? (<div style={gitContainerStyle}><GifImage src={content} alt={title} style={gifMiniatureStyle} /></div>)
 					: (<div style={imageMiniatureStyle} />))
 		},
 		video: {
@@ -148,6 +148,7 @@ export const DesktopElement = ({
 	});
 
 	return (<button ref={ref}
+	                type={'button'}
 	                title={tmpTitle}
 	                data-title={tmpTitle}
 	                onDoubleClick={handleDoubleClick}

@@ -21,13 +21,13 @@ export const WindowHeader = ({
 		</div>
 
 		<div className="button-container">
-			<button onClick={onMinimize}> - </button>
+			<button type={'button'} onClick={onMinimize}> - </button>
 
-			<button disabled={!resizable} onClick={toggleFullScreen}>
+			<button type={'button'} disabled={!resizable} onClick={toggleFullScreen}>
 				<FaIcon type={FaIconsType.SOLID} icon={'window-restore'} />
 			</button>
 
-			<button className={'close'} onClick={onClose}>
+			<button type={'button'} className={'close'} onClick={onClose}>
 				<FaIcon type={FaIconsType.SOLID} icon={'xmark'} />
 			</button>
 		</div>

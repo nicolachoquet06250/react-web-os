@@ -17,7 +17,7 @@ export const ContextualMenuDesktopContent = ({ onHide = () => null, onNewDirecto
 	const { button } = useContextMenuStyle();
 
 	return (<div style={{ padding: '10px' }}>
-		<button className={button} onClick={() => {
+		<button type={'button'} className={button} onClick={() => {
 			onNewDirectory();
 			onHide();
 		}}>

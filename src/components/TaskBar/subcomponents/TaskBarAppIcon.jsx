@@ -20,7 +20,7 @@ export const TaskBarAppIcon = ({
 		};
 
 		return (<div style={{ padding: '10px' }}>
-			<button style={{ color: 'white', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', marginTop: '5px', marginBottom: '5px' }}
+			<button type={'button'} style={{ color: 'white', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', marginTop: '5px', marginBottom: '5px' }}
 			        onClick={unpinToTaskBar}>
 				Supprimer à la bar des taches
 			</button>
@@ -39,7 +39,8 @@ export const TaskBarAppIcon = ({
 
 	const handleContextMenu = createContextMenuHandler(e => onContextMenu('task-bar-app-icon', e.clientX, e.clientY))
 
-	return (<button className={taskBarIcon + ' ' + (instanceNb > 0 ? 'active' : '')}
+	return (<button type={'button'}
+	                className={taskBarIcon + ' ' + (instanceNb > 0 ? 'active' : '')}
 	                onClick={onClick}
 	                onMouseOver={handleHover(true)}
 	                onMouseOut={handleHover(false)}

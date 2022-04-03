@@ -36,11 +36,11 @@ export const CalendarBodyHeader = ({ currentMonth, date, disabled = false }) => 
 		<span style={headerTitleStyle}>{currentMonth} {date.getFullYear()}</span>
 
 		<div style={headerButtonsStyle}>
-			<button disabled={disabled} style={buttonStyle}>
+			<button type={'button'} disabled={disabled} style={buttonStyle}>
 				<FaIcon type={FaIconsType.SOLID} icon={'angle-up'} />
 			</button>
 
-			<button disabled={disabled} style={buttonStyle}>
+			<button type={'button'} disabled={disabled} style={buttonStyle}>
 				<FaIcon type={FaIconsType.SOLID} icon={'angle-down'} />
 			</button>
 		</div>

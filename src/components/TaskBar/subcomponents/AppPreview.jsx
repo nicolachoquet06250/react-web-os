@@ -23,7 +23,7 @@ export const AppPreview = ({
 				<header>
 					{(instance.title.length > 16 ? instance.title.split('').splice(0, 16).join('') + '...' : instance.title)}
 
-					<button className={'close-button'}
+					<button type={'button'} className={'close-button'}
 					        onClick={() => onCloseApp(instance.title, instance.id)}>
 						<FaIcon type={FaIconsType.SOLID} icon={'xmark'} />
 					</button>

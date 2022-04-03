@@ -4,7 +4,7 @@ export const Breadcrumb = ({ selectedDirectory = [], onSelectDirectory = () => n
 	const { breadcrumb } = useStyle({});
 
 	return (<div className={breadcrumb}>
-		{selectedDirectory.map((d, i) => (<button key={i} onClick={() => {
+		{selectedDirectory.map((d, i) => (<button key={i} type={'button'} onClick={() => {
 			const index = selectedDirectory.indexOf(d);
 			const { result: newSelectedDirectory } = selectedDirectory.reduce((r, c, i) => ({
 				result: [...r.result, ...(i <= index && !r.finished ? [c] : [])],
