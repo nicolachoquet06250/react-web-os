@@ -899,16 +899,11 @@ export const MonCV = ({ ...otherProps }) => {
 					url: json.html_url,
 					public_repos: json.public_repos
 				}));
-
-		/*fetch('https://www.linkedin.com/in/nicolas-choquet-23323993/', {
-			method: 'get'
-		}).then(r => r.text())
-			.then(html => console.log(html))*/
 	}, []);
 
 	return (<Window headerBackground={'black'}
 	                headerColor={'white'}
-	                minWidth={422} width={422}
+	                minWidth={760} width={760}
 	                title={<MonCVTitle />}
 	                onResize={w => setWindowWidth(w)}
 	                {...otherProps}>
