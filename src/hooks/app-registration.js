@@ -13,6 +13,7 @@ import { VueVisualEditor, VueVisualEditorIcon } from "../applications/VueVisualE
 import { MonCV, MonCVIcon } from "../applications/MonCV/MonCV";
 import { IE, IEIcon } from "../applications/IE/IE";
 import { WebBrowser, WebBrowserIcon } from "../applications/WebBrowser/WebBrowser";
+import { Messages, MessagesIcon } from "../applications/Messages/Messages";
 
 export const useRegisterApps = () => {
 	const { register: registerCalculatrice } = useRegisterPinApp('Calculatrice');
@@ -20,6 +21,7 @@ export const useRegisterApps = () => {
 	const { register: registerTerminal } = useRegisterPinApp('Terminal');
 	const { register: registerMonCv } = useRegisterPinApp('Mon CV');
 	const { register: registerIE } = useRegisterPinApp('Internet Explorer');
+	const { register: registerMessages } = useRegisterPinApp('Messages');
 	const { run } = useControlApplication();
 
 	useEffect(() => {
@@ -89,6 +91,11 @@ export const useRegisterApps = () => {
 			WebBrowserIcon,
 			WebBrowser
 		);
+		useRegisterApplication(
+			'Messages',
+			MessagesIcon,
+			Messages
+		);
 
 		// épinglage dans la bar des taches
 		registerMonCv({ startMenu: true });
@@ -97,6 +104,7 @@ export const useRegisterApps = () => {
 		registerTerminal({ taskBar: true, startMenu: true });
 		registerMonCv({ taskBar: true });
 		registerIE({ taskBar: true, startMenu: true });
+		registerMessages({ taskBar: true })
 
 		run('Git');
 	}, []);
