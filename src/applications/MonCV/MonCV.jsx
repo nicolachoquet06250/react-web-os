@@ -72,7 +72,7 @@ export const MonCV = ({ ...otherProps }) => {
 
 	const skills = [
 		{
-			title: 'Programation web front',
+			title: 'Programmation web front',
 			languages: [
 				{
 					title: 'JavaScript',
@@ -123,7 +123,7 @@ export const MonCV = ({ ...otherProps }) => {
 			]
 		},
 		{
-			title: 'Programation web back',
+			title: 'Programmation web back',
 			languages: [
 				{
 					title: 'PHP',
@@ -209,7 +209,7 @@ export const MonCV = ({ ...otherProps }) => {
 			]
 		},
 		{
-			title: 'Programation mobile',
+			title: 'Programmation mobile',
 			subTitle: {
 				label: 'Cross plateform'
 			},
@@ -244,7 +244,7 @@ export const MonCV = ({ ...otherProps }) => {
 			]
 		},
 		{
-			title: 'Programation desktop',
+			title: 'Programmation desktop',
 			subTitle: {
 				label: 'Cross plateform'
 			},
@@ -266,7 +266,7 @@ export const MonCV = ({ ...otherProps }) => {
 			]
 		},
 		{
-			title: 'Programation réalité virtuel web',
+			title: 'Programmation réalité virtuelle web',
 			subTitle: {
 				label: 'Navigateurs web / Oculus / HTC Vive / ...',
 				title: 'tous les casques de VR'
@@ -561,7 +561,7 @@ export const MonCV = ({ ...otherProps }) => {
 			text: <>
 				Chez Doctissimo, je contribuais au développement
 				du forum et de la partie réseau social du site
-				et de celui ses client comme <b>Caradisiac</b> ou <b>Développez.net</b>
+				et de celui ses clients comme <b>Caradisiac</b> ou <b>Développez.net</b>
 			</>
 		},
 		{
@@ -613,7 +613,7 @@ export const MonCV = ({ ...otherProps }) => {
 				}
 			],
 			text: `Chez Ovadys, je devais développer un CRM en interne pour reconnaitre les clients 
-			lorsequ'ils appelaient, avoir l'historique des appels (avec le sujet et le temps des l'appel), 
+			lorsequ'ils appelaient, avoir l'historique des appels (avec le sujet et le temps des appels), 
 			des mails, ainsi que toutes les informations client qui pouvaient être importées depuis 
 			une base de donnée prestashop.`
 		}
