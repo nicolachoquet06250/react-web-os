@@ -48,3 +48,6 @@ or
 ```shell
 pnpm run storybook
 ```
+
+# ANNEXES
+https://www.designcise.com/web/tutorial/how-to-disconnect-a-websocket-connection-in-javascript
