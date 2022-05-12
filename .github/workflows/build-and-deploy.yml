@@ -7,7 +7,6 @@ on:
       - 'v*'
 
 name: React.js CI
-
 jobs:
   build:
     runs-on: ubuntu-latest
