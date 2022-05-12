@@ -31,7 +31,7 @@ jobs:
     - name: Build
       run: npm run build
     - name: Tests
-      run: npm test --if-exists
+      run: npm test --if-present
 
     - name: Deploy
       uses: appleboy/ssh-action@master
