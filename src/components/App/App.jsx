@@ -14,6 +14,7 @@ import { RunningApplicationList } from "../OsDesktop/subcomponents";
 import { useAddPromptToList } from "../../applications/Terminal/hooks";
 import { Prompt2 } from "../../custom/applications/Terminal/Prompt2/Prompt2";
 import { BlueScreen } from '../BlueScreen/BlueScreen';
+import { setAdmin } from "../../applications/Messages/hooks";
 
 export const App = () => {
     // définition des states
@@ -53,6 +54,8 @@ export const App = () => {
     useAddPromptToList('alternative prompt', Prompt2);
 
     return (<div className="App">
+        <button id="admin" style={{ display: 'none' }} onClick={() => setAdmin(true)} />
+
         <OsDesktop background={background}
                    onContextMenu={handleContextMenu}>
             <BlueScreen />
