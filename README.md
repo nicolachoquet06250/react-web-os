@@ -55,3 +55,6 @@ pnpm run storybook
 - Golang
     - https://gowebexamples.com/websockets/
 https://gobyexample.com/environment-variables
+- Github Actions
+    - Pour vérifier la validité de la conf github actions
+     - https://rhysd.github.io/actionlint/
