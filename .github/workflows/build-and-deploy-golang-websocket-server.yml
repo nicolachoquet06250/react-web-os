@@ -49,4 +49,5 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd ${{ secrets.SERVER_DIST }}-websocket &&
-            mv websocket-server/* .
+            mv websocket-server/* . &&
+            rm -rf websocket-server
