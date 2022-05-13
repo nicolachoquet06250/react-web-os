@@ -1,12 +1,13 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"time"
-	"bytes"
 
 	"github.com/gorilla/websocket"
 )
@@ -219,8 +220,18 @@ func main()  {
 	var env = GetEnv()
 
 	initRoutes()
-	
-	err := http.ListenAndServe(env.IP+":"+env.PORT, nil)
+
+	var isIpV6 = false
+	if len(strings.Split(env.IP, ":")) > 1 {
+		isIpV6 = true
+	}
+
+	var ip = env.IP
+	if isIpV6 {
+		ip = "[" + ip + "]"
+	}
+
+	err := http.ListenAndServe(ip+":"+env.PORT, nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
