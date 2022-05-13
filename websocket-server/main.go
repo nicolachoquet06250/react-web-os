@@ -231,6 +231,8 @@ func main()  {
 		ip = "[" + ip + "]"
 	}
 
+	log.Println(ip+":"+env.PORT)
+
 	err := http.ListenAndServe(ip+":"+env.PORT, nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
