@@ -50,4 +50,8 @@ pnpm run storybook
 ```
 
 # ANNEXES
-https://www.designcise.com/web/tutorial/how-to-disconnect-a-websocket-connection-in-javascript
+- JavaScript
+    - https://www.designcise.com/web/tutorial/how-to-disconnect-a-websocket-connection-in-javascript
+- Golang
+    - https://gowebexamples.com/websockets/
+https://gobyexample.com/environment-variables
