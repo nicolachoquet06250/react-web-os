@@ -19,8 +19,12 @@ import react from './assets/logo-react.png';
 import symfony from './assets/logo-symfony.png';
 import ts from './assets/logo-ts.png';
 import vue from './assets/logo-vue.png';
+import Mysql from './assets/logo-mysql.png';
+import LinkedinProfile from './assets/linkedin-profile.jpg';
+import PhoneMinute from './assets/logo-phoneminute.jpg';
+import IceComputer from './assets/logo-icecomputer.jpg';
 
-export const MonCVIcon = 'https://media-exp1.licdn.com/dms/image/C4E03AQEwtxo_iShUoQ/profile-displayphoto-shrink_200_200/0/1639727436609?e=1654128000&v=beta&t=7LZK63GBj8KWkE7gBalPM5SE21czYhIKuIu7vN7cmag';
+export const MonCVIcon = LinkedinProfile;
 
 export const MonCV = ({ ...otherProps }) => {
 	/**
@@ -66,7 +70,7 @@ export const MonCV = ({ ...otherProps }) => {
 	};
 
 	const linkedin_data = {
-		avatar: 'https://media-exp1.licdn.com/dms/image/C4E03AQEwtxo_iShUoQ/profile-displayphoto-shrink_200_200/0/1639727436609?e=1654128000&v=beta&t=7LZK63GBj8KWkE7gBalPM5SE21czYhIKuIu7vN7cmag',
+		avatar: LinkedinProfile,
 		url: 'https://www.linkedin.com/in/nicolas-choquet-23323993/'
 	}
 
@@ -311,7 +315,7 @@ export const MonCV = ({ ...otherProps }) => {
 						{
 							title: 'MySQL',
 							image: {
-								src: 'https://freepikpsd.com/file/2019/10/mysql-icon-png-4-Transparent-Images.png',
+								src: Mysql,
 								alt: 'icon mysql',
 								style: {
 									width: '15px',
@@ -324,7 +328,7 @@ export const MonCV = ({ ...otherProps }) => {
 						{
 							title: 'MariaDB',
 							image: {
-								src: 'https://freepikpsd.com/file/2019/10/mysql-icon-png-4-Transparent-Images.png',
+								src: Mysql,
 								alt: 'icon mariadb',
 								style: {
 									width: '15px',
@@ -439,6 +443,7 @@ export const MonCV = ({ ...otherProps }) => {
 				alt: 'icon Norsys',
 				style: { borderRadius: '15px', width: '100px' }
 			},
+			link: 'https://www.norsys.fr',
 			subTitle: 'Ingénieur en étude et développement',
 			location: 'Sophia-Antipolis - Biot',
 			time: {
@@ -488,7 +493,14 @@ export const MonCV = ({ ...otherProps }) => {
 						described: 'ATOL',
 						description: 'Assistance Technique OnLine.'
 					},
-					text: 'Le but de cette mission est de maintenir l\'application en répondant aux besoins métiers.'
+					text: <>
+						Refonte des pages du projet avec le framework CSS interne d'Orange qui se nomme OB1. Amélioration continue du projet. Amélioration de l’accessibilité, clarification et nettoyage du code. <br /> <br />
+
+						- Ajout d’une étape dans la partie commune des parcours: après avoir choisis son motif et sous motif de panne, vous allez être rediriger vers une page qui vous pause des questions dans le but d’affiner le diagnostique.
+						Si ce service ne trouve pas la cause de la panne, il vous redirigera vers le service de test classique. <br /> <br />
+
+						- Ajout d’un chatbot nommé Djingo qui remplace dans certains cas l’étape de saisie du motif et sous motif de panne et qui peux aussi dans certain cas servir de page de récapitulatif.
+					</>
 				}
 			]
 		},
@@ -559,9 +571,11 @@ export const MonCV = ({ ...otherProps }) => {
 			],
 			link: 'https://forum.doctissimo.fr',
 			text: <>
-				Chez Doctissimo, je contribuais au développement
-				du forum et de la partie réseau social du site
-				et de celui ses clients comme <b>Caradisiac</b> ou <b>Développez.net</b>
+				Développement de la plateforme de forums MesDiscussions ( plateforme de forums ). <br />
+				Maintien de la plateforme : ajout, suppression et amélioration de fonctionnalités. <br />
+				Migration d’un forum de la plateforme VBultin à la plateforme MesDiscussions. <br />
+				Optimisation de code ( tenue de charge, nombre de requettes, temps de chargement ). <br />
+				Sécurité ( Failles XSS, Include, Injection SQL ).
 			</>
 		},
 		{
@@ -612,16 +626,91 @@ export const MonCV = ({ ...otherProps }) => {
 					label: 'mysql'
 				}
 			],
-			text: `Chez Ovadys, je devais développer un CRM en interne pour reconnaitre les clients 
-			lorsequ'ils appelaient, avoir l'historique des appels (avec le sujet et le temps des appels), 
-			des mails, ainsi que toutes les informations client qui pouvaient être importées depuis 
-			une base de donnée prestashop.`
+			text: <>
+				Développement d'un CRM pour la hotline d'une entreprise de vente de matériel de piscine en ligne.
+				L’entreprise avait un réseau téléphonique avec l’opérateur Keyyo qui est un opérateur de téléphonie sur IP.
+				<br /> <br />
+				But du projet : <i>Synchroniser les clients du site e-commerce sous prestashop avec une base de donnée
+				propre au CRM et de ainsi associer un numéro entrant ou sortant à un client en particulier.
+				<br /> <br />
+				Si un client n’était pas reconnu dans la base, alors il était enregistré comme client anonyme pour que la
+				personne au téléphone puisse enregistrer toutes ses informations et qu’il soit ensuite reconnu comme client.
+				<br /> <br />
+				Une fois le client associé au numéro, il fallait afficher aussitôt sa fiche avec ses discussions Gmail
+				( API PHP ), les mémos et alertes associées à la fiche, les différents appels téléphoniques
+				( avec un le prétexte ( pour faire des stats ), la durée, le nom du client, son numéro de téléphone, … )
+				et sans oublier l’appel en cours au début du bloc des appels avec le temps qui défile en live et
+				les différentes informations de l’appel éditables.</i>
+			</>
+		},
+		{
+			title: {
+				title: 'Ice Computer',
+				badges: [
+					{
+						label: 'Stage alterné'
+					}
+				]
+			},
+			image: {
+				src: IceComputer,
+				alt: 'icon ice computer',
+				style: { borderRadius: '15px', width: '100px' }
+			},
+			badges: [
+				{
+					label: 'ouvert',
+					classes: success
+				}
+			],
+			subTitle: 'Développeur PHP',
+			location: 'Le Cannet',
+			link: 'http://icecomputer.fr',
+			time: {
+				start: 'Oct. 2014',
+				end: 'Oct. 2015'
+			},
+			missions: [
+				{
+					title: 'Site vitrine phoneminute.fr',
+					badges: [
+						{
+							label: 'fermé',
+							classes: danger
+						}
+					],
+					image: {
+						src: PhoneMinute,
+						alt: 'icon phone-minute',
+						style: { height: '50px', borderRadius: '15px', marginRight: '5px' }
+					},
+					time: {
+						start: 'Oct. 2014',
+						end: 'Oct. 2015'
+					},
+					link: 'http://www.phoneminute.fr',
+					description: {
+						described: 'PhoneMinute',
+						description: <>
+							Développement d’un site vitrine pour une société de réparation PC / Tablettes / Mobiles. <br />
+							Le site range par catégorie les appareils, puis range par marque chaque catégorie d’appareil,
+							puis enfin liste toutes les réparations possibles pour chaque appareil.
+						</>
+					}
+				}
+			]
 		}
 	];
 	const personalProjects = [
 		{
 			title: `Système d'exploitation web`,
 			subTitle: 'Inspiration du design Windows 10',
+			description: <>
+				Création d'une application web en React.js sous forme de système d'exploitation web. <br />
+				Son premier objectif est de me servir de portfolio et son second objectif est d'être installé
+				sur un serveur web Linux ( dans un premier temps ) pour servir de gestionnaire de bureau distant
+				( accessible par tous ou sécurisé via session utilisateur via un navigateur )
+			</>,
 			time: {
 				start: 'Févr. 2022',
 				end: false
@@ -646,6 +735,15 @@ export const MonCV = ({ ...otherProps }) => {
 		},
 		{
 			title: `Editeur visuel`,
+			description: <>
+				Ce projet est un éditeur visuel en React.js pour React.js,
+				Imaginons que vous développez une application pour un client demande fréquemment de changer le contenu d'une
+				page mais que c'est toujours les 2 ou 3 mêmes composants qui changent,
+				vous pouvez créer une page éditable avec ce module et mettre la fonctionnalité d'édition à votre client. <br />
+				Il pourra ainsi éditer sa page sans avoir à vous demander quoi que ce soit. <br />
+				Le résultat de l'édition génère alors un JSON que vous pouvez stocker où vous voulez et réutiliser
+				pour générer la page final et réutiliser comme base pour la prochaine modification.
+			</>,
 			time: {
 				start: 'Déc. 2021',
 				end: 'Févr. 2022'
@@ -663,6 +761,15 @@ export const MonCV = ({ ...otherProps }) => {
 		},
 		{
 			title: `Editeur visuel`,
+			description: <>
+				Ce projet est un éditeur visuel en Vue.js pour Vue.js,
+				Imaginons que vous développez une application pour un client demande fréquemment de changer le contenu
+				d'une page mais que c'est toujours les 2 ou 3 mêmes composants qui changent,
+				vous pouvez créer une page éditable avec ce module et mettre la fonctionnalité d'édition à votre client.
+				Il pourra ainsi éditer sa page sans avoir à vous demander quoi que ce soit.
+				Le résultat de l'édition génère alors un JSON que vous pouvez stocker où vous voulez et réutiliser
+				pour générer la page final et réutiliser comme base pour la prochaine modification.
+			</>,
 			time: {
 				start: 'Déc. 2021',
 				end: 'Févr. 2022'
@@ -680,6 +787,10 @@ export const MonCV = ({ ...otherProps }) => {
 		},
 		{
 			title: `Système d'exploitation web`,
+			description: `Création d'une application web en Vue.js v3 sous forme de système d'exploitation web.
+Son objectif est d'être installé sur un serveur web Linux ( dans un premier temps ) 
+pour servir de gestionnaire de bureau distant ( accessible par tous ou sécurisé via session utilisateur via un navigateur ).
+Il a très fortement été inspiré du design de MacOS Big-Sur.`,
 			time: {
 				start: 'Nov. 2021',
 				end: false
@@ -705,6 +816,103 @@ export const MonCV = ({ ...otherProps }) => {
 				},
 			]
 		},
+		{
+			title: 'Orange | Espace client VR',
+			description: `Ce projet est un POC consistant à développer une version de l'espace client d'Orange au format réalité virtuelle 
+			en repensant la manière avec laquelle un client irait sur l'espace client.`,
+			time: {
+				start: 'Sept. 2021',
+				end: 'Août 2021'
+			},
+			badges: [
+				{
+					icon: {
+						url: 'https://aframe.io/images/blog/introducing-aframe.png'
+					},
+					label: 'Aframe.js'
+				}
+			]
+		},
+		{
+			title: 'Slides avec Alpine.js',
+			description: `Développement dans le cadre d'une veille technologique de slides 
+			pour une présentation sur Alpine.js avec Alpine.js`,
+			time: {
+				start: 'Sept. 2021',
+				end: 'Sept. 2021'
+			},
+			badges: [
+				{
+					label: 'Alpine.js'
+				}
+			]
+		},
+		{
+			title: 'Norsys | Application de présences',
+			description: <>
+				Dans le cadre du déconfinement, toutes les sociétés devaient d’après la législation répertorier leurs employés/collaborateurs présents en même temps dans les locaux. <br />
+
+				J’ai donc pensé à une application qui pourrait simplifier cette action le plus possible et avec laquelle on peut réserver sa place à l’avance pour un/des jours donnés. <br />
+
+				L’application possède donc une page d’accueil qui liste les personnes déjà présentes dans les locaux ainsi que 2 boutons dont 1 pour indiquer qu’on est arrivé et un second pour indiquer qu’on est parti. <br />
+
+				Il y a aussi une seconde page pour les réservations avec un calendrier et un bouton par jour pour soit réserver si nous ne l’avons pas fait ou alors annuler notre réservation si nous avons réservé. <br />
+
+				Il est aussi possible de voir qui à prévu de venir pour un jour donné en cliquant sur la case du jour en question.
+			</>,
+			time: {
+				start: 'Avr. 2021',
+				end: 'Juil. 2021'
+			},
+			badges: [
+				{
+					icon: {
+						type: FaIconsType.BRANDS,
+						icon: 'vuejs'
+					},
+					label: 'Vue.js'
+				},
+				{
+					icon: {
+						type: FaIconsType.BRANDS,
+						icon: 'php'
+					},
+					label: 'PHP 7.4'
+				},
+				{
+					icon: {
+						url: Mysql
+					},
+					label: 'MariaDB'
+				},
+			]
+		},
+		{
+			title: `Norsys | Reconstitution de l'agence en VR`,
+			description: <>
+				Dans le but d’un réaménagement des locaux,
+				j’ai voulu reconstituer les locaux en VR pour pouvoir effectuer les modifications d’aménagement
+				d’abord en VR et voir le résultat avant d’effectuer de manière réelle.
+				<br /> <br/>
+				PS: C'est une démo, la connexion fonctionne avec n'importe quelles valeurs ( sauf pour le captcha )
+			</>,
+			time: {
+				start: 'Jan. 2021',
+				end: 'Mar. 2021'
+			},
+			link: 'https://espace-client.orange.nicolaschoquet.fr/',
+			badges: [
+				{
+					icon: {
+						url: 'https://aframe.io/images/blog/introducing-aframe.png'
+					},
+					label: 'Aframe.js'
+				},
+				{
+					label: 'POC'
+				}
+			]
+		}
 	];
 	const myFormations = [
 		{
@@ -1114,7 +1322,7 @@ export const MonCV = ({ ...otherProps }) => {
 
 												{e.badges && (<span style={{ display: 'flex', flexWrap: 'wrap' }}>
 													{e.badges.map((b, j) =>
-														(<span key={j} className={badge} style={{ display: 'flex', marginTop: '2px' }}>
+														(<span key={j} className={badge + ' ' + (b.classes ?? '')} style={{ display: 'flex', marginTop: '2px' }}>
 															{b.image &&
 																(<img src={b.image.src} alt={b.image.alt}
 																      style={b.image.style ?? {}} />)}
@@ -1153,7 +1361,7 @@ export const MonCV = ({ ...otherProps }) => {
 																{m.badges &&
 																	(<div>
 																		{m.badges.map((b, k) =>
-																			(<span key={k} className={badge}>
+																			(<span key={k} className={badge + ' ' + (b.classes ?? '')}>
 																				{b.image &&
 																					(<img src={b.image.src} alt={b.image.alt}
 																					      style={b.image.style ?? {}} />)}
@@ -1225,9 +1433,16 @@ export const MonCV = ({ ...otherProps }) => {
 										{p.badges &&
 											p.badges.map((b, j) =>
 												(<span key={j} className={badge}>
-													{b.icon &&
+													{b.icon && b.icon.icon &&
 														(<FaIcon type={b.icon.type} icon={b.icon.icon}
 												                 style={{marginRight: '5px'}}/>)}
+													{b.icon && b.icon.url &&
+														(<img src={b.icon.url} alt={'icon ' + b.label}
+														      style={{
+																  width: '15px',
+															      marginRight: '5px',
+															      borderRadius: '5px'
+															  }} />)}
 
 													{b.label}
 												</span>))}
@@ -1237,8 +1452,20 @@ export const MonCV = ({ ...otherProps }) => {
 										(<h5 style={{ marginTop: '10px', marginBottom: '10px' }}>{p.subTitle}</h5>)}
 
 									<span style={{ fontSize: '12px' }}>
-										<FaIcon type={FaIconsType.SOLID} icon={'hourglass-start'} /> {p.time.start}&nbsp;
-										<FaIcon type={FaIconsType.SOLID} icon={`hourglass${p.time.end ? '-end' : ''}`} /> {p.time.end ? p.time.end : 'En cours'}
+										{p.time.start === p.time.end && (
+											<>
+												<FaIcon type={FaIconsType.SOLID} icon={'hourglass-start'} style={{ marginRight: '5px' }} />
+												<FaIcon type={FaIconsType.SOLID} icon={'hourglass-end'} style={{ marginRight: '5px' }} />
+												{p.time.start}
+											</>
+										)}
+										{p.time.start !== p.time.end && (
+											<>
+												<FaIcon type={FaIconsType.SOLID} icon={'hourglass-start'} /> {p.time.start}&nbsp;
+												<FaIcon type={FaIconsType.SOLID} icon={`hourglass${p.time.end ? '-end' : ''}`} /> {p.time.end ? p.time.end : 'En cours'}
+											</>
+										)}
+
 									</span>
 
 									{p.link &&
@@ -1248,6 +1475,8 @@ export const MonCV = ({ ...otherProps }) => {
 
 											<a href={p.link} target={'_blank'}>{p.link}</a>
 										</div>)}
+
+									{p.description && (<p style={{ marginRight: '15px' }}>{p.description}</p>)}
 								</li>))}
 						</ul>
 					</div>

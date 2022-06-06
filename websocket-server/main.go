@@ -1,12 +1,12 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"log"
 	"net/http"
 	"os"
 	"time"
-	"bytes"
 
 	"github.com/gorilla/websocket"
 )
@@ -59,21 +59,21 @@ func (h *Hub) run() {
 	}
 }
 
-type environement struct {
+type Environment struct {
 	PORT string
-	IP string
+	IP   string
 }
 
-func GetEnv() environement {
-	return environement{
+func GetEnv() Environment {
+	return Environment{
 		PORT: os.Getenv("PORT"),
-		IP: os.Getenv("IP"),
+		IP:   os.Getenv("IP"),
 	}
 }
 
 var upgrader = websocket.Upgrader{
-    ReadBufferSize:  1024,
-    WriteBufferSize: 1024,
+	ReadBufferSize:  1024,
+	WriteBufferSize: 1024,
 
 	CheckOrigin: func(r *http.Request) bool {
 		return true
@@ -113,7 +113,7 @@ type Client struct {
 func enableCors(w *http.ResponseWriter, r *http.Request) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-    (*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 }
 
 // readPump pumps messages from the websocket connection to the hub.
@@ -215,11 +215,11 @@ func initRoutes() {
 	})
 }
 
-func main()  {
+func main() {
 	var env = GetEnv()
 
 	initRoutes()
-	
+
 	err := http.ListenAndServe(env.IP+":"+env.PORT, nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
