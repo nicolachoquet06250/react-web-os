@@ -1101,6 +1101,7 @@ Il a très fortement été inspiré du design de MacOS Big-Sur.`,
 		}
 	];
 
+
 	useEffect(() => {
 		setRotation(scrollY / 10);
 	}, [scrollY]);
