@@ -23,6 +23,7 @@ import Mysql from './assets/logo-mysql.png';
 import LinkedinProfile from './assets/linkedin-profile.jpg';
 import PhoneMinute from './assets/logo-phoneminute.jpg';
 import IceComputer from './assets/logo-icecomputer.jpg';
+import Santiane from './assets/logo-santiane.png';
 
 export const MonCVIcon = LinkedinProfile;
 
@@ -699,6 +700,27 @@ export const MonCV = ({ ...otherProps }) => {
 					}
 				}
 			]
+		},
+		{
+			title: {
+				title: 'Santiane',
+				badges: [
+					{
+						label: 'Stage alterné'
+					}
+				]
+			},
+			image: {
+				src: Santiane,
+				alt: 'logo Santiane',
+				style: { borderRadius: '15px', width: '100px' }
+			},
+			subTitle: 'Maintien de la platefome intranet',
+			location: 'Nice',
+			time: {
+				start: 'Sept. 2014',
+				end: 'Oct. 2014'
+			}
 		}
 	];
 	const personalProjects = [
