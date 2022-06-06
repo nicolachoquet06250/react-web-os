@@ -563,7 +563,7 @@ export const MonCV = ({ ...otherProps }) => {
 				},
 				{
 					image: {
-						src: 'https://freepikpsd.com/file/2019/10/mysql-icon-png-4-Transparent-Images.png',
+						src: Mysql,
 						alt: 'icon mysql',
 						style: { width: '15px', height: '15px', marginRight: '5px' }
 					},
@@ -620,7 +620,7 @@ export const MonCV = ({ ...otherProps }) => {
 				},
 				{
 					image: {
-						src: 'https://freepikpsd.com/file/2019/10/mysql-icon-png-4-Transparent-Images.png',
+						src: Mysql,
 						alt: 'icon mysql',
 						style: { width: '15px', height: '15px', marginRight: '5px' }
 					},
