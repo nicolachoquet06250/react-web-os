@@ -842,6 +842,7 @@ Il a très fortement été inspiré du design de MacOS Big-Sur.`,
 			title: 'Orange | Espace client VR',
 			description: `Ce projet est un POC consistant à développer une version de l'espace client d'Orange au format réalité virtuelle 
 			en repensant la manière avec laquelle un client irait sur l'espace client.`,
+			link: 'https://espace-client.orange.nicolaschoquet.fr/',
 			time: {
 				start: 'Sept. 2021',
 				end: 'Août 2021'
@@ -922,7 +923,6 @@ Il a très fortement été inspiré du design de MacOS Big-Sur.`,
 				start: 'Jan. 2021',
 				end: 'Mar. 2021'
 			},
-			link: 'https://espace-client.orange.nicolaschoquet.fr/',
 			badges: [
 				{
 					icon: {
