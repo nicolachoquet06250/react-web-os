@@ -7,6 +7,7 @@ import { useStartMenu } from "../../hooks/start-menu";
 import { useTaskBarStyle } from "./style";
 import { AppPreview, BatterySection, NetworkSection, TaskBarAppIcon, TaskBarDateSection } from "./subcomponents";
 import { useApplications, usePinApplications, useRunningApplications } from "../../hooks/applications";
+import { useScreenPrimary } from "../MultiScreen/screen";
 
 export const TaskBar = ({
     pinApps = [], runningApps = {},
@@ -19,6 +20,7 @@ export const TaskBar = ({
 
 	const [applications] = useApplications();
 	const [pinApplications] = usePinApplications();
+	const [{ isPrimary: isPrimaryScreen }] = useScreenPrimary();
 
 	const notPinRunningApps = Object.keys(runningApps)
 		.filter(v => pinApps.map(_v => _v.title).indexOf(v) === -1 && runningApps[v].instanceNb !== 0)
@@ -84,8 +86,8 @@ export const TaskBar = ({
 									 onContextMenu={onContextMenu} />))}
 			</div>
 
-			<BatterySection />
-			<NetworkSection type={'wifi'} />
+			{isPrimaryScreen && (<BatterySection/>)}
+			{isPrimaryScreen && (<NetworkSection type={'wifi'}/>)}
 			<TaskBarDateSection onClick={() => setCalendarOpened(true)} />
 		</div>
 	</>);

@@ -23,7 +23,7 @@ export const OsDesktop = ({ children, background, onContextMenu = () => null, ..
 	const [newDirectory, setNewDirectory] = useState(false);
 	const [newDirectoryTitle, setNewDirectoryTitle] = useState('new Directory');
 
-	const [isPrimaryScreen] = useScreenPrimary();
+	const [{ isPrimary: isPrimaryScreen }] = useScreenPrimary();
 
 	useEffect(() => {
 		if (isPrimaryScreen !== undefined) {
@@ -73,9 +73,9 @@ export const OsDesktop = ({ children, background, onContextMenu = () => null, ..
 			                     )
 		                     }}>
 			<div className={desktopGrid}>
-				{isPrimaryScreen.isPrimary && (<DesktopShortcut title={'Internet Explorer'}/>)}
+				{isPrimaryScreen && (<DesktopShortcut title={'Internet Explorer'}/>)}
 
-				{isPrimaryScreen.isPrimary && desktopElement.children.map(((v, i) =>
+				{isPrimaryScreen && desktopElement.children.map(((v, i) =>
 					(<Fragment key={i}>
 						{v.type === 'directory' && (<DesktopElement type={v.type}
 						                                            title={v.title}
@@ -89,13 +89,13 @@ export const OsDesktop = ({ children, background, onContextMenu = () => null, ..
 
 
 					</Fragment>)))}
-				{newDirectory && isPrimaryScreen.isPrimary && (<DesktopElement title={newDirectoryTitle}
-				                                  editable={true}
-												  onCancel={resetNewDirectory}
-												  onValid={v => {
-													  createDirectory(`/Ce PC/Bureau/${v}`);
-													  resetNewDirectory();
-												  }} />)}
+				{newDirectory && isPrimaryScreen && (<DesktopElement title={newDirectoryTitle}
+						                                  editable={true}
+														  onCancel={resetNewDirectory}
+														  onValid={v => {
+															  createDirectory(`/Ce PC/Bureau/${v}`);
+															  resetNewDirectory();
+														  }} />)}
 			</div>
 		</DragAndDropUploader>
 
