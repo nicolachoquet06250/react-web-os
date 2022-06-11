@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useOsDesktopStyle } from "./style";
 import { useRegisterContextualMenu } from "../../hooks/contextual-menu";
@@ -13,6 +13,7 @@ import {
 import { useControlApplication } from "../../hooks/applications";
 import { DragAndDropUploader } from "../DragAndDropUploader/DragAndDropUploader";
 import { DesktopShortcut } from "./subcomponents/DesktopShortcut";
+import { useScreenPrimary } from "../MultiScreen/screen";
 
 export const OsDesktop = ({ children, background, onContextMenu = () => null, ...events }) => {
 	const { osDesktop, desktopGrid } = useOsDesktopStyle({ background });
@@ -21,6 +22,14 @@ export const OsDesktop = ({ children, background, onContextMenu = () => null, ..
 	const [showUploader, setShowUploader] = useState(false);
 	const [newDirectory, setNewDirectory] = useState(false);
 	const [newDirectoryTitle, setNewDirectoryTitle] = useState('new Directory');
+
+	const [isPrimaryScreen] = useScreenPrimary();
+
+	useEffect(() => {
+		if (isPrimaryScreen !== undefined) {
+			console.log(isPrimaryScreen)
+		}
+	}, [isPrimaryScreen]);
 
 	useRegisterContextualMenu('desktop', ({ ...props }) =>
 		(<ContextualMenuDesktopContent
@@ -64,9 +73,9 @@ export const OsDesktop = ({ children, background, onContextMenu = () => null, ..
 			                     )
 		                     }}>
 			<div className={desktopGrid}>
-				<DesktopShortcut title={'Internet Explorer'} />
+				{isPrimaryScreen.isPrimary && (<DesktopShortcut title={'Internet Explorer'}/>)}
 
-				{desktopElement.children.map(((v, i) =>
+				{isPrimaryScreen.isPrimary && desktopElement.children.map(((v, i) =>
 					(<Fragment key={i}>
 						{v.type === 'directory' && (<DesktopElement type={v.type}
 						                                            title={v.title}
@@ -80,7 +89,7 @@ export const OsDesktop = ({ children, background, onContextMenu = () => null, ..
 
 
 					</Fragment>)))}
-				{newDirectory && (<DesktopElement title={newDirectoryTitle}
+				{newDirectory && isPrimaryScreen.isPrimary && (<DesktopElement title={newDirectoryTitle}
 				                                  editable={true}
 												  onCancel={resetNewDirectory}
 												  onValid={v => {

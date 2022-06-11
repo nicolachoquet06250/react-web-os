@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { OsDesktop } from "../OsDesktop/OsDesktop";
 import { TaskBar } from "../TaskBar/TaskBar";
 import { ContextualMenu } from "../ContextualMenu/ContextualMenu";
@@ -15,6 +15,7 @@ import { useAddPromptToList } from "../../applications/Terminal/hooks";
 import { Prompt2 } from "../../custom/applications/Terminal/Prompt2/Prompt2";
 import { BlueScreen } from '../BlueScreen/BlueScreen';
 import { setAdmin } from "../../applications/Messages/hooks";
+import { MultiScreen } from "../MultiScreen/MultiScreen";
 
 export const App = () => {
     // définition des states
@@ -54,24 +55,26 @@ export const App = () => {
     useAddPromptToList('alternative prompt', Prompt2);
 
     return (<div className="App">
-        <button id="admin" style={{ display: 'none' }} onClick={() => setAdmin(true)} />
+        <MultiScreen>
+            <button id="admin" style={{ display: 'none' }} onClick={() => setAdmin(true)} />
 
-        <OsDesktop background={background}
-                   onContextMenu={handleContextMenu}>
-            <BlueScreen />
+            <OsDesktop background={background}
+                       onContextMenu={handleContextMenu}>
+                <BlueScreen />
 
-            <ContextualMenu id={showedContextMenuId}
-                            position={contextMenuPosition}
-                            show={showedContextMenuId !== ''}
-                            onHide={handleContextmenuHide} />
+                <ContextualMenu id={showedContextMenuId}
+                                position={contextMenuPosition}
+                                show={showedContextMenuId !== ''}
+                                onHide={handleContextmenuHide} />
 
-            <RunningApplicationList onContextMenu={handleContextMenu} />
+                <RunningApplicationList onContextMenu={handleContextMenu} />
 
-            <TaskBar pinApps={taskbarPinApps}
-                     runningApps={appsInstances}
-                     onOpenApp={run}
-                     onCloseApp={stop}
-                     onContextMenu={handleContextMenu} />
-        </OsDesktop>
+                <TaskBar pinApps={taskbarPinApps}
+                         runningApps={appsInstances}
+                         onOpenApp={run}
+                         onCloseApp={stop}
+                         onContextMenu={handleContextMenu} />
+            </OsDesktop>
+        </MultiScreen>
     </div>);
 };
