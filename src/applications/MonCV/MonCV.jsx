@@ -3,7 +3,7 @@ import { useScroll } from "react-use";
 import { FaIcon, FaIconsType } from "../../components/FaIcon/FaIcon";
 import { Window } from "../../components/Window/Window";
 import { useStyle } from './style';
-import { MonCVTitle, StarNotation } from './subcomponents';
+import { MonCVTitle, PdfCV, StarNotation } from './subcomponents';
 import { VsCodeIcon } from '../VsCode/VsCode';
 import android from './assets/logo-android.png';
 import angular from './assets/logo-angular.png';
@@ -1244,6 +1244,23 @@ Il a très fortement été inspiré du design de MacOS Big-Sur.`,
 								</div>
 							</div>
 						</a>)}
+
+					<a href={PdfCV} target={'_blank'}
+					   style={{ textDecoration: 'none', color: 'white', marginLeft: '5px' }}>
+						<div style={{ display: 'flex', flexDirection: 'column', borderRadius: '5px', border: '1px solid white', width: '102px', height: '123px' }}>
+							<div style={{ maxWidth: '100px', display: 'flex', justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+								<FaIcon type={FaIconsType.SOLID} icon={'file-pdf'} style={{ fontSize: '70px' }} />
+							</div>
+
+							<div>
+								<span style={{ paddingLeft: '5px', display: 'flex', alignItems: 'center' }}>
+									<FaIcon type={FaIconsType.SOLID} icon={'file-pdf'} style={{ marginRight: '5px' }} />
+
+									CV PDF
+								</span>
+							</div>
+						</div>
+					</a>
 				</div>
 
 				<section className={technicals_skills}>
