@@ -19,7 +19,15 @@ const screenPrimary = {
 };
 const screenPrimary$ = new BehaviorSubject(screenPrimary);
 
-export const useScreenPrimary = createRxJsUseGetter(screenPrimary$, screenPrimary$);
+const _useScreenPrimary = createRxJsUseGetter(screenPrimary$, screenPrimary$);
+
+export const useScreenPrimary = () => {
+	const [{ isPrimary }, f] = _useScreenPrimary();
+
+	const proxy = window.screen.isExtended === undefined ? true : isPrimary;
+
+	return [{ isPrimary: proxy }, f];
+};
 
 export const useSetScreenPrimary = () => {
 	return (isPrimary = true) => {
@@ -91,19 +99,21 @@ export const useScreen = (onChange = () => null) => {
 		};
 
 		const onCurrentScreenChange = () => {
-			window.getScreenDetails().then(screenDetails => {
-				if (screenDetails) {
-					setScreenDetails(screenDetails);
-					currentScreenRef.current = screenDetails.currentScreen;
+			if (window.getScreenDetails !== undefined) {
+				window.getScreenDetails().then(screenDetails => {
+					if (screenDetails) {
+						setScreenDetails(screenDetails);
+						currentScreenRef.current = screenDetails.currentScreen;
 
-					if (screenDetailsState) {
-						if (screenId$.getValue()) {
-							onLocalChange();
+						if (screenDetailsState) {
+							if (screenId$.getValue()) {
+								onLocalChange();
+							}
+							onChange(screenDetails, screenDetails.currentScreen);
 						}
-						onChange(screenDetails, screenDetails.currentScreen);
 					}
-				}
-			});
+				});
+			}
 		};
 
 		if (window.screen.isExtended) {
