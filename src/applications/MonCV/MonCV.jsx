@@ -678,6 +678,27 @@ export const MonCV = ({ ...otherProps }) => {
 						{
 							label: 'fermé',
 							classes: danger
+						},
+						{
+							icon: {
+								type: FaIconsType.BRANDS,
+								icon: 'php'
+							},
+							label: 'PHP 5'
+						},
+						{
+							icon: {
+								type: FaIconsType.BRANDS,
+								icon: 'js-square'
+							},
+							label: 'jQuery'
+						},
+						{
+							icon: {
+								type: FaIconsType.BRANDS,
+								icon: 'html5'
+							},
+							label: 'Bootstrap v4'
 						}
 					],
 					image: {
@@ -720,7 +741,30 @@ export const MonCV = ({ ...otherProps }) => {
 			time: {
 				start: 'Sept. 2014',
 				end: 'Oct. 2014'
-			}
+			},
+			badges: [
+				{
+					icon: {
+						type: FaIconsType.BRANDS,
+						icon: 'php'
+					},
+					label: 'PHP 5'
+				},
+				{
+					icon: {
+						type: FaIconsType.BRANDS,
+						icon: 'js-square'
+					},
+					label: 'jQuery'
+				},
+				{
+					icon: {
+						type: FaIconsType.BRANDS,
+						icon: 'html5'
+					},
+					label: 'Bootstrap v4'
+				}
+			]
 		}
 	];
 	const personalProjects = [
