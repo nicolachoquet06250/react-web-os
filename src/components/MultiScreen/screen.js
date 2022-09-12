@@ -23,8 +23,15 @@ const _useScreenPrimary = createRxJsUseGetter(screenPrimary$, screenPrimary$);
 
 export const useScreenPrimary = () => {
 	const [{ isPrimary }, f] = _useScreenPrimary();
+	const set = useSetScreenPrimary()
 
-	const proxy = window.screen.isExtended === undefined ? true : isPrimary;
+	const proxy = !window.screen.isExtended ? true : isPrimary;
+
+	window.getScreenDetails?.().then(() => {
+		set(true)
+	}).catch(() => {
+		set(false)
+	})
 
 	return [{ isPrimary: proxy }, f];
 };
@@ -99,25 +106,25 @@ export const useScreen = (onChange = () => null) => {
 		};
 
 		const onCurrentScreenChange = () => {
-			if (window.getScreenDetails !== undefined) {
-				window.getScreenDetails().then(screenDetails => {
-					if (screenDetails) {
-						setScreenDetails(screenDetails);
-						currentScreenRef.current = screenDetails.currentScreen;
+			window.getScreenDetails?.().then(screenDetails => {
+				if (screenDetails) {
+					setScreenDetails(screenDetails);
+					currentScreenRef.current = screenDetails.currentScreen;
 
-						if (screenDetailsState) {
-							if (screenId$.getValue()) {
-								onLocalChange();
-							}
-							onChange(screenDetails, screenDetails.currentScreen);
+					if (screenDetailsState) {
+						if (screenId$.getValue()) {
+							onLocalChange();
 						}
+						onChange(screenDetails, screenDetails.currentScreen);
 					}
-				});
-			}
+				}
+			}).catch(() => {
+				setScreenPrimary(false)
+			});
 		};
 
 		if (window.screen.isExtended) {
-			window.getScreenDetails().then(screenDetails => {
+			window.getScreenDetails?.().then(screenDetails => {
 				if (screenDetails) {
 					setScreenDetails(screenDetails);
 					currentScreenRef.current = screenDetails.currentScreen;
@@ -130,6 +137,8 @@ export const useScreen = (onChange = () => null) => {
 					}
 				}
 				screenDetailsState?.addEventListener('currentscreenchange', onCurrentScreenChange);
+			}).catch(() => {
+				setScreenPrimary(false)
 			});
 		}
 
